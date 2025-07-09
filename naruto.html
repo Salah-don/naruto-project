@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Naruto Universe - Ghazli Salah Eddine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* RESET ET STYLES GÉNÉRAUX */
         * {
@@ -20,6 +21,24 @@
             background-image: 
                 radial-gradient(circle at 10% 20%, rgba(200, 0, 0, 0.1) 0%, transparent 20%),
                 radial-gradient(circle at 90% 80%, rgba(200, 0, 0, 0.1) 0%, transparent 20%);
+            position: relative;
+        }
+
+        /* Effet de particules */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 0, 0, 0.3);
+            border-radius: 50%;
         }
 
         /* Couleurs thématiques: noir, rouge, blanc */
@@ -48,267 +67,227 @@
         }
 
         /* Header */
-        /* Styles pour l'en-tête */
-    header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background-color: rgba(0, 0, 0, 0.9);
-    border-bottom: 2px solid #c00;
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-bottom: 2px solid #c00;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-    .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }   
 
-    .logo-img {
-    height: 40px;
-    width: auto;
-    filter: drop-shadow(0 0 5px rgba(200, 0, 0, 0.7));
-    transition: transform 0.3s ease;
+        .logo-img {
+            height: 40px;
+            width: auto;
+            filter: drop-shadow(0 0 5px rgba(200, 0, 0, 0.7));
+            transition: transform 0.3s ease;
         }
 
-    .logo-text {
-    font-size: 1.8rem;
-    font-weight: bold;
-    background: linear-gradient(90deg, #c00, #fff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: 0 0 8px rgba(200, 0, 0, 0.5);
-        }
-
-/* Animation au survol */
-    .logo-container:hover .logo-img {
-    transform: rotate(15deg) scale(1.1);
-        }
-
-/* Styles existants pour la navigation */
-.nav-links {
-    display: flex;
-    gap: 20px;
-        }
-
-    .nav-link {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    padding: 8px 12px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    position: relative;
-        }
-
-    .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #c00;
-    transition: width 0.3s ease;
-        }
-
-    .nav-link:hover::after {
-        width: 100%;
-        }
-
-/* Responsive */
-    @media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        padding: 15px;
-        gap: 15px;
-    }
-    
-    .logo-img {
-        height: 30px;
-    }
-    
-    .logo-text {
-        font-size: 1.5rem;
-    }
-    
-    .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-    }
-        }
-
-        /* Section Naruto Shippuden */
-        /* Styles pour la section Shippuden */
-.shippuden-intro {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 20px;
-}
-
-.intro-content {
-    display: flex;
-    gap: 40px;
-    align-items: flex-start;
-}
-
-.intro-image {
-    flex: 1;
-    min-width: 300px;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 2px solid #c00;
-    box-shadow: 0 10px 20px rgba(200, 0, 0, 0.2);
-}
-
-.cover-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.5s ease;
-}
-
-.intro-image:hover .cover-image {
-    transform: scale(1.03);
-}
-
-.intro-text {
-    flex: 2;
-    padding: 0 20px;
-}
-
-.intro-text h2 {
-    color: #c00;
-    font-size: 2rem;
-    margin-bottom: 20px;
-    text-shadow: 0 0 8px rgba(200, 0, 0, 0.3);
-}
-
-.intro-text p {
-    line-height: 1.7;
-    margin-bottom: 25px;
-    font-size: 1.1rem;
-}
-
-.features-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin: 30px 0;
-}
-
-.feature-box {
-    background: rgba(30, 30, 30, 0.7);
-    padding: 20px;
-    border-radius: 8px;
-    border-left: 3px solid #c00;
-}
-
-.feature-box h3 {
-    color: #c00;
-    margin-bottom: 15px;
-    font-size: 1.3rem;
-}
-
-.feature-box ul {
-    padding-left: 20px;
-}
-
-.feature-box li {
-    margin-bottom: 10px;
-    line-height: 1.5;
-}
-
-.world-section {
-    background: rgba(200, 0, 0, 0.1);
-    padding: 25px;
-    border-radius: 8px;
-    border: 1px dashed #c00;
-}
-
-.world-section h3 {
-    color: #fff;
-    margin-bottom: 15px;
-    font-size: 1.4rem;
-}
-
-.world-section p {
-    font-style: italic;
-}
-
-/* Animation fade-in */
-.fade-in {
-    animation: fadeIn 1s ease-out forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-    .intro-content {
-        flex-direction: column;
-    }
-    
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .intro-image {
-        width: 100%;
-        min-width: auto;
-    }
-}
-
-@media (max-width: 500px) {
-    .intro-text {
-        padding: 0;
-    }
-    
-    .feature-box {
-        padding: 15px;
-    }
-}
-
-        /* Page d'accueil */
-        .home-page {
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        .title {
-            font-size: 3rem;
-            margin-bottom: 40px;
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
             background: linear-gradient(90deg, #c00, #fff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 20px rgba(200, 0, 0, 0.5);
+            text-shadow: 0 0 8px rgba(200, 0, 0, 0.5);
         }
 
-        .propositions-container {
+        /* Animation au survol */
+        .logo-container:hover .logo-img {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        /* Styles pour la navigation */
+        .nav-links {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #c00;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+                gap: 15px;
+            }
+            
+            .logo-img {
+                height: 30px;
+            }
+            
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+        }
+
+        /* Structure principale */
+        .main-container {
+            display: flex;
             gap: 30px;
-            max-width: 1200px;
+            max-width: 1600px;
             margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        /* Section gauche */
+        .left-section {
+            flex: 1.5;
+            min-width: 0;
+        }
+
+        /* Section droite */
+        .right-section {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* Titre vertical */
+        .vertical-title {
+            writing-mode: horizontal-tb;
+            text-orientation: upright;
+            position: fixed;
+            left: 0;
+            top: 50%;
+            color: #ffcc00;
+            text-shadow: 3px 3px 0 #c00, 
+                        -1px -1px 0 #c00, 
+                        1px -1px 0 #c00, 
+                        -1px 1px 0 #c00;
+            font-size: 3.5rem;
+            letter-spacing: 5px;
+            line-height: 0.8;
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 0 10px 10px 0;
+            border: 2px solid #c00;
+            border-left: none;
+        }
+
+        .vertical-title span {
+            display: block;
+            transform: rotate(180deg);
+            padding: 5px 0;
+        }
+
+        .vertical-title .space {
+            height: 30px;
+        }
+
+        /* Présentation Naruto */
+        .naruto-presentation {
+            display: flex;
+            gap: 40px;
+            background: rgba(20, 20, 20, 0.9);
+            border: 3px solid #c00;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(200, 0, 0, 0.3);
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .naruto-presentation:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(200, 0, 0, 0.5);
+        }
+
+        .naruto-image {
+            flex: 1;
+            min-width: 350px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #c00;
+            align-self: stretch;
+            position: relative;
+        }
+
+        .naruto-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .naruto-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .naruto-text {
+            flex: 1;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .naruto-text h2 {
+            color: #ffcc00;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(200, 0, 0, 0.5);
+        }
+
+        .highlight-section {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #c00;
+            margin-top: 25px;
+        }
+
+        /* Grille de cartes */
+        .propositions-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            height: 100%;
         }
 
         .proposition {
-            width: 200px;
-            height: 250px;
+            height: 150px;
             perspective: 1000px;
             cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .proposition:hover {
-            transform: translateY(-10px);
         }
 
         .proposition-inner {
@@ -335,6 +314,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 15px;
         }
 
         .proposition-front {
@@ -343,36 +323,116 @@
         }
 
         .proposition-back {
-            background-color: #c00;
+            background-color: rgba(200, 0, 0, 0.8);
             transform: rotateY(180deg);
-            padding: 15px;
             text-align: center;
-        }
-
-        .proposition-image {
-            width: 100%;
-            height: 70%;
-            background-color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 4rem;
         }
 
         .proposition-name {
-            height: 30%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             font-weight: bold;
             font-size: 1.2rem;
             text-align: center;
-            padding: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .proposition-back p {
             font-size: 0.9rem;
             line-height: 1.4;
+        }
+
+        /* Fond des cartes */
+        .akatsuki-bg {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #1a1a1a;
+        }
+
+        .biju-bg {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #2a0a0a;
+        }
+
+        .eyes-bg {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #0a1a2a;
+        }
+
+        .kage-bg {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #2a1a0a;
+        }
+
+        .jutsu-bg {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #0a2a1a;
+        }
+
+        .village-bg {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #1a0a2a;
+        }
+
+        .death-bg {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #0a0a0a;
+        }
+
+        .villain-bg {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #2a0a1a;
+        }
+
+        .movie-bg {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #1a2a0a;
+        }
+
+        /* Icônes */
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #ffcc00;
+            text-shadow: 0 0 10px rgba(200, 0, 0, 0.7);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .vertical-title {
+                position: relative;
+                writing-mode: horizontal-tb;
+                transform: none;
+                text-align: center;
+                margin-bottom: 30px;
+                padding: 15px;
+                border-radius: 10px;
+                border: 2px solid #c00;
+            }
+            
+            .vertical-title span {
+                display: inline;
+                transform: none;
+                padding: 0 5px;
+            }
+            
+            .propositions-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .naruto-presentation {
+                flex-direction: column;
+            }
+            
+            .naruto-image {
+                min-width: 100%;
+                height: 300px;
+            }
+            
+            .propositions-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .propositions-container {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Footer */
@@ -382,6 +442,7 @@
             text-align: center;
             background-color: rgba(0, 0, 0, 0.9);
             border-top: 2px solid #c00;
+            position: relative;
         }
 
         .creator {
@@ -392,14 +453,29 @@
             text-shadow: 0 0 10px rgba(200, 0, 0, 0.5);
         }
 
-        /* Animations */
+        /* Animations CSS */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(200, 0, 0, 0.5); }
+            100% { box-shadow: 0 0 20px rgba(200, 0, 0, 0.8); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
         .fade-in {
             animation: fadeIn 0.8s ease forwards;
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
         }
 
         .delay-1 { animation-delay: 0.1s; }
@@ -408,207 +484,341 @@
         .delay-4 { animation-delay: 0.4s; }
         .delay-5 { animation-delay: 0.5s; }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .shippuden-intro {
-                flex-direction: column;
-            }
-            
-            .intro-image {
-                min-width: 100%;
-            }
-            
-            .propositions-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .proposition {
-                width: 80%;
-                max-width: 300px;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .title {
-                font-size: 2rem;
-            }
+        /* Shuriken animation */
+        .shuriken {
+            position: absolute;
+            font-size: 2rem;
+            color: #ffcc00;
+            opacity: 0.3;
+            z-index: -1;
+            animation: spin 10s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Scrollbar personnalisée */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c00;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff0000;
         }
     </style>
 </head>
 <body>
-    <di class="container">
+    <div class="container">
+        <!-- Effet de particules -->
+        <div class="particles" id="particles"></div>
+        
+        <!-- Shurikens animés -->
+        <div class="shuriken" style="top: 20%; left: 10%;">✵</div>
+        <div class="shuriken" style="top: 60%; left: 90%;">✵</div>
+        <div class="shuriken" style="top: 80%; left: 15%;">✵</div>
+        
         <header>
             <div class="logo-container">
-                <img src="konoha.png" alt="Logo Konoha" class="logo-img" >
-                <span class="logo-text">Naruto Universe</span>
+                <div class="logo-img">✶</div>
+                <div class="logo-text">NARUTOBIDIA</div>
             </div>
+            
             <nav class="nav-links">
-                <a href="#home" class="nav-link" data-target="home">Accueil</a>
-                <a href="#villages" class="nav-link" data-target="villages">Villages</a>
-                <a href="#akatsuki" class="nav-link" data-target="akatsuki">Akatsuki</a>
-                <a href="#bijoux" class="nav-link" data-target="bijoux">Bijū</a>
-                <a href="#jinshuriki" class="nav-link" data-target="jinshuriki">Jinchūriki</a>
+                <a href="#" class="nav-link">Accueil</a>
+                <a href="#" class="nav-link">Personnages</a>
+                <a href="#" class="nav-link">Techniques</a>
+                <a href="#" class="nav-link">Arcs</a>
+                <a href="#" class="nav-link">Épisodes</a>
+                <a href="#" class="nav-link">À propos</a>
             </nav>
         </header>
-    </div>
-        <main>
-            <!-- Page d'accueil -->
-            <section id="home" class="home-page content-page active">
-                <h1 class="title">Explore the Univers of Naruto Shipudden</h1>
-                
-                <!-- Section Naruto Shippuden -->
-                <div class="shippuden-intro">
-                    <div class="intro-text fade-in delay-1">
-                        <h2 class="intro-text fade in delay-1"> 🍜 Welcome to NARUTO's Universe! 🍜 </h2>
-                        </div>
-                    <div class="intro-image">
-                        <!-- Remplacez cette div par votre image -->
-                        <img src="narutoAcc.jpg" alt="Naruto Shippuden" class="fade-in">
-                    </div>
-                    <div class="intro-text fade-in delay-1">
-                        <h2 class="intro-text fade in delay-1"> 🍜 Welcome to NARUTO's Universe! 🍜 </h2>
-                        <p class="quote">"Believe it!" – Step into the epic world of ninjas, destiny, and unbreakable   bonds.</p>
-                        
-                        <h3>⚡ The Story Continues...</h3>
-                        <p>Two and a half years after Naruto left Konoha to train with Jiraiya, he returns stronger, wiser, and more determined than ever. Naruto Shippuden follows his journey as he faces greater threats, uncovers dark secrets, and fights to bring back his lost friend, Sasuke Uchiha.</p>
-                        
-                        <h3>🔥 Key Elements of Shippuden:</h3>
-                        <ul>
-                            <li>The Akatsuki Threat – A dangerous organization hunting the Tailed Beasts.</li>
-                            <li>The Power of the Jinchūriki – Naruto's struggle to control the Nine-Tails.</li>
-                            <li>Sasuke's Dark Path – His quest for vengeance and the truth behind the Uchiha Clan.</li>
-                            <li>Legendary Battles – Pain's Assault, the Fourth Great Ninja War, and the rise of Madara Uchiha.</li>
-                            <li>The Will of Fire – Friendship, sacrifice, and never giving up!</li>
-                        </ul>
-                        
-                        <h3>🗡️ Meet the Heroes & Villains:</h3>
-                        <ul>
-                            <li>Naruto Uzumaki – The knucklehead ninja destined to change the world.</li>
-                            <li>Sasuke Uchiha – The avenger consumed by darkness.</li>
-                            <li>Sakura Haruno – The kunoichi who grows into a powerful medical ninja.</li>
-                            <li>Kakashi Hatake – The legendary Copy Ninja with a mysterious past.</li>
-                            <li>The Akatsuki – Feared rogue ninjas like Pain, Itachi, and Tobi.</li>
-                        </ul>
-                        
-                        <h3>🌀 Explore the Ninja World:</h3>
-                        <p>From the ruins of the Hidden Rain Village to the battlefields of the Fourth Shinobi War, Naruto Shippuden takes you on an unforgettable journey filled with explosive action, emotional depth, and unforgettable characters.</p>
-                        
-                        <p class="quote">✨ Will Naruto achieve his dream of becoming Hokage? Will Sasuke find redemption? The answers await!</p>
-                        
-                        <p class="quote">🔥 Enter the World of Naruto Shippuden – Believe It! 🔥</p>
-                    </div>
-                </div>
-                
-                <div class="propositions-container">
-                    <!-- Village -->
-                    <div class="proposition fade-in delay-2">
-                        <div class="proposition-inner">
-                            <div class="proposition-front">
-                                <div class="proposition-image">🏞️</div>
-                                <div class="proposition-name">Les Villages Cachés</div>
-                            </div>
-                            <div class="proposition-back">
-                                <p>Découvrez les cinq grands villages ninjas et leurs dirigeants</p>
-                                <button class="btn" data-target="villages">Explorer</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Akatsuki -->
-                    <div class="proposition fade-in delay-3">
-                        <div class="proposition-inner">
-                            <div class="proposition-front">
-                                <div class="proposition-image">☁️</div>
-                                <div class="proposition-name">L'Organisation Akatsuki</div>
-                            </div>
-                            <div class="proposition-back">
-                                <p>Pénétrez les mystères de l'organisation la plus redoutée</p>
-                                <button class="btn" data-target="akatsuki">Explorer</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Bijoux -->
-                    <div class="proposition fade-in delay-4">
-                        <div class="proposition-inner">
-                            <div class="proposition-front">
-                                <div class="proposition-image">💎</div>
-                                <div class="proposition-name">Les Bijū</div>
-                            </div>
-                            <div class="proposition-back">
-                                <p>Découvrez les dix démons à queues et leurs pouvoirs</p>
-                                <button class="btn" data-target="bijoux">Explorer</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Jinshuriki -->
-                    <div class="proposition fade-in delay-5">
-                        <div class="proposition-inner">
-                            <div class="proposition-front">
-                                <div class="proposition-image">👤</div>
-                                <div class="proposition-name">Les Jinchūriki</div>
-                            </div>
-                            <div class="proposition-back">
-                                <p>Connaissez les porteurs des démons à queues</p>
-                                <button class="btn" data-target="jinshuriki">Explorer</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-            <!-- Autres pages seraient ici -->
+        <main>
+            <div class="main-container">
+                <div class="left-section">
+                    <div class="vertical-title">
+                        <span>N</span>
+                        <span>A</span>
+                        <span>R</span>
+                        <span>U</span>
+                        <span>T</span>
+                        <span>O</span>
+                        <span class="space"></span>
+                        <span>S</span>
+                        <span>H</span>
+                        <span>I</span>
+                        <span>P</span>
+                        <span>P</span>
+                        <span>U</span>
+                        <span>D</span>
+                        <span>E</span>
+                        <span>N</span>
+                    </div>
+                    
+                    <div class="naruto-presentation float-animation">
+                        <div class="naruto-image">
+                            <img src="narutoAcc.jpg" alt="Naruto Shippuden">
+                        </div>
+                        <div class="naruto-text">
+                            <h2>🌟 Bienvenue dans l'Univers de NARUTO!</h2>
+                            <p class="quote">"Crois-le!" - Plongez dans le monde épique des ninjas, du destin et des liens indestructibles.</p>
+                            
+                            <div class="key-elements">
+                                <h3>⚡ L'histoire continue...</h3>
+                                <p>Deux ans et demi après que Naruto ait quitté Konoha pour s'entraîner avec Jiraiya, il revient plus fort, plus sage et plus déterminé que jamais.</p>
+                                
+                                <div class="highlight-section">
+                                    <h4>🔥 Éléments clés :</h4>
+                                    <ul>
+                                        <li><span class="red-text">La menace d'Akatsuki</span> - À la recherche des Bêtes à Queue</li>
+                                        <li><span class="red-text">Contrôle du Renard à Neuf Queues</span> - La lutte intérieure de Naruto</li>
+                                        <li><span class="red-text">La vengeance de Sasuke</span> - La voie sombre de l'Uchiha</li>
+                                        <li><span class="red-text">La Quatrième Grande Guerre Ninja</span> - L'affrontement final</li>
+                                        <li><span class="red-text">L'éveil du Rinnegan</span> - Le pouvoir ultime</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right-section">
+                    <div class="propositions-container">
+                        <!-- Carte 1 -->
+                        <div class="proposition fade-in delay-1">
+                            <div class="proposition-inner">
+                                <div class="proposition-front akatsuki-bg">
+                                    <i class="fas fa-skull card-icon"></i>
+                                    <div class="proposition-name">Akatsuki</div>
+                                </div>
+                                <div class="proposition-back">
+                                    <p>L'organisation criminelle la plus redoutée composée de ninjas déserteurs de rang S</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Carte 2 -->
+                        <div class="proposition fade-in delay-2">
+                            <div class="proposition-inner">
+                                <div class="proposition-front biju-bg">
+                                    <i class="fas fa-paw card-icon"></i>
+                                    <div class="proposition-name">Bijū</div>
+                                </div>
+                                <div class="proposition-back">
+                                    <p>Les 9 démons à queues, créatures d'énergie chakra pure</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Carte 3 -->
+                        <div class="proposition fade-in delay-3">
+                            <div class="proposition-inner">
+                                <div class="proposition-front eyes-bg">
+                                    <i class="fas fa-eye card-icon"></i>
+                                    <div class="proposition-name">Dōjutsu</div>
+                                </div>
+                                <div class="proposition-back">
+                                    <p>Techniques oculaires légendaires : Sharingan, Byakugan, Rinnegan</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Carte 4 -->
+                        <div class="proposition fade-in delay-4">
+                            <div class="proposition-inner">
+                                <div class="proposition-front kage-bg">
+                                    <i class="fas fa-crown card-icon"></i>
+                                    <div class="proposition-name">Kage</div>
+                                </div>
+                                <div class="proposition-back">
+                                    <p>Les chefs suprêmes des cinq grands villages ninjas</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Carte 5 -->
+                        <div class="proposition fade-in delay-5">
+                            <div class="proposition-inner">
+                                <div class="proposition-front jutsu-bg">
+                                    <i class="fas fa-fire card-icon"></i>
+                                    <div class="proposition-name">Techniques</div>
+                                </div>
+                                <div class="proposition-back">
+                                    <p>Jutsus légendaires : Rasengan, Chidori, Amaterasu</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Carte 6 -->
+                        <div class="proposition fade-in">
+                            <div class="proposition-inner">
+                                <div class="proposition-front village-bg">
+                                    <i class="fas fa-tree card-icon"></i>
+                                    <div class="proposition-name">Villages</div>
+                                </div>
+                                <div class="proposition-back">
+                                    <p>Les 5 grands villages ninjas : Konoha, Suna, Kiri, Kumo, Iwa</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Carte 7 -->
+                        <div class="proposition fade-in delay-1">
+                            <div class="proposition-inner">
+                                <div class="proposition-front death-bg">
+                                    <i class="fas fa-skull-crossbones card-icon"></i>
+                                    <div class="proposition-name">Morts</div>
+                                </div>
+                                <div class="proposition-back">
+                                    <p>Les décès marquants qui ont changé l'histoire</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Carte 8 -->
+                        <div class="proposition fade-in delay-2">
+                            <div class="proposition-inner">
+                                <div class="proposition-front villain-bg">
+                                    <i class="fas fa-mask card-icon"></i>
+                                    <div class="proposition-name">Antagonistes</div>
+                                </div>
+                                <div class="proposition-back">
+                                    <p>Les méchants emblématiques : Madara, Obito, Pain</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Carte 9 -->
+                        <div class="proposition fade-in delay-3">
+                            <div class="proposition-inner">
+                                <div class="proposition-front movie-bg">
+                                    <i class="fas fa-film card-icon"></i>
+                                    <div class="proposition-name">Films</div>
+                                </div>
+                                <div class="proposition-back">
+                                    <p>Les films Naruto et leurs histoires originales</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <footer>
-            <p>Plongez dans l'univers fascinant de Naruto Shipudden</p>
+            <p>Plongez dans l'univers fascinant de Naruto Shippuden</p>
             <div class="creator">Créé par Ghazli Salah Eddine</div>
+            <p><small>Ce site est un hommage à l'œuvre de Masashi Kishimoto</small></p>
         </footer>
     </div>
 
     <script>
-        // Navigation entre les pages
-        document.querySelectorAll('.nav-link, .btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const target = this.getAttribute('data-target');
+        // Animation de particules
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
                 
-                // Cacher toutes les pages
-                document.querySelectorAll('.content-page').forEach(page => {
-                    page.classList.remove('active');
+                // Taille aléatoire
+                const size = Math.random() * 5 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Position aléatoire
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Animation
+                particle.style.animation = `float ${Math.random() * 6 + 4}s infinite ease-in-out`;
+                particle.style.animationDelay = `${Math.random() * 2}s`;
+                
+                // Couleur
+                const colors = ['#ff0000', '#ff6600', '#ffcc00', '#ffffff'];
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Animation des cartes au défilement
+        function animateCardsOnScroll() {
+            const cards = document.querySelectorAll('.proposition');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        observer.unobserve(entry.target);
+                    }
                 });
-                
-                // Afficher la page cible
-                document.getElementById(target).classList.add('active');
-                
-                // Scroll vers le haut
-                window.scrollTo(0, 0);
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                observer.observe(card);
             });
-        });
-
-        // Animation au chargement
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
-                document.querySelectorAll('.fade-in').forEach((el, index) => {
-                    setTimeout(() => {
-                        el.style.opacity = 1;
-                        el.style.transform = 'translateY(0)';
-                    }, 200 * index);
+        }
+        
+        // Effet de survol amélioré pour les cartes
+        function enhanceCardHover() {
+            const cards = document.querySelectorAll('.proposition');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const cardRect = card.getBoundingClientRect();
+                    const x = e.clientX - cardRect.left;
+                    const y = e.clientY - cardRect.top;
+                    
+                    const centerX = cardRect.width / 2;
+                    const centerY = cardRect.height / 2;
+                    
+                    const angleY = (x - centerX) / 8;
+                    const angleX = (centerY - y) / 8;
+                    
+                    card.querySelector('.proposition-inner').style.transform = 
+                        `rotateY(${angleY}deg) rotateX(${angleX}deg)`;
                 });
-            }, 300);
-        });
-
-        // Gestion du responsive
-        window.addEventListener('resize', function() {
-            if (window.innerWidth < 768) {
-                document.querySelector('.propositions-container').style.flexDirection = 'column';
-                document.querySelector('.shippuden-intro').style.flexDirection = 'column';
-            } else {
-                document.querySelector('.propositions-container').style.flexDirection = 'row';
-                document.querySelector('.shippuden-intro').style.flexDirection = 'row';
+                
+                card.addEventListener('mouseleave', () => {
+                    card.querySelector('.proposition-inner').style.transform = 'rotateY(0) rotateX(0)';
+                });
+            });
+        }
+        
+        // Initialisation des animations
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            animateCardsOnScroll();
+            enhanceCardHover();
+            
+            // Effet de parallaxe pour l'image principale
+            const narutoImage = document.querySelector('.naruto-image');
+            if (narutoImage) {
+                window.addEventListener('scroll', () => {
+                    const scrollPosition = window.pageYOffset;
+                    narutoImage.style.transform = `translateY(${scrollPosition * 0.2}px)`;
+                });
+            }
+            
+            // Animation du titre
+            const title = document.querySelector('.logo-text');
+            if (title) {
+                setInterval(() => {
+                    title.style.textShadow = `0 0 ${Math.random() * 15 + 5}px rgba(200, 0, 0, ${Math.random() * 0.5 + 0.5})`;
+                }, 2000);
             }
         });
     </script>
