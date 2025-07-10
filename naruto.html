@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Naruto Universe - Ghazli Salah Eddine</title>
+    <title>NARUTOBIDIA</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* RESET ET STYLES GÉNÉRAUX */
@@ -41,23 +41,6 @@
             border-radius: 50%;
         }
 
-        /* Couleurs thématiques: noir, rouge, blanc */
-        .red-bg {
-            background-color: #c00;
-        }
-
-        .white-text {
-            color: #fff;
-        }
-
-        .black-bg {
-            background-color: #000;
-        }
-
-        .red-text {
-            color: #c00;
-        }
-
         /* Layout */
         .container {
             width: 100%;
@@ -78,16 +61,7 @@
             top: 0;
             z-index: 100;
         }
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            background: linear-gradient(90deg, #c00, #fff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 10px rgba(200, 0, 0, 0.5);
-        }
-
+        
         .logo-container {
             display: flex;
             align-items: center;
@@ -147,6 +121,10 @@
             width: 100%;
         }
 
+        .nav-link.active {
+            color: #ffcc00;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             header {
@@ -178,8 +156,7 @@
             margin: 0 auto;
             padding: 40px 20px;
             position: relative;
-            margin-top: 0;
-            padding-top: 20px;
+            margin-top: 20px;
         }
 
         /* Section gauche */
@@ -193,6 +170,7 @@
             flex: 1;
             min-width: 0;
         }
+        
         /* Présentation Naruto */
         .naruto-presentation {
             display: flex;
@@ -219,12 +197,11 @@
             border: 2px solid #c00;
             align-self: stretch;
             position: relative;
-            margin-bottom: 55px;
         }
 
         .naruto-image img {
             width: 100%;
-            height: auto;
+            height: 100%;
             object-fit: cover;
             transition: transform 0.7s ease;
         }
@@ -246,6 +223,16 @@
             margin-bottom: 20px;
             text-shadow: 0 0 10px rgba(200, 0, 0, 0.5);
         }
+        
+        .quote {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #aaa;
+        }
+        
+        .key-elements {
+            margin-top: 20px;
+        }
 
         .highlight-section {
             background: rgba(0, 0, 0, 0.6);
@@ -254,11 +241,29 @@
             border-left: 4px solid #c00;
             margin-top: 25px;
         }
+        
+        .highlight-section h4 {
+            margin-bottom: 10px;
+            color: #ffcc00;
+        }
+        
+        .highlight-section ul {
+            padding-left: 20px;
+        }
+        
+        .highlight-section li {
+            margin-bottom: 8px;
+        }
+        
+        .red-text {
+            color: #ff6666;
+            font-weight: bold;
+        }
 
         /* Grille de cartes */
         .propositions-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             height: 100%;
         }
@@ -365,6 +370,18 @@
             text-shadow: 0 0 10px rgba(200, 0, 0, 0.7);
         }
 
+        /* Liens de cartes */
+        .proposition-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease;
+        }
+
+        .proposition-link:hover {
+            transform: scale(1.05);
+        }
+
         /* Responsive */
         @media (max-width: 1200px) {
             .main-container {
@@ -375,6 +392,12 @@
             }
         }
 
+        @media (max-width: 992px) {
+            .propositions-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .naruto-presentation {
                 flex-direction: column;
@@ -382,7 +405,7 @@
             
             .naruto-image {
                 min-width: 100%;
-                height: auto;
+                height: 300px;
             }
             
             .propositions-container {
@@ -399,12 +422,10 @@
         /* Footer */
         footer {
             margin-top: 50px;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.9);
-    border-top: 2px solid #c00;
-    text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.9);
             border-top: 2px solid #c00;
-            position: relative;
+            text-align: center;
         }
 
         .creator {
@@ -434,6 +455,7 @@
 
         .fade-in {
             animation: fadeIn 0.8s ease forwards;
+            opacity: 0;
         }
 
         .float-animation {
@@ -489,21 +511,22 @@
         <div class="shuriken" style="top: 20%; left: 10%;">✵</div>
         <div class="shuriken" style="top: 60%; left: 90%;">✵</div>
         <div class="shuriken" style="top: 80%; left: 15%;">✵</div>
+        
         <header>
-    <div class="logo-container">
-        <img src="konoha.png" alt="Logo Konoha" class="logo-img">
-        <div class="logo-text">NARUTOBIDIA</div>
-    </div>
-    
-    <nav class="nav-links">
-        <a href="#" class="nav-link">Accueil</a>
-        <a href="#" class="nav-link">Personnages</a>
-        <a href="#" class="nav-link">Techniques</a>
-        <a href="#" class="nav-link">Arcs</a>
-        <a href="#" class="nav-link">Épisodes</a>
-        <a href="#" class="nav-link">À propos</a>
-    </nav>
-</header>
+            <div class="logo-container">
+                <img src="konoha.png" alt="Logo Konoha" class="logo-img">
+                <div class="logo-text">NARUTOBIDIA</div>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="personnages.html" class="nav-link">Personnages</a>
+                <a href="akatsuki.html" class="nav-link active">Akatsuki</a>
+                <a href="techniques.html" class="nav-link">Techniques</a>
+                <a href="bijuu.html" class="nav-link">Bijū</a>
+                <a href="about.html" class="nav-link">À propos</a>
+            </nav>
+        </header>
 
         <main>
             <div class="main-container">
@@ -534,125 +557,141 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="right-section">
                     <div class="propositions-container">
                         <!-- Carte 1 -->
-                        <div class="proposition fade-in delay-1">
-                            <div class="proposition-inner">
-                                <div class="proposition-front akatsuki-bg">
-                                    <i class="fas fa-skull card-icon"></i>
-                                    <div class="proposition-name">Akatsuki</div>
-                                </div>
-                                <div class="proposition-back">
-                                    <p>L'organisation criminelle la plus redoutée composée de ninjas déserteurs de rang S</p>
+                        <a href="akatsuki.html" class="proposition-link">
+                            <div class="proposition fade-in delay-1">
+                                <div class="proposition-inner">
+                                    <div class="proposition-front akatsuki-bg">
+                                        <i class="fas fa-skull card-icon"></i>
+                                        <div class="proposition-name">Akatsuki</div>
+                                    </div>
+                                    <div class="proposition-back">
+                                        <p>L'organisation criminelle la plus redoutée composée de ninjas déserteurs du rang S</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        
+                        </a>
                         <!-- Carte 2 -->
-                        <div class="proposition fade-in delay-2">
-                            <div class="proposition-inner">
-                                <div class="proposition-front biju-bg">
-                                    <i class="fas fa-paw card-icon"></i>
-                                    <div class="proposition-name">Bijū</div>
-                                </div>
-                                <div class="proposition-back">
-                                    <p>Les 9 démons à queues, créatures d'énergie chakra pure</p>
+                        <a href="bijuu.html" class="proposition-link">
+                            <div class="proposition fade-in delay-2">
+                                <div class="proposition-inner">
+                                    <div class="proposition-front biju-bg">
+                                        <i class="fas fa-paw card-icon"></i>
+                                        <div class="proposition-name">Bijū</div>
+                                    </div>
+                                    <div class="proposition-back">
+                                        <p>Les 9 démons à queues, créatures d'énergie chakra pure</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                         
                         <!-- Carte 3 -->
-                        <div class="proposition fade-in delay-3">
-                            <div class="proposition-inner">
-                                <div class="proposition-front eyes-bg">
-                                    <i class="fas fa-eye card-icon"></i>
-                                    <div class="proposition-name">Dōjutsu</div>
-                                </div>
-                                <div class="proposition-back">
-                                    <p>Techniques oculaires légendaires : Sharingan, Byakugan, Rinnegan</p>
+                        <a href="dojutsu.html" class="proposition-link">
+                            <div class="proposition fade-in delay-3">
+                                <div class="proposition-inner">
+                                    <div class="proposition-front eyes-bg">
+                                        <i class="fas fa-eye card-icon"></i>
+                                        <div class="proposition-name">Dōjutsu</div>
+                                    </div>
+                                    <div class="proposition-back">
+                                        <p>Techniques oculaires légendaires : Sharingan, Byakugan, Rinnegan</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                         
                         <!-- Carte 4 -->
-                        <div class="proposition fade-in delay-4">
-                            <div class="proposition-inner">
-                                <div class="proposition-front kage-bg">
-                                    <i class="fas fa-crown card-icon"></i>
-                                    <div class="proposition-name">Kage</div>
-                                </div>
-                                <div class="proposition-back">
-                                    <p>Les chefs suprêmes des cinq grands villages ninjas</p>
+                        <a href="kage.html" class="proposition-link">
+                            <div class="proposition fade-in delay-4">
+                                <div class="proposition-inner">
+                                    <div class="proposition-front kage-bg">
+                                        <i class="fas fa-crown card-icon"></i>
+                                        <div class="proposition-name">Kage</div>
+                                    </div>
+                                    <div class="proposition-back">
+                                        <p>Les chefs suprêmes des cinq grands villages ninjas</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                         
                         <!-- Carte 5 -->
-                        <div class="proposition fade-in delay-5">
-                            <div class="proposition-inner">
-                                <div class="proposition-front jutsu-bg">
-                                    <i class="fas fa-fire card-icon"></i>
-                                    <div class="proposition-name">Techniques</div>
-                                </div>
-                                <div class="proposition-back">
-                                    <p>Jutsus légendaires : Rasengan, Chidori, Amaterasu</p>
+                        <a href="techniques.html" class="proposition-link">
+                            <div class="proposition fade-in delay-5">
+                                <div class="proposition-inner">
+                                    <div class="proposition-front jutsu-bg">
+                                        <i class="fas fa-fire card-icon"></i>
+                                        <div class="proposition-name">Techniques</div>
+                                    </div>
+                                    <div class="proposition-back">
+                                        <p>Jutsus légendaires : Rasengan, Chidori, Amaterasu</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                         
                         <!-- Carte 6 -->
-                        <div class="proposition fade-in">
-                            <div class="proposition-inner">
-                                <div class="proposition-front village-bg">
-                                    <i class="fas fa-tree card-icon"></i>
-                                    <div class="proposition-name">Villages</div>
-                                </div>
-                                <div class="proposition-back">
-                                    <p>Les 5 grands villages ninjas : Konoha, Suna, Kiri, Kumo, Iwa</p>
+                        <a href="villages.html" class="proposition-link">
+                            <div class="proposition fade-in">
+                                <div class="proposition-inner">
+                                    <div class="proposition-front village-bg">
+                                        <i class="fas fa-tree card-icon"></i>
+                                        <div class="proposition-name">Villages</div>
+                                    </div>
+                                    <div class="proposition-back">
+                                        <p>Les 5 grands villages ninjas : Konoha, Suna, Kiri, Kumo, Iwa</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                         
                         <!-- Carte 7 -->
-                        <div class="proposition fade-in delay-1">
-                            <div class="proposition-inner">
-                                <div class="proposition-front death-bg">
-                                    <i class="fas fa-skull-crossbones card-icon"></i>
-                                    <div class="proposition-name">Morts</div>
-                                </div>
-                                <div class="proposition-back">
-                                    <p>Les décès marquants qui ont changé l'histoire</p>
+                        <a href="morts.html" class="proposition-link">
+                            <div class="proposition fade-in delay-1">
+                                <div class="proposition-inner">
+                                    <div class="proposition-front death-bg">
+                                        <i class="fas fa-skull-crossbones card-icon"></i>
+                                        <div class="proposition-name">Morts</div>
+                                    </div>
+                                    <div class="proposition-back">
+                                        <p>Les décès marquants qui ont changé l'histoire</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                         
                         <!-- Carte 8 -->
-                        <div class="proposition fade-in delay-2">
-                            <div class="proposition-inner">
-                                <div class="proposition-front villain-bg">
-                                    <i class="fas fa-mask card-icon"></i>
-                                    <div class="proposition-name">Antagonistes</div>
-                                </div>
-                                <div class="proposition-back">
-                                    <p>Les méchants emblématiques : Madara, Obito, Pain</p>
+                        <a href="antagonistes.html" class="proposition-link">
+                            <div class="proposition fade-in delay-2">
+                                <div class="proposition-inner">
+                                    <div class="proposition-front villain-bg">
+                                        <i class="fas fa-mask card-icon"></i>
+                                        <div class="proposition-name">Antagonistes</div>
+                                    </div>
+                                    <div class="proposition-back">
+                                        <p>Les méchants emblématiques : Madara, Obito, Pain</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                         
                         <!-- Carte 9 -->
-                        <div class="proposition fade-in delay-3">
-                            <div class="proposition-inner">
-                                <div class="proposition-front movie-bg">
-                                    <i class="fas fa-film card-icon"></i>
-                                    <div class="proposition-name">Films</div>
-                                </div>
-                                <div class="proposition-back">
-                                    <p>Les films Naruto et leurs histoires originales</p>
+                        <a href="films.html" class="proposition-link">
+                            <div class="proposition fade-in delay-3">
+                                <div class="proposition-inner">
+                                    <div class="proposition-front movie-bg">
+                                        <i class="fas fa-film card-icon"></i>
+                                        <div class="proposition-name">Films</div>
+                                    </div>
+                                    <div class="proposition-back">
+                                        <p>Les films Naruto et leurs histoires originales</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -739,7 +778,7 @@
                 });
             });
         }
-        
+
         // Initialisation des animations
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
