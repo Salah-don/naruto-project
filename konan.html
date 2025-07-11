@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narutobidia - Profil de Konan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(0, 0, 0, 0.9);
+            border-bottom: 2px solid #c00;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+            filter: drop-shadow(0 0 5px rgba(200, 0, 0, 0.7));
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(200, 0, 0, 0.7);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #c00;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #c00;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Profil Header */
+        .profile-header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                        var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            padding: 40px 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 2px solid #c00;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(200, 0, 0, 0.2);
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.9) 100%);
+        }
+
+        .profile-info {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 3px solid #c00;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(200, 0, 0, 0.5);
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-details {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .profile-name {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(200, 0, 0, 0.7);
+        }
+
+        .profile-title {
+            font-size: 1.3rem;
+            color: #c00;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px 20px;
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 8px;
+            border-left: 3px solid #c00;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            color: #c00;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .profile-bio {
+            margin-top: 20px;
+            line-height: 1.6;
+            max-width: 800px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #c00;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #c00;
+            text-shadow: 0 0 5px rgba(200, 0, 0, 0.3);
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 8px;
+            border-left: 4px solid #c00;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            border-left: 4px solid #ffcc00;
+        }
+
+        .timeline-year {
+            min-width: 80px;
+            text-align: center;
+            font-weight: bold;
+            color: #ffcc00;
+            font-size: 1.3rem;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .timeline-description {
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            height: 250px;
+            position: relative;
+            border: 2px solid #333;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            border-color: #c00;
+            box-shadow: 0 10px 20px rgba(200, 0, 0, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            font-size: 0.9rem;
+            color: #fff;
+        }
+
+        /* Abilities */
+        .abilities {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .ability-card {
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+        }
+
+        .ability-card:hover {
+            border-color: #c00;
+            transform: translateY(-5px);
+        }
+
+        .ability-title {
+            font-size: 1.3rem;
+            color: #c00;
+            margin-bottom: 15px;
+        }
+
+        .ability-description {
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        /* Footer */
+        footer {
+            padding: 30px 20px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-top: 2px solid #c00;
+            margin-top: 50px;
+        }
+
+        .creator {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #c00;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .profile-info {
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .profile-stats {
+                justify-content: center;
+            }
+            
+            .stat-item {
+                padding: 10px 15px;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+            }
+            
+            .timeline-year {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="konoha.png" alt="Logo Konoha" class="logo-img">
+            <div class="logo-text">NARUTOBIDIA</div>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="index.html" class="nav-link">Accueil</a>
+            <a href="personnages.html" class="nav-link">Personnages</a>
+            <a href="akatsuki.html" class="nav-link active">Akatsuki</a>
+            <a href="techniques.html" class="nav-link">Techniques</a>
+            <a href="bijuu.html" class="nav-link">Bijū</a>
+            <a href="about.html" class="nav-link">À propos</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="profile-header" style="--bg-image: url('https://wallpapercave.com/wp/wp6985019.jpg');">
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    <img src="Konanp.jpg" alt="Konan">
+                </div>
+                <div class="profile-details">
+                    <h1 class="profile-name">Konan</h1>
+                    <div class="profile-title">L'Ange Bleu d'Amegakure • Partenaire de Pain</div>
+                    
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">35</div>
+                            <div class="stat-label">Âge</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">S</div>
+                            <div class="stat-label">Rang</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">Papier</div>
+                            <div class="stat-label">Élément</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">58</div>
+                            <div class="stat-label">Épisodes</div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-bio">
+                        <p>Konan est la seule femme membre de l'Akatsuki et la partenaire de Pain. Originaire d'Amegakure, elle a grandi avec Nagato et Yahiko. Après la mort de Yahiko, elle soutient Nagato dans sa transformation en Pain. Konan peut transformer son corps en papier, ce qui lui confère une grande polyvalence au combat.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Histoire et Évolution</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">Enfance</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Orpheline de guerre</h3>
+                    <p class="timeline-description">Konan naît à Amegakure pendant la guerre. Elle rencontre Nagato et Yahiko, formant le trio orphelin qui fondera l'Akatsuki.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Jeunesse</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Formation avec Jiraiya</h3>
+                    <p class="timeline-description">Konan et ses amis sont formés aux arts ninjas par Jiraiya pendant trois ans.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Adulte</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Mort de Yahiko</h3>
+                    <p class="timeline-description">La mort de Yahiko transforme Konan et Nagato, les poussant à créer la nouvelle Akatsuki.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Fin</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Protection de Nagato</h3>
+                    <p class="timeline-description">Après la mort de Nagato, Konan protège son corps et ses yeux contre Tobi, menant à un combat final.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Évolution du Personnage</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="konank.jpg" alt="Konan enfant">
+                <div class="gallery-caption">Konan enfant</div>
+            </div>
+            <div class="gallery-item">
+                <img src="konanj.jpg" alt="Konan avec Jiraiya">
+                <div class="gallery-caption">Avec Jiraiya</div>
+            </div>
+            <div class="gallery-item">
+                <img src="Konanak.jpg" alt="Konan Akatsuki">
+                <div class="gallery-caption">Membre de l'Akatsuki</div>
+            </div>
+            <div class="gallery-item">
+                <img src="konanL.jpg" alt="Konan leader">
+                <div class="gallery-caption">Leader d'Amegakure</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Techniques et Capacités</h2>
+        <div class="abilities">
+            <div class="ability-card">
+                <h3 class="ability-title">Transformation en Papier</h3>
+                <p class="ability-description">Konan peut transformer son corps en feuilles de papier, lui permettant de voler, de se régénérer et de créer diverses formes.</p>
+            </div>
+            
+            <div class="ability-card">
+                <h3 class="ability-title">Shikigami no Mai</h3>
+                <p class="ability-description">Technique de danse des esprits qui lui permet de contrôler le papier pour attaquer et se défendre.</p>
+            </div>
+            
+            <div class="ability-card">
+                <h3 class="ability-title">Détection par Papier</h3>
+                <p class="ability-description">Konan peut disperser des feuilles de papier pour détecter les intrus et les mouvements ennemis.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Apparitions Clés et Épisodes</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 128</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Première apparition</h3>
+                    <p class="timeline-description">Konan apparaît aux côtés de Pain lors de la réunion de l'Akatsuki.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 152</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Extraction du Shukaku</h3>
+                    <p class="timeline-description">Konan participe à l'extraction du Shukaku de Gaara.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 172</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Combat contre Jiraiya</h3>
+                    <p class="timeline-description">Konan affronte son ancien maître Jiraiya à Amegakure.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 476-477</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Combat contre Tobi</h3>
+                    <p class="timeline-description">Konan affronte Tobi pour protéger le Rinnegan de Nagato.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Personnages Associés</h2>
+            <div class="gallery">
+                <a href="pain.html" class="gallery-item">
+                    <img src="pain2.jpg" alt="Pain">
+                    <div class="gallery-caption">Pain (partenaire)</div>
+                </a>
+                <a href="jiraiya.html" class="gallery-item">
+                    <img src="https://i.pinimg.com/564x/9a/8e/ba/9a8eba6a3b6c7a0b3c0b3a6b3c0b3a.jpg" alt="Jiraiya">
+                    <div class="gallery-caption">Jiraiya (maître)</div>
+                </a>
+                <a href="tobi.html" class="gallery-item">
+                    <img src="https://i.pinimg.com/564x/aa/9f/ca/aa9fca6a3b6c7a0b3c0b3a6b3c0b3a.jpg" alt="Tobi">
+                    <div class="gallery-caption">Tobi (ennemi)</div>
+                </a>
+            </div>
+    </div>
+
+    <footer>
+        <p>Plongez dans l'univers fascinant de Naruto Shippuden</p>
+        <div class="creator">Créé par Ghazli Salah Eddine</div>
+        <p>Ce site est un hommage à l'œuvre de Masashi Kishimoto</p>
+    </footer>
+</body>
+</html>
