@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narutobidia - Profil de Kisame Hoshigaki</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 20% 30%, rgba(10, 30, 70, 0.3) 0%, transparent 60%), 
+                              radial-gradient(circle at 80% 70%, rgba(100, 0, 0, 0.2) 0%, transparent 60%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(0, 0, 0, 0.9);
+            border-bottom: 2px solid #0066cc;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0, 80, 200, 0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+            filter: drop-shadow(0 0 5px rgba(0, 100, 200, 0.7));
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 120, 255, 0.7);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #0099ff;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #0099ff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Profil Header */
+        .profile-header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                        url('https://wallpapercave.com/wp/wp4770368.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 40px 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 2px solid #0066cc;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 100, 200, 0.3);
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.9) 100%);
+        }
+
+        .profile-info {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 3px solid #0099ff;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 150, 255, 0.5);
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-details {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .profile-name {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 150, 255, 0.7);
+        }
+
+        .profile-title {
+            font-size: 1.3rem;
+            color: #0099ff;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px 20px;
+            background: rgba(10, 30, 70, 0.7);
+            border-radius: 8px;
+            border-left: 3px solid #0099ff;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            background: rgba(20, 50, 100, 0.8);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            color: #0099ff;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .profile-bio {
+            margin-top: 20px;
+            line-height: 1.6;
+            max-width: 800px;
+            background: rgba(10, 30, 70, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #0099ff;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #0099ff;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #0099ff;
+            text-shadow: 0 0 5px rgba(0, 150, 255, 0.3);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, #0099ff, transparent);
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(10, 20, 40, 0.8);
+            border-radius: 8px;
+            border-left: 4px solid #0099ff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 100, 200, 0.3);
+        }
+
+        .timeline-year {
+            min-width: 80px;
+            text-align: center;
+            font-weight: bold;
+            color: #00ccff;
+            font-size: 1.3rem;
+            background: rgba(0, 50, 100, 0.5);
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .timeline-description {
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            height: 250px;
+            position: relative;
+            border: 2px solid #333;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            border-color: rgb(106, 183, 255);
+            box-shadow: 0 10px 20px rgba(12, 21, 99, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            padding: 10px;
+            font-size: 0.9rem;
+            color: #fff;
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            background: rgba(0, 50, 100, 0.9);
+        }
+
+        /* Abilities */
+        .abilities {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .ability-card {
+            background: rgba(10, 30, 70, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #004080;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ability-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #0099ff, #0066cc);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .ability-card:hover {
+            border-color: #0099ff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 100, 200, 0.3);
+        }
+
+        .ability-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .ability-title {
+            font-size: 1.3rem;
+            color: #00ccff;
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .ability-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #0099ff;
+        }
+
+        .ability-description {
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .ability-description ul {
+            margin-top: 10px;
+            padding-left: 20px;
+            color: #ccc;
+        }
+
+        .ability-description li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .ability-description li::before {
+            content: '•';
+            color: #0099ff;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Footer */
+        footer {
+            padding: 30px 20px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-top: 2px solid #0066cc;
+            margin-top: 50px;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #0099ff, transparent);
+        }
+
+        .creator {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #0099ff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .profile-info {
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .profile-stats {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .stat-item {
+                padding: 10px 15px;
+                flex: 1;
+                min-width: 120px;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+            }
+            
+            .timeline-year {
+                text-align: left;
+                width: fit-content;
+            }
+            
+            .abilities {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="konoha.png" alt="Logo Konoha" class="logo-img">
+            <div class="logo-text">NARUTOBIDIA</div>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="naruto.html" class="nav-link">Accueil</a>
+            <a href="akatsuki.html" class="nav-link active">Akatsuki</a>
+            <a href="#" class="nav-link">Techniques</a>
+            <a href="#" class="nav-link">Arcs</a>
+            <a href="#" class="nav-link">Épisodes</a>
+            <a href="#" class="nav-link">À propos</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Profil Header -->
+        <div class="profile-header">
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    <img src="k.jpg" alt="Kisame Hoshigaki">
+                </div>
+                <div class="profile-details">
+                    <h1 class="profile-name">Kisame Hoshigaki</h1>
+                    <div class="profile-title">Membre de l'Akatsuki • Le Démon des Brumes</div>
+                    
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">32</div>
+                            <div class="stat-label">Âge</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">S</div>
+                            <div class="stat-label">Rang</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">Eau</div>
+                            <div class="stat-label">Élément</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">78</div>
+                            <div class="stat-label">Épisodes</div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-bio">
+                        <p>Kisame Hoshigaki, surnommé "le Démon des Brumes", est un ancien ninja déserteur de Kirigakure et membre de l'Akatsuki. Connu pour sa force surhumaine et son apparence de requin, il forme un duo redoutable avec Itachi Uchiha. Kisame est extrêmement loyal envers l'organisation et possède des réserves de chakra exceptionnelles.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Histoire -->
+        <h2 class="section-title">Histoire et Évolution</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">Jeunesse</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Ninja de Kiri</h3>
+                    <p class="timeline-description">Kisame sert dans les forces spéciales de Kirigakure sous les ordres de Fuguki Suikazan. Il participe à de nombreuses missions secrètes, y compris l'élimination de ninjas renégats.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Défection</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Tournant tragique</h3>
+                    <p class="timeline-description">Après avoir découvert la corruption de son village, Kisame tue son supérieur Fuguki et rejoint l'Akatsuki. Il reçoit le surnom de "Démon des Brumes" pour sa cruauté au combat.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Akatsuki</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Duo avec Itachi</h3>
+                    <p class="timeline-description">Kisame est jumelé avec Itachi Uchiha après la mort du précédent partenaire de ce dernier. Malgré leurs différences, ils forment l'une des équipes les plus efficaces de l'Akatsuki.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Fin</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Dernier combat</h3>
+                    <p class="timeline-description">Kisame se suicide en invoquant des requins pour protéger les secrets de l'Akatsuki après avoir été capturé par les forces alliées ninjas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Galerie d'évolution -->
+        <h2 class="section-title">Évolution du Personnage</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="kisamk.jpg" alt="Kisame jeune">
+                <div class="gallery-caption">Jeune ninja de Kiri</div>
+            </div>
+            <div class="gallery-item">
+                <img src="kisamek.jpg">Membre des ANBU de Kiri</div>
+            </div>
+            <div class="gallery-item">
+                <img src="kisameak.jpeg">Membre de l'Akatsuki</div>
+            </div>
+            <div class="gallery-item"></div>
+                <img src="kisamfu.jpg" alt="kisam fusionner">
+                <div class="gallery-caption"></div>Fusion avec Samehada</div>
+        </div>
+        </div>
+
+        <!-- Capacités et techniques -->
+        <h2 class="section-title">Techniques et Capacités</h2>
+        <div class="abilities">
+            <div class="ability-card">
+                <h3 class="ability-title">Samehada</h3>
+                <p class="ability-description">L'épée vivante Samehada absorbe le chakra de l'ennemi et peut fusionner avec Kisame. Elle possède sa propre conscience et choisit son porteur.</p>
+                <p class="ability-description">Capacités spéciales :</p>
+                <ul>
+                    <li>Absorption massive de chakra</li>
+                    <li>Fusion avec l'utilisateur</li>
+                    <li>Réparation automatique</li>
+                    <li>Détection des sources de chakra</li>
+                </ul>
+            </div>
+            
+            <div class="ability-card">
+                <h3 class="ability-title">Réserves de chakra</h3>
+                <p class="ability-description">Kisame possède des réserves de chakra comparables à celles d'un bijū, ce qui lui permet d'utiliser des techniques puissantes pendant de longues périodes.</p>
+                <p class="ability-description">Aptitudes remarquables :</p>
+                <ul>
+                    <li>Chakra équivalent à un jinchūriki</li>
+                    <li>Endurance exceptionnelle</li>
+                    <li>Techniques à grande échelle</li>
+                    <li>Régénération accélérée</li>
+                </ul>
+            </div>
+            
+            <div class="ability-card">
+                <h3 class="ability-title">Techniques aquatiques</h3>
+                <p class="ability-description">Maître des techniques de l'eau, Kisame peut créer des dômes d'eau géants et invoquer des requins de chakra. Son "Grand Requin Démoniaque" est particulièrement redoutable.</p>
+                <p class="ability-description">Techniques emblématiques :</p>
+                <ul>
+                    <li>Dôme d'eau à cinq requins</li>
+                    <li>Grand Requin Démoniaque</li>
+                    <li>Requins de chakra</li>
+                    <li>Boule d'eau explosive</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Apparitions notables -->
+        <h2 class="section-title">Apparitions Clés et Épisodes</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 80-81</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Première apparition</h3>
+                    <p class="timeline-description">Kisame et Itachi font leur première apparition à Konoha. Combat contre Asuma et Kurenai.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 254-260</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Capture de Yugito</h3>
+                    <p class="timeline-description">Kisame affronte Yugito Nii, le jinchūriki du Nibi, et démontre sa puissance écrasante.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 405-408</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Combat contre Guy</h3>
+                    <p class="timeline-description">Affrontement épique contre Might Guy qui force Kisame à révéler toute sa puissance.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 470-471</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Mort héroïque</h3>
+                    <p class="timeline-description">Kisame se suicide plutôt que de trahir les secrets de l'Akatsuki.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personnages liés -->
+        <h2 class="section-title">Personnages Associés</h2>
+        <div class="gallery">
+            <a href="itachi.html" class="gallery-item">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj48cmVjdCB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iIzIyMjIyMiIvPjxjaXJjbGUgY3g9IjEyNSIgY3k9IjgwIiByPSI0MCIgZmlsbD0iI2ZmY2NjYyIvPjxyZWN0IHg9IjYwIiB5PSI0MCIgd2lkdGg9IjEzMCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2NjMDAwMCIgcng9IjUiLz48cGF0aCBkPSJNODAgMTQwIEwxMjAgMTQwIEwxNDAgMTgwIEw2MCAxODAgWiIgZmlsbD0iIzk5MDAwMCIvPjxwYXRoIGQ9Ik02MCA4MCBMNzAgMTAwIEw5MCA5NSBMMTEwIDEwMCBMMTQwIDgwIEwxMzAgMTIwIEw3MCAxMjAgWiIgZmlsbD0iIzY2MDAwMCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjYwIiByPSIxMCIgZmlsbD0iIzMzMDAwMCIvPjxjaXJjbGUgY3g9IjE1MCIgY3k9IjYwIiByPSIxMCIgZmlsbD0iIzMzMDAwMCIvPjwvc3ZnPg==" alt="Itachi Uchiha">
+                <div class="gallery-caption">Itachi Uchiha (partenaire)</div>
+            </a>
+            <a href="tobi.html" class="gallery-item">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj48cmVjdCB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iIzIyMjIyMiIvPjxjaXJjbGUgY3g9IjEyNSIgY3k9IjEwMCIgcj0iNjAiIGZpbGw9IiNmZmZmZmYiLz48Y2lyY2xlIGN4PSIxMjUiIGN5PSIxMDAiIHI9IjQwIiBmaWxsPSIjMDAwMDAwIi8+PGNpcmNsZSBjeD0iMTI1IiBjeT0iMTAwIiByPSIyMCIgZmlsbD0iI2ZmZmZmZiIvPjxyZWN0IHg9IjcwIiB5PSI0MCIgd2lkdGg9IjExMCIgaGVpZ2h0PSIyMCIgZmlsbD0iI2NjMDAwMCIgcng9IjEwIi8+PC9zdmc+" alt="Tobi">
+                <div class="gallery-caption">Tobi (leader Akatsuki)</div>
+            </a>
+            <a href="guy.html" class="gallery-item">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj48cmVjdCB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iI2ZmY2MwMCIvPjxjaXJjbGUgY3g9IjEyNSIgY3k9IjgwIiByPSI0MCIgZmlsbD0iI2ZmY2NjYyIvPjxyZWN0IHg9IjcwIiB5PSIxMjAiIHdpZHRoPSIxMTAiIGhlaWdodD0iNjAiIGZpbGw9IiNmZmNjMDAiIHJ4PSIxMCIvPjxyZWN0IHg9IjgwIiB5PSI0MCIgd2lkdGg9IjkwIiBoZWlnaHQ9IjMwIiBmaWxsPSIjZmZjYzAwIiByeD0iNSIvPjxwYXRoIGQ9Ik04MCAxNDAgTDEyMCAxNDAgTDE0MCAxODAgTDYwIDE4MCBaIiBmaWxsPSIjZmZjYzAwIi8+PC9zdmc+" alt="Might Guy">
+                <div class="gallery-caption">Might Guy (rival)</div>
+            </a>
+            <a href="fuguki.html" class="gallery-item">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj48cmVjdCB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iIzAwNjZjYyIvPjxjaXJjbGUgY3g9IjEyNSIgY3k9IjgwIiByPSI0MCIgZmlsbD0iIzQ0Y2NmZiIvPjxyZWN0IHg9IjYwIiB5PSI0MCIgd2lkdGg9IjEzMCIgaGVpZ2h0PSI0MCIgZmlsbD0iIzIyMjIyMiIgcng9IjUiLz48cGF0aCBkPSJNODAgMTQwIEwxMjAgMTQwIEwxNDAgMTgwIEw2MCAxODAgWiIgZmlsbD0iIzAwODhmZiIvPjxwYXRoIGQ9Ik02MCA4MCBMNzAgMTAwIEw5MCA5NSBMMTEwIDEwMCBMMTQwIDgwIEwxMzAgMTIwIEw3MCAxMjAgWiIgZmlsbD0iIzAwNDQ2NiIvPjwvc3ZnPg==" alt="Fuguki Suikazan">
+                <div class="gallery-caption">Fuguki Suikazan (ancien mentor)</div>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Plongez dans l'univers fascinant de Naruto Shippuden</p>
+        <div class="creator">Créé par Ghazli Salah Eddine</div>
+        <p>Ce site est un hommage à l'œuvre de Masashi Kishimoto</p>
+    </footer>
+</body>
+</html>
