@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narutobidia - Profil de Tobi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(0, 0, 0, 0.9);
+            border-bottom: 2px solid #FF5722;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+            filter: drop-shadow(0 0 5px rgba(255, 87, 34, 0.7));
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 87, 34, 0.7);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #FF5722;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #FF5722;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Profil Header */
+        .profile-header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                        radial-gradient(circle at center, #FF5722 0%, #7B1FA2 70%, #0a0a0a 100%);
+            background-size: cover;
+            background-position: center;
+            padding: 40px 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 2px solid #FF5722;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 87, 34, 0.3);
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.9) 100%);
+        }
+
+        .profile-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M30,10 Q50,30 70,10 Q90,30 90,50 Q70,70 90,90 Q70,90 50,70 Q30,90 10,90 Q30,70 10,50 Q30,30 30,10 Z" fill="none" stroke="rgba(255,87,34,0.1)" stroke-width="1"/></svg>');
+            background-size: 200px;
+            opacity: 0.3;
+        }
+
+        .profile-info {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 3px solid #FF5722;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 87, 34, 0.5);
+            background: linear-gradient(45deg, #7B1FA2, #FF5722);
+            position: relative;
+        }
+
+        .profile-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 3px solid rgb(255, 102, 0);
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 140, 46, 0.5);
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-details {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .profile-name {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 87, 34, 0.7);
+        }
+
+        .profile-title {
+            font-size: 1.3rem;
+            color: #FF5722;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px 20px;
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 8px;
+            border-left: 3px solid #FF5722;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            color: #FF5722;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .profile-bio {
+            margin-top: 20px;
+            line-height: 1.6;
+            max-width: 800px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #FF5722;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #FF5722;
+            text-shadow: 0 0 5px rgba(255, 87, 34, 0.3);
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 8px;
+            border-left: 4px solid #FF5722;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+            border-left: 4px solid #7B1FA2;
+        }
+
+        .timeline-year {
+            min-width: 80px;
+            text-align: center;
+            font-weight: bold;
+            color: #7B1FA2;
+            font-size: 1.3rem;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .timeline-description {
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            height: 250px;
+            position: relative;
+            border: 2px solid #333;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #311B92, #4527A0);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            border-color: #FF5722;
+            box-shadow: 0 10px 20px rgba(255, 87, 34, 0.3);
+        }
+
+        .gallery-item-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .gallery-icon {
+            font-size: 4rem;
+            color: #FF9800;
+            margin-bottom: 15px;
+        }
+
+        .gallery-caption {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* Abilities */
+        .abilities {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .ability-card {
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ability-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,87,34,0.1) 0%, transparent 70%);
+        }
+
+        .ability-card:hover {
+            border-color: #FF5722;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+        }
+
+        .ability-title {
+            font-size: 1.3rem;
+            color: #FF5722;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ability-description {
+            line-height: 1.6;
+            color: #ccc;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Footer */
+        footer {
+            padding: 30px 20px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-top: 2px solid #FF5722;
+            margin-top: 50px;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,87,34,0.3)"/><circle cx="50" cy="30" r="1.5" fill="rgba(255,87,34,0.3)"/><circle cx="80" cy="20" r="1.2" fill="rgba(255,87,34,0.3)"/><circle cx="40" cy="60" r="1.8" fill="rgba(255,87,34,0.3)"/><circle cx="70" cy="70" r="1.3" fill="rgba(255,87,34,0.3)"/><circle cx="10" cy="50" r="1.5" fill="rgba(255,87,34,0.3)"/><circle cx="90" cy="80" r="1.7" fill="rgba(255,87,34,0.3)"/></svg>');
+            background-size: 200px;
+            opacity: 0.2;
+        }
+
+        .creator {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #FF5722;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .profile-info {
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .profile-stats {
+                justify-content: center;
+            }
+            
+            .stat-item {
+                padding: 10px 15px;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+            }
+            
+            .timeline-year {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+    <div class="logo-container">
+        <div class="logo-img">
+            <img src="konoha.png" alt="konohaaa" class="logo-img">
+        </div>
+        <div class="logo-text">NARUTOBIDIA</div>
+    </div>
+    
+    <nav class="nav-links">
+        <a href="naruto.html" class="nav-link">Accueil</a>
+        <a href="akatsuki.html" class="nav-link">Akatsuki</a>
+        <a href="#" class="nav-link">Techniques</a>
+        <a href="#" class="nav-link">Arcs</a>
+        <a href="#" class="nav-link">Épisodes</a>
+        <a href="#" class="nav-link">À propos</a>
+    </nav>
+</header>
+
+    <div class="container">
+        <!-- Profil Header -->
+        <div class="profile-header">
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    <img src="obito.jpg" alt="obito"">
+                </div>
+                
+                <div class="profile-details">
+                    <h1 class="profile-name">Tobi (Obito Uchiha)</h1>
+                    <div class="profile-title">Leader de l'Akatsuki • Manipulateur • Porteur du Rinnegan</div>
+                    
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">31</div>
+                            <div class="stat-label">Âge</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">S+</div>
+                            <div class="stat-label">Rang</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">Tout</div>
+                            <div class="stat-label">Éléments</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">245</div>
+                            <div class="stat-label">Épisodes</div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-bio">
+                        <p>Tobi, de son vrai nom Obito Uchiha, est l'un des personnages les plus mystérieux et puissants de l'univers Naruto. D'abord présenté comme un membre comique de l'Akatsuki, il se révèle être le véritable leader de l'organisation et le manipulateur derrière la plupart des événements tragiques de la série. Survivant de la troisième guerre ninja, il est devenu l'hôte du Jūbi et cherche à plonger le monde dans une illusion éternelle avec le Tsukuyomi Infini.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Histoire -->
+        <h2 class="section-title">Histoire et Évolution</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">Enfance</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Élève de Minato</h3>
+                    <p class="timeline-description">Obito grandit à Konoha comme membre du clan Uchiha. Il est l'élève du Quatrième Hokage, Minato Namikaze, aux côtés de Kakashi Hatake et Rin Nohara. Moins talentueux que ses camarades, il développe néanmoins un fort sens de l'amitié.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Guerre</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Mort apparente</h3>
+                    <p class="timeline-description">Lors d'une mission, Obito est écrasé par un rocher en sauvant Kakashi. Il est recueilli par Madara Uchiha qui le sauve en lui greffant des cellules de Hashirama. Témoin de la mort de Rin, il sombre dans la folie et adopte les plans de Madara.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Part. I</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Manipulation de l'Akatsuki</h3>
+                    <p class="timeline-description">Obito prend l'identité de "Tobi" et se présente comme un membre comique de l'Akatsuki. En réalité, il manipule l'organisation dans l'ombre et orchestre les événements pour récupérer les bijū et ressusciter le Jūbi.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Part. II</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Révélation et guerre</h3>
+                    <p class="timeline-description">Tobi se révèle comme le véritable leader de l'Akatsuki et déclenche la quatrième grande guerre ninja. Après avoir absorbé le Jūbi, il devient le Jinchūriki des dix queues et tente d'activer le Tsukuyomi Infini.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Galerie d'évolution -->
+        <h2 class="section-title">Évolution du Personnage</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <div class="gallery-item-content">
+                    <img src="obitok.jpg" alt="">
+                    <div class="gallery-caption">Jeune Obito Uchiha</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-item-content">
+                    <img src="obitoM.jpg" alt="">
+                    <div class="gallery-caption">Tobi masqué</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-item-content">
+                    <img src="obitosh.jpg" alt="">
+                    <div class="gallery-caption">Révélation du Sharingan</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-item-content">
+                    <img src="obitoj.jpg" alt="">
+                    <div class="gallery-caption">Jinchūriki du Jūbi</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Capacités et techniques -->
+        <h2 class="section-title">Techniques et Capacités</h2>
+        <div class="abilities">
+            <div class="ability-card">
+                <h3 class="ability-title">Kamui</h3>
+                <p class="ability-description">Technique spatiale du Mangekyō Sharingan permettant de se téléporter et d'envoyer des objets dans une dimension parallèle. Obito peut devenir intangible pendant 5 minutes.</p>
+            </div>
+            
+            <div class="ability-card">
+                <h3 class="ability-title">Contrôle des bijū</h3>
+                <p class="ability-description">Grâce au Sharingan, Obito peut contrôler les bijū et les jinchūriki. Il a capturé plusieurs bêtes à queue et les a scellés dans la statue Gedo.</p>
+            </div>
+            
+            <div class="ability-card">
+                <h3 class="ability-title">Jinchūriki du Jūbi</h3>
+                <p class="ability-description">Obito devient l'hôte du Jūbi, lui conférant un pouvoir quasi-divin. Il peut créer des orbes de vérité, voler et utiliser toutes les transformations du chakra.</p>
+            </div>
+            
+            <div class="ability-card">
+                <h3 class="ability-title">Rinnegan</h3>
+                <p class="ability-description">Après avoir reçu les yeux de Nagato, Obito peut utiliser les six voies de la douleur et maîtrise des techniques puissantes comme le Chibaku Tensei.</p>
+            </div>
+        </div>
+
+        <!-- Apparitions notables -->
+        <h2 class="section-title">Apparitions Clés et Épisodes</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 134</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Première apparition</h3>
+                    <p class="timeline-description">Tobi apparaît pour la première fois comme membre comique de l'Akatsuki, se présentant comme "Tobi, le bon garçon".</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 344</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Révélation comme leader</h3>
+                    <p class="timeline-description">Tobi se révèle comme le véritable leader de l'Akatsuki après la mort de Pain, annonçant le début de la quatrième guerre ninja.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 392</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Révélation de son identité</h3>
+                    <p class="timeline-description">Tobi dévoile son visage et révèle son identité comme étant Obito Uchiha face à Kakashi Hatake.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 458-463</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Combat final</h3>
+                    <p class="timeline-description">Obito, devenu Jinchūriki du Jūbi, affronte Naruto, Sasuke et l'Alliance Shinobi dans un combat épique.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personnages liés -->
+        <h2 class="section-title">Personnages Associés</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <div class="gallery-item-content">
+                    <div class="gallery-icon">👨‍🏫</div>
+                    <div class="gallery-caption">Minato Namikaze (Sensei)</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-item-content">
+                    <div class="gallery-icon">👁️</div>
+                    <div class="gallery-caption">Kakashi Hatake (Rival)</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-item-content">
+                    <div class="gallery-icon">👵</div>
+                    <div class="gallery-caption">Rin Nohara (Amour)</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-item-content">
+                    <div class="gallery-icon">👴</div>
+                    <div class="gallery-caption">Madara Uchiha (Mentor)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Plongez dans l'univers fascinant de Naruto Shippuden</p>
+        <div class="creator">Créé par Ghazli Salah Eddine</div>
+        <p>Ce site est un hommage à l'œuvre de Masashi Kishimoto</p>
+        <p style="margin-top: 15px; color: #FF5722; font-weight: bold;">"Dans ce monde, là où il y a de la lumière, il y a aussi des ténèbres." - Obito Uchiha</p>
+    </footer>
+</body>
+</html>

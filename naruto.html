@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NARUTOBIDIA</title>
+    <title>NARUTOBIDIA - Accueil</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* RESET ET STYLES GÉNÉRAUX */
@@ -22,9 +22,10 @@
                 radial-gradient(circle at 10% 20%, rgba(200, 0, 0, 0.1) 0%, transparent 20%),
                 radial-gradient(circle at 90% 80%, rgba(200, 0, 0, 0.1) 0%, transparent 20%);
             position: relative;
+            min-height: 100vh;
         }
 
-        /* Effet de particules */
+        /* Effet de particules amélioré */
         .particles {
             position: fixed;
             top: 0;
@@ -33,12 +34,19 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
+            overflow: hidden;
         }
 
         .particle {
             position: absolute;
             background: rgba(255, 0, 0, 0.3);
             border-radius: 50%;
+            animation: floatParticle linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
         }
 
         /* Layout */
@@ -49,17 +57,25 @@
             flex-direction: column;
         }
 
-        /* Header */
+        /* Header amélioré */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 30px;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.95);
             border-bottom: 2px solid #c00;
             position: sticky;
             top: 0;
             z-index: 100;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 5px 15px rgba(200, 0, 0, 0.3);
+            transition: all 0.4s ease;
+        }
+        
+        header.scrolled {
+            padding: 10px 20px;
+            box-shadow: 0 5px 15px rgba(229, 57, 53, 0.5);
         }
         
         .logo-container {
@@ -69,20 +85,21 @@
         }   
 
         .logo-img {
-            height: 40px;
+            height: 45px;
             width: auto;
-            filter: drop-shadow(0 0 5px rgba(200, 0, 0, 0.7));
+            filter: drop-shadow(0 0 8px rgba(200, 0, 0, 0.7));
             transition: transform 0.3s ease;
         }
 
         .logo-text {
             font-size: 1.8rem;
             font-weight: bold;
-            background: linear-gradient(90deg, #c00, #fff);
+            background: linear-gradient(90deg, #c00, #ffcc00);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 8px rgba(200, 0, 0, 0.5);
+            text-shadow: 0 0 10px rgba(200, 0, 0, 0.7);
+            letter-spacing: 1px;
         }
 
         /* Animation au survol */
@@ -90,7 +107,7 @@
             transform: rotate(15deg) scale(1.1);
         }
 
-        /* Styles pour la navigation */
+        /* Navigation améliorée */
         .nav-links {
             display: flex;
             gap: 20px;
@@ -100,10 +117,24 @@
             color: #fff;
             text-decoration: none;
             font-weight: 600;
-            padding: 8px 12px;
+            padding: 8px 15px;
             border-radius: 5px;
             transition: all 0.3s ease;
             position: relative;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-link::before {
+            content: '✶';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: #ffcc00;
         }
 
         .nav-link::after {
@@ -113,7 +144,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background-color: #c00;
+            background-color: #ffcc00;
             transition: width 0.3s ease;
         }
 
@@ -121,8 +152,13 @@
             width: 100%;
         }
 
+        .nav-link:hover::before {
+            opacity: 1;
+        }
+
         .nav-link.active {
             color: #ffcc00;
+            background: rgba(200, 0, 0, 0.3);
         }
 
         /* Responsive */
@@ -134,7 +170,7 @@
             }
             
             .logo-img {
-                height: 30px;
+                height: 35px;
             }
             
             .logo-text {
@@ -151,12 +187,11 @@
         /* Structure principale */
         .main-container {
             display: flex;
-            gap: 30px;
+            gap: 40px;
             max-width: 1600px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 60px 20px;
             position: relative;
-            margin-top: 20px;
         }
 
         /* Section gauche */
@@ -171,22 +206,36 @@
             min-width: 0;
         }
         
-        /* Présentation Naruto */
+        /* Présentation Naruto améliorée */
         .naruto-presentation {
             display: flex;
             gap: 40px;
-            background: rgba(20, 20, 20, 0.9);
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(10, 10, 10, 0.95));
             border: 3px solid #c00;
             border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 15px 30px rgba(200, 0, 0, 0.3);
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(200, 0, 0, 0.4);
             height: 100%;
-            transition: transform 0.5s ease;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .naruto-presentation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0,50 Q50,0 100,50 Q50,100 0,50 Z" fill="none" stroke="rgba(200,0,0,0.1)" stroke-width="2"/></svg>');
+            background-size: 200px;
+            opacity: 0.2;
         }
 
         .naruto-presentation:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(200, 0, 0, 0.5);
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(200, 0, 0, 0.6);
         }
 
         .naruto-image {
@@ -197,6 +246,13 @@
             border: 2px solid #c00;
             align-self: stretch;
             position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            transition: all 0.5s ease;
+        }
+
+        .naruto-image:hover {
+            border-color: #ffcc00;
+            box-shadow: 0 15px 40px rgba(255, 204, 0, 0.4);
         }
 
         .naruto-image img {
@@ -219,15 +275,24 @@
 
         .naruto-text h2 {
             color: #ffcc00;
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(200, 0, 0, 0.5);
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px rgba(200, 0, 0, 0.7);
+            background: linear-gradient(90deg, #ffcc00, #c00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
         }
         
         .quote {
             font-style: italic;
-            margin-bottom: 20px;
-            color: #aaa;
+            margin-bottom: 25px;
+            color: #ddd;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            padding-left: 20px;
+            border-left: 3px solid #c00;
         }
         
         .key-elements {
@@ -235,43 +300,81 @@
         }
 
         .highlight-section {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 25px;
             border-radius: 8px;
             border-left: 4px solid #c00;
-            margin-top: 25px;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(200,0,0,0.1) 0%, transparent 70%);
+            z-index: 0;
         }
         
         .highlight-section h4 {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: #ffcc00;
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
         }
         
         .highlight-section ul {
-            padding-left: 20px;
+            padding-left: 25px;
+            position: relative;
+            z-index: 1;
         }
         
         .highlight-section li {
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        
+        .highlight-section li::before {
+            content: '•';
+            color: #c00;
+            font-weight: bold;
+            position: absolute;
+            left: -20px;
+            top: 0;
+            font-size: 1.5rem;
         }
         
         .red-text {
             color: #ff6666;
             font-weight: bold;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
         }
 
-        /* Grille de cartes */
+        /* Grille de cartes améliorée */
         .propositions-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 25px;
             height: 100%;
         }
 
         .proposition {
-            height: 150px;
+            height: 180px;
             perspective: 1000px;
             cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .proposition.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .proposition-inner {
@@ -280,6 +383,9 @@
             height: 100%;
             transform-style: preserve-3d;
             transition: transform 0.6s;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
         }
 
         .proposition:hover .proposition-inner {
@@ -293,81 +399,89 @@
             backface-visibility: hidden;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            padding: 20px;
         }
 
         .proposition-front {
-            background-color: #111;
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
             border: 2px solid #c00;
+            z-index: 2;
         }
 
         .proposition-back {
-            background-color: rgba(200, 0, 0, 0.8);
+            background: linear-gradient(135deg, #c00, #8b0000);
             transform: rotateY(180deg);
             text-align: center;
+            z-index: 1;
         }
 
         .proposition-name {
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             text-align: center;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-top: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .proposition-back p {
-            font-size: 0.9rem;
-            line-height: 1.4;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
 
         /* Fond des cartes */
-        .akatsuki-bg {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #1a1a1a;
+        .akatsuki-bg .proposition-front {
+            background: linear-gradient(135deg, #2a0a0a, #1a0000);
         }
 
-        .biju-bg {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #2a0a0a;
+        .biju-bg .proposition-front {
+            background: linear-gradient(135deg, #0a2a1a, #002a10);
         }
 
-        .eyes-bg {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #0a1a2a;
+        .eyes-bg .proposition-front {
+            background: linear-gradient(135deg, #0a0a2a, #00001a);
         }
 
-        .kage-bg {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #2a1a0a;
+        .kage-bg .proposition-front {
+            background: linear-gradient(135deg, #2a1a0a, #1a1000);
         }
 
-        .jutsu-bg {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #0a2a1a;
+        .jutsu-bg .proposition-front {
+            background: linear-gradient(135deg, #1a0a2a, #10001a);
         }
 
-        .village-bg {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #1a0a2a;
+        .village-bg .proposition-front {
+            background: linear-gradient(135deg, #0a1a2a, #00101a);
         }
 
-        .death-bg {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #0a0a0a;
+        .death-bg .proposition-front {
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
         }
 
-        .villain-bg {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #2a0a1a;
+        .villain-bg .proposition-front {
+            background: linear-gradient(135deg, #2a0a1a, #1a000a);
         }
 
-        .movie-bg {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #1a2a0a;
+        .movie-bg .proposition-front {
+            background: linear-gradient(135deg, #1a2a0a, #102a00);
         }
 
         /* Icônes */
         .card-icon {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 10px;
             color: #ffcc00;
-            text-shadow: 0 0 10px rgba(200, 0, 0, 0.7);
+            text-shadow: 0 0 15px rgba(200, 0, 0, 0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .proposition:hover .card-icon {
+            transform: scale(1.2);
         }
 
         /* Liens de cartes */
@@ -375,11 +489,6 @@
             display: block;
             text-decoration: none;
             color: inherit;
-            transition: transform 0.3s ease;
-        }
-
-        .proposition-link:hover {
-            transform: scale(1.05);
         }
 
         /* Responsive */
@@ -401,11 +510,12 @@
         @media (max-width: 768px) {
             .naruto-presentation {
                 flex-direction: column;
+                padding: 30px;
             }
             
             .naruto-image {
                 min-width: 100%;
-                height: 300px;
+                height: 350px;
             }
             
             .propositions-container {
@@ -413,27 +523,59 @@
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 576px) {
             .propositions-container {
                 grid-template-columns: 1fr;
             }
         }
 
-        /* Footer */
+        /* Footer amélioré */
         footer {
-            margin-top: 50px;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.9);
+            margin-top: 60px;
+            padding: 30px 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(26,26,26,0.8));
             border-top: 2px solid #c00;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="20" cy="30" r="5" fill="rgba(200,0,0,0.1)"/><circle cx="40" cy="20" r="8" fill="rgba(200,0,0,0.1)"/><circle cx="70" cy="30" r="6" fill="rgba(200,0,0,0.1)"/><circle cx="90" cy="20" r="4" fill="rgba(200,0,0,0.1)"/></svg>');
+            background-size: 200px;
+            opacity: 0.2;
+            animation: cloudMove 40s linear infinite;
+        }
+
+        @keyframes cloudMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 1000px 0; }
         }
 
         .creator {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: bold;
             margin-top: 10px;
-            color: #c00;
-            text-shadow: 0 0 10px rgba(200, 0, 0, 0.5);
+            color: #ffcc00;
+            text-shadow: 0 0 10px rgba(200, 0, 0, 0.7);
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #ddd;
+            max-width: 800px;
+            margin: 20px auto;
+            position: relative;
+            z-index: 2;
         }
 
         /* Animations CSS */
@@ -444,12 +586,13 @@
 
         @keyframes glow {
             0% { box-shadow: 0 0 5px rgba(200, 0, 0, 0.5); }
-            100% { box-shadow: 0 0 20px rgba(200, 0, 0, 0.8); }
+            50% { box-shadow: 0 0 20px rgba(200, 0, 0, 0.8); }
+            100% { box-shadow: 0 0 5px rgba(200, 0, 0, 0.5); }
         }
 
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-15px); }
             100% { transform: translateY(0px); }
         }
 
@@ -459,23 +602,22 @@
         }
 
         .float-animation {
-            animation: float 3s ease-in-out infinite;
+            animation: float 4s ease-in-out infinite;
         }
 
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-        .delay-5 { animation-delay: 0.5s; }
+        .glow-animation {
+            animation: glow 3s ease-in-out infinite;
+        }
 
         /* Shuriken animation */
         .shuriken {
             position: absolute;
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: #ffcc00;
-            opacity: 0.3;
+            opacity: 0.2;
             z-index: -1;
-            animation: spin 10s linear infinite;
+            animation: spin 15s linear infinite;
+            text-shadow: 0 0 10px rgba(200, 0, 0, 0.5);
         }
 
         @keyframes spin {
@@ -485,7 +627,7 @@
 
         /* Scrollbar personnalisée */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 12px;
         }
 
         ::-webkit-scrollbar-track {
@@ -493,35 +635,37 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #c00;
-            border-radius: 5px;
+            background: linear-gradient(to bottom, #c00, #8b0000);
+            border-radius: 6px;
+            border: 2px solid #000;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #ff0000;
+            background: linear-gradient(to bottom, #ff0000, #c00);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Effet de particules -->
+        <!-- Effet de particules amélioré -->
         <div class="particles" id="particles"></div>
         
         <!-- Shurikens animés -->
-        <div class="shuriken" style="top: 20%; left: 10%;">✵</div>
-        <div class="shuriken" style="top: 60%; left: 90%;">✵</div>
-        <div class="shuriken" style="top: 80%; left: 15%;">✵</div>
+        <div class="shuriken" style="top: 15%; left: 5%;">✵</div>
+        <div class="shuriken" style="top: 65%; left: 92%;">✵</div>
+        <div class="shuriken" style="top: 85%; left: 12%;">✵</div>
+        <div class="shuriken" style="top: 40%; left: 85%;">✵</div>
         
-        <header>
+        <header id="main-header">
             <div class="logo-container">
                 <img src="konoha.png" alt="Logo Konoha" class="logo-img">
                 <div class="logo-text">NARUTOBIDIA</div>
             </div>
             
             <nav class="nav-links">
-                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="index.html" class="nav-link active">Accueil</a>
                 <a href="personnages.html" class="nav-link">Personnages</a>
-                <a href="akatsuki.html" class="nav-link active">Akatsuki</a>
+                <a href="akatsuki.html" class="nav-link">Akatsuki</a>
                 <a href="techniques.html" class="nav-link">Techniques</a>
                 <a href="bijuu.html" class="nav-link">Bijū</a>
                 <a href="about.html" class="nav-link">À propos</a>
@@ -537,11 +681,11 @@
                         </div>
                         <div class="naruto-text">
                             <h2>🌟 Bienvenue dans l'Univers de NARUTO!</h2>
-                            <p class="quote">"Crois-le!" - Plongez dans le monde épique des ninjas, du destin et des liens indestructibles.</p>
+                            <p class="quote">"Je ne reculerai jamais ! Je ne faiblirai pas ! Et je ne laisserai personne dire que je ne peux pas tenir mes promesses ! C'est mon nindō ! Ma voie de ninja !"</p>
                             
                             <div class="key-elements">
                                 <h3>⚡ L'histoire continue...</h3>
-                                <p>Deux ans et demi après que Naruto ait quitté Konoha pour s'entraîner avec Jiraiya, il revient plus fort, plus sage et plus déterminé que jamais.</p>
+                                <p>Deux ans et demi après que Naruto ait quitté Konoha pour s'entraîner avec Jiraiya, il revient plus fort, plus sage et plus déterminé que jamais. Mais de nouveaux dangers menacent le monde ninja.</p>
                                 
                                 <div class="highlight-section">
                                     <h4>🔥 Éléments clés :</h4>
@@ -561,9 +705,9 @@
                     <div class="propositions-container">
                         <!-- Carte 1 -->
                         <a href="akatsuki.html" class="proposition-link">
-                            <div class="proposition fade-in delay-1">
+                            <div class="proposition akatsuki-bg">
                                 <div class="proposition-inner">
-                                    <div class="proposition-front akatsuki-bg">
+                                    <div class="proposition-front">
                                         <i class="fas fa-skull card-icon"></i>
                                         <div class="proposition-name">Akatsuki</div>
                                     </div>
@@ -575,9 +719,9 @@
                         </a>
                         <!-- Carte 2 -->
                         <a href="bijuu.html" class="proposition-link">
-                            <div class="proposition fade-in delay-2">
+                            <div class="proposition biju-bg">
                                 <div class="proposition-inner">
-                                    <div class="proposition-front biju-bg">
+                                    <div class="proposition-front">
                                         <i class="fas fa-paw card-icon"></i>
                                         <div class="proposition-name">Bijū</div>
                                     </div>
@@ -590,9 +734,9 @@
                         
                         <!-- Carte 3 -->
                         <a href="dojutsu.html" class="proposition-link">
-                            <div class="proposition fade-in delay-3">
+                            <div class="proposition eyes-bg">
                                 <div class="proposition-inner">
-                                    <div class="proposition-front eyes-bg">
+                                    <div class="proposition-front">
                                         <i class="fas fa-eye card-icon"></i>
                                         <div class="proposition-name">Dōjutsu</div>
                                     </div>
@@ -605,9 +749,9 @@
                         
                         <!-- Carte 4 -->
                         <a href="kage.html" class="proposition-link">
-                            <div class="proposition fade-in delay-4">
+                            <div class="proposition kage-bg">
                                 <div class="proposition-inner">
-                                    <div class="proposition-front kage-bg">
+                                    <div class="proposition-front">
                                         <i class="fas fa-crown card-icon"></i>
                                         <div class="proposition-name">Kage</div>
                                     </div>
@@ -620,9 +764,9 @@
                         
                         <!-- Carte 5 -->
                         <a href="techniques.html" class="proposition-link">
-                            <div class="proposition fade-in delay-5">
+                            <div class="proposition jutsu-bg">
                                 <div class="proposition-inner">
-                                    <div class="proposition-front jutsu-bg">
+                                    <div class="proposition-front">
                                         <i class="fas fa-fire card-icon"></i>
                                         <div class="proposition-name">Techniques</div>
                                     </div>
@@ -635,9 +779,9 @@
                         
                         <!-- Carte 6 -->
                         <a href="villages.html" class="proposition-link">
-                            <div class="proposition fade-in">
+                            <div class="proposition village-bg">
                                 <div class="proposition-inner">
-                                    <div class="proposition-front village-bg">
+                                    <div class="proposition-front">
                                         <i class="fas fa-tree card-icon"></i>
                                         <div class="proposition-name">Villages</div>
                                     </div>
@@ -650,9 +794,9 @@
                         
                         <!-- Carte 7 -->
                         <a href="morts.html" class="proposition-link">
-                            <div class="proposition fade-in delay-1">
+                            <div class="proposition death-bg">
                                 <div class="proposition-inner">
-                                    <div class="proposition-front death-bg">
+                                    <div class="proposition-front">
                                         <i class="fas fa-skull-crossbones card-icon"></i>
                                         <div class="proposition-name">Morts</div>
                                     </div>
@@ -665,9 +809,9 @@
                         
                         <!-- Carte 8 -->
                         <a href="antagonistes.html" class="proposition-link">
-                            <div class="proposition fade-in delay-2">
+                            <div class="proposition villain-bg">
                                 <div class="proposition-inner">
-                                    <div class="proposition-front villain-bg">
+                                    <div class="proposition-front">
                                         <i class="fas fa-mask card-icon"></i>
                                         <div class="proposition-name">Antagonistes</div>
                                     </div>
@@ -680,9 +824,9 @@
                         
                         <!-- Carte 9 -->
                         <a href="films.html" class="proposition-link">
-                            <div class="proposition fade-in delay-3">
+                            <div class="proposition movie-bg">
                                 <div class="proposition-inner">
-                                    <div class="proposition-front movie-bg">
+                                    <div class="proposition-front">
                                         <i class="fas fa-film card-icon"></i>
                                         <div class="proposition-name">Films</div>
                                     </div>
@@ -698,6 +842,7 @@
         </main>
 
         <footer>
+            <p class="footer-quote">"Les larmes et la douleur, c'est ce que j'ai ressenti quand j'ai perdu mes amis. C'est pour cela que je ne veux plus jamais perdre personne." - Naruto Uzumaki</p>
             <p>Plongez dans l'univers fascinant de Naruto Shippuden</p>
             <div class="creator">Créé par Ghazli Salah Eddine</div>
             <p><small>Ce site est un hommage à l'œuvre de Masashi Kishimoto</small></p>
@@ -705,31 +850,33 @@
     </div>
 
     <script>
-        // Animation de particules
+        // Animation de particules améliorée
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
+            const particleCount = 100;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
                 // Taille aléatoire
-                const size = Math.random() * 5 + 2;
+                const size = Math.random() * 8 + 2;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
                 // Position aléatoire
                 particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100 + 100}%`;
                 
                 // Animation
-                particle.style.animation = `float ${Math.random() * 6 + 4}s infinite ease-in-out`;
-                particle.style.animationDelay = `${Math.random() * 2}s`;
+                const duration = Math.random() * 20 + 10;
+                particle.style.animation = `floatParticle ${duration}s linear infinite`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
                 
                 // Couleur
                 const colors = ['#ff0000', '#ff6600', '#ffcc00', '#ffffff'];
                 particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
                 
                 particlesContainer.appendChild(particle);
             }
@@ -742,18 +889,18 @@
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('fade-in');
+                        entry.target.classList.add('visible');
                         observer.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.1 });
+            }, { threshold: 0.15 });
             
             cards.forEach(card => {
                 observer.observe(card);
             });
         }
         
-        // Effet de survol amélioré pour les cartes
+        // Effet de survol 3D pour les cartes
         function enhanceCardHover() {
             const cards = document.querySelectorAll('.proposition');
             
@@ -766,8 +913,8 @@
                     const centerX = cardRect.width / 2;
                     const centerY = cardRect.height / 2;
                     
-                    const angleY = (x - centerX) / 8;
-                    const angleX = (centerY - y) / 8;
+                    const angleY = (x - centerX) / 15;
+                    const angleX = (centerY - y) / 15;
                     
                     card.querySelector('.proposition-inner').style.transform = 
                         `rotateY(${angleY}deg) rotateX(${angleX}deg)`;
@@ -779,11 +926,24 @@
             });
         }
 
+        // Animation du header au scroll
+        function handleHeaderScroll() {
+            const header = document.getElementById('main-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        }
+
         // Initialisation des animations
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
             animateCardsOnScroll();
             enhanceCardHover();
+            handleHeaderScroll();
             
             // Effet de parallaxe pour l'image principale
             const narutoImage = document.querySelector('.naruto-image');
@@ -798,9 +958,15 @@
             const title = document.querySelector('.logo-text');
             if (title) {
                 setInterval(() => {
-                    title.style.textShadow = `0 0 ${Math.random() * 15 + 5}px rgba(200, 0, 0, ${Math.random() * 0.5 + 0.5})`;
+                    title.style.textShadow = `0 0 ${Math.random() * 15 + 5}px rgba(255, 0, 0, ${Math.random() * 0.5 + 0.5})`;
                 }, 2000);
             }
+            
+            // Animation des shurikens
+            const shurikens = document.querySelectorAll('.shuriken');
+            shurikens.forEach((shuriken, index) => {
+                shuriken.style.animationDuration = `${15 + index * 3}s`;
+            });
         });
     </script>
 </body>

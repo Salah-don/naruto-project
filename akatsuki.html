@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akatsuki - Tous les Membres</title>
+    <title>Akatsuki - Organisation Légendaire</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Variables et reset */
         :root {
             --red: #e53935;
-            --dark: #1a1a1a;
+            --dark: #121212;
             --cloud: #b71c1c;
             --text: #f5f5f5;
+            --gold: #ffcc00;
+            --dark-red: #8b0000;
+            --akatsuki-bg: linear-gradient(135deg, #0a0a0a, #1a1a1a);
         }
         
         * {
@@ -22,95 +25,173 @@
         }
         
         body {
-            background: var(--dark);
+            background-color: #000;
             color: var(--text);
-            padding-top: 70px; /* Espace pour la navbar fixe */
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(200, 0, 0, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(200, 0, 0, 0.1) 0%, transparent 20%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            background-image: url('bgak.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         
-        /* Nouveau header transformé */
-        header {
+        /* Overlay sombre pour améliorer la lisibilité */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+        
+        /* Header magnifique */
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(10, 10, 18, 0.95), rgba(5, 5, 10, 0.85));
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid var(--cloud);
+            box-shadow: 0 5px 25px rgba(200, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            padding: 15px 0;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 30px;
-            background-color: rgba(0, 0, 0, 0.9);
-            border-bottom: 2px solid #c00;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(229, 57, 53, 0.3);
+            padding: 0 30px;
         }
-        
+
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }   
 
         .logo-img {
-            height: 40px;
+            height: 45px;
             width: auto;
-            filter: drop-shadow(0 0 5px rgba(200, 0, 0, 0.7));
-            transition: transform 0.3s ease;
+            filter: drop-shadow(0 0 8px rgba(200, 0, 0, 0.8));
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .logo-text {
             font-size: 1.8rem;
             font-weight: bold;
-            background: linear-gradient(90deg, #c00, #fff);
+            background: linear-gradient(90deg, var(--gold), var(--red));
             -webkit-background-clip: text;
             background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 8px rgba(200, 0, 0, 0.5);
-        }
-
-        /* Animation au survol */
-        .logo-container:hover .logo-img {
-            transform: rotate(15deg) scale(1.1);
-        }
-
-        /* Styles pour la navigation */
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-link {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 8px 12px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(200, 0, 0, 0.6);
+            letter-spacing: 1px;
             position: relative;
         }
 
-        .nav-link::after {
+        .logo-text::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -5px;
             left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #c00;
-            transition: width 0.3s ease;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--red), transparent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
         }
 
-        .nav-link:hover::after {
+        .logo-container:hover .logo-img {
+            transform: rotate(15deg) scale(1.15);
+        }
+
+        .logo-container:hover .logo-text::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-red), transparent);
+            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            transition: clip-path 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover::before {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
         }
 
         .nav-link.active {
-            color: #ffcc00;
+            color: var(--gold);
+            transform: translateY(-3px);
         }
 
-        /* En-tête avec description */
+        .nav-link.active::before {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        /* En-tête Akatsuki avec effet de nuage animé */
         .akatsuki-header {
-            padding: 80px 20px 40px;
+            padding: 160px 20px 60px;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cloud-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="30" r="10" fill="rgba(229,57,53,0.1)"/><circle cx="40" cy="20" r="15" fill="rgba(229,57,53,0.1)"/><circle cx="70" cy="30" r="12" fill="rgba(229,57,53,0.1)"/><circle cx="90" cy="20" r="8" fill="rgba(229,57,53,0.1)"/></svg>');
+            background-size: 300px;
+            opacity: 0.3;
+            animation: cloudMove 60s linear infinite;
+        }
+        
+        @keyframes cloudMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 1000px 0; }
         }
         
         .header-content {
@@ -119,6 +200,9 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            gap: 50px;
         }
         
         .header-text {
@@ -129,98 +213,182 @@
         .title {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--red), var(--gold));
         }
         
         .title-icon {
-            font-size: 36px;
+            font-size: 42px;
             color: var(--red);
             margin-right: 15px;
+            text-shadow: 0 0 15px rgba(229, 57, 53, 0.7);
         }
         
         .title-text {
-            font-size: 42px;
+            font-size: 3.5rem;
             text-transform: uppercase;
             letter-spacing: 3px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            background: linear-gradient(45deg, var(--red), var(--gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .description {
-            font-size: 18px;
+            font-size: 1.2rem;
             line-height: 1.8;
             max-width: 800px;
+            margin-top: 30px;
+            padding-left: 10px;
+            border-left: 3px solid var(--cloud);
+            color: #ddd;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
         }
         
         .header-logo {
             flex: 1;
             display: flex;
             justify-content: center;
+            position: relative;
         }
         
         .akatsuki-logo {
             max-width: 100%;
             height: auto;
+            filter: drop-shadow(0 0 20px rgba(229, 57, 53, 0.5));
             animation: float 6s ease-in-out infinite;
+            transition: transform 0.5s ease;
+            max-width: 400px;
         }
         
-        /* Section des membres */
+        .akatsuki-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Section des membres améliorée - cartes réduites */
         .members-section {
-            padding: 40px 20px;
+            padding: 100px 20px;
+            position: relative;
+            background: rgba(10, 10, 18, 0.8);
         }
         
         .section-title {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title::before {
+            content: '☁';
+            position: absolute;
+            left: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+            color: rgba(229, 57, 53, 0.2);
+        }
+        
+        .section-title::after {
+            content: '☁';
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+            color: rgba(229, 57, 53, 0.2);
         }
         
         .section-icon {
-            font-size: 32px;
+            font-size: 36px;
             color: var(--red);
             margin-right: 15px;
+            text-shadow: 0 0 10px rgba(229, 57, 53, 0.7);
         }
         
         .section-text {
-            font-size: 36px;
+            font-size: 2.5rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-align: center;
+            background: linear-gradient(45deg, var(--red), var(--gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
         }
         
         .members-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 30px;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
         
         .member-card {
-            background: rgba(30, 30, 30, 0.9);
-            border-radius: 8px;
+            background: linear-gradient(145deg, rgba(40, 40, 40, 0.9), rgba(30, 30, 30, 0.9));
+            border-radius: 12px;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid rgba(181, 28, 28, 0.3);
             position: relative;
             height: 380px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .member-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .member-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(229, 57, 53, 0.4);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(229, 57, 53, 0.7);
             border: 1px solid var(--cloud);
+            z-index: 10;
+        }
+        
+        .member-img-container {
+            width: 100%;
+            height: 230px;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 3px solid var(--cloud);
         }
         
         .member-img {
             width: 100%;
-            height: 250px;
+            height: 100%;
             object-fit: cover;
-            border-bottom: 2px solid var(--cloud);
+            transition: transform 0.5s ease;
+        }
+        
+        .member-card:hover .member-img {
+            transform: scale(1.1);
         }
         
         .member-info {
             padding: 20px;
+            position: relative;
+            z-index: 2;
         }
         
         .member-name {
@@ -230,19 +398,23 @@
         }
         
         .member-icon {
-            color: var(--red);
+            color: var(--gold);
             margin-right: 10px;
             font-size: 20px;
+            text-shadow: 0 0 8px rgba(229, 57, 53, 0.7);
         }
         
         .member-name-text {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
+            color: var(--text);
         }
         
         .member-partner {
             font-size: 16px;
-            color: #aaa;
+            color: #ccc;
+            font-style: italic;
+            padding-left: 30px;
         }
         
         .card-link {
@@ -254,107 +426,201 @@
             z-index: 2;
         }
         
-        /* Pied de page */
+        .member-card::before {
+            content: '☁';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 20px;
+            color: rgba(229, 57, 53, 0.3);
+            z-index: 1;
+        }
+        
+        /* Pied de page amélioré */
         footer {
-            background: rgba(0, 0, 0, 0.95);
-            padding: 30px 0;
+            background: linear-gradient(to top, rgba(5, 5, 10, 0.95), rgba(10, 10, 18, 0.9));
+            padding: 60px 0 30px;
             text-align: center;
-            border-top: 2px solid var(--cloud);
+            border-top: 3px solid var(--cloud);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
         .footer-text {
-            font-size: 16px;
-            color: #aaa;
+            font-size: 17px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        
+        .akatsuki-quote {
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--gold);
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 30px;
+            border-top: 2px solid var(--cloud);
+            border-bottom: 2px solid var(--cloud);
+            text-shadow: 0 0 15px rgba(229, 57, 53, 0.7);
+            line-height: 1.6;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .social-link {
+            color: var(--text);
+            font-size: 24px;
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(229, 57, 53, 0.2);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .social-link:hover {
+            color: var(--gold);
+            transform: translateY(-5px) scale(1.1);
+            text-shadow: 0 0 15px rgba(229, 57, 53, 0.8);
+            background: rgba(229, 57, 53, 0.4);
+            box-shadow: 0 0 20px rgba(229, 57, 53, 0.5);
+        }
+        
+        .copyright {
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1rem;
+            color: #888;
+            margin-top: 30px;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
         }
 
         /* Animation pour le logo */
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-20px); }
             100% { transform: translateY(0px); }
         }
         
         /* Responsive */
-        @media (max-width: 992px) {
+        @media (max-width: 1200px) {
             .header-content {
                 flex-direction: column;
+                text-align: center;
             }
             
             .header-text {
                 padding-right: 0;
-                margin-bottom: 40px;
+                margin-bottom: 50px;
             }
             
             .title {
                 justify-content: center;
             }
+            
+            .title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .description {
+                border-left: none;
+                padding-left: 0;
+                text-align: center;
+                margin: 0 auto;
+            }
+            
+            .section-title::before,
+            .section-title::after {
+                display: none;
+            }
         }
         
         @media (max-width: 768px) {
-            header {
+            .header-container {
                 flex-direction: column;
-                padding: 15px;
                 gap: 15px;
-            }
-            
-            .logo-img {
-                height: 30px;
-            }
-            
-            .logo-text {
-                font-size: 1.5rem;
             }
             
             .nav-links {
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 10px;
             }
             
             .title-text {
-                font-size: 32px;
+                font-size: 2.8rem;
             }
             
             .section-text {
-                font-size: 28px;
+                font-size: 2rem;
             }
             
-            .members-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            .akatsuki-quote {
+                font-size: 1.5rem;
             }
         }
         
         @media (max-width: 480px) {
             .title-text {
-                font-size: 28px;
+                font-size: 2.2rem;
             }
             
             .description {
-                font-size: 16px;
+                font-size: 1rem;
+            }
+            
+            .section-text {
+                font-size: 1.6rem;
+            }
+            
+            .akatsuki-quote {
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Nouveau header transformé -->
-    <header>
-        <div class="logo-container">
-            <img src="konoha.png" alt="Logo Konoha" class="logo-img">
-            <div class="logo-text">NARUTOBIDIA</div>
+    <!-- Header magnifique -->
+    <header class="sticky-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="konoha.png" alt="Logo Konoha" class="logo-img">
+                <div class="logo-text">NARUTOBIDIA</div>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="personnages.html" class="nav-link">Personnages</a>
+                <a href="akatsuki.html" class="nav-link active">Akatsuki</a>
+                <a href="techniques.html" class="nav-link">Techniques</a>
+                <a href="bijuu.html" class="nav-link">Bijū</a>
+                <a href="about.html" class="nav-link">À propos</a>
+            </nav>
         </div>
-        
-        <nav class="nav-links">
-            <a href="index.html" class="nav-link">Accueil</a>
-            <a href="personnages.html" class="nav-link">Personnages</a>
-            <a href="akatsuki.html" class="nav-link active">Akatsuki</a>
-            <a href="techniques.html" class="nav-link">Techniques</a>
-            <a href="bijuu.html" class="nav-link">Bijū</a>
-            <a href="about.html" class="nav-link">À propos</a>
-        </nav>
     </header>
 
-    <!-- En-tête avec description -->
+    <!-- En-tête avec effet de nuage -->
     <section class="akatsuki-header">
+        <div class="cloud-overlay"></div>
         <div class="header-content">
             <div class="header-text">
                 <div class="title">
@@ -372,22 +638,23 @@
             
             <div class="header-logo">
                 <img src="akatsuki-v0.png" alt="Logo Akatsuki" class="akatsuki-logo">
-                
             </div>
         </div>
     </section>
 
-    <!-- Section des membres -->
+    <!-- Section des membres avec effets d'apparition -->
     <section class="members-section">
         <div class="section-title">
             <div class="section-icon">☁</div>
-            <h2 class="section-text">Tous les Membres de l'Akatsuki</h2>
+            <h2 class="section-text">Membres de l'Akatsuki</h2>
         </div>
         
         <div class="members-grid">
             <!-- Pain -->
             <div class="member-card">
-                <img src="pain2.jpg" alt="Pain (Nagato)" class="member-img">
+                <div class="member-img-container">
+                    <img src="pain2.jpg" alt="Pain (Nagato)" class="member-img">
+                </div>
                 <div class="member-info">
                     <div class="member-name">
                         <div class="member-icon">☁</div>
@@ -400,7 +667,9 @@
             
             <!-- Konan -->
             <div class="member-card">
-                <img src="conan.jpg" alt="Konan" class="member-img">
+                <div class="member-img-container">
+                    <img src="conan.jpg" alt="Konan" class="member-img">
+                </div>
                 <div class="member-info">
                     <div class="member-name">
                         <div class="member-icon">☁</div>
@@ -413,7 +682,9 @@
             
             <!-- Itachi -->
             <div class="member-card">
-                <img src="itachi2.jpg" alt="Itachi Uchiwa" class="member-img">
+                <div class="member-img-container">
+                    <img src="itachi2.jpg" alt="Itachi Uchiwa" class="member-img">
+                </div>
                 <div class="member-info">
                     <div class="member-name">
                         <div class="member-icon">☁</div>
@@ -426,7 +697,9 @@
             
             <!-- Kisame -->
             <div class="member-card">
-                <img src="kisam.jpg" alt="Kisame Hoshigaki" class="member-img">
+                <div class="member-img-container">
+                    <img src="kisam.jpg" alt="Kisame Hoshigaki" class="member-img">
+                </div>
                 <div class="member-info">
                     <div class="member-name">
                         <div class="member-icon">☁</div>
@@ -439,7 +712,9 @@
             
             <!-- Deidara -->
             <div class="member-card">
-                <img src="deidara.jpg" alt="Deidara" class="member-img">
+                <div class="member-img-container">
+                    <img src="deidara.jpg" alt="Deidara" class="member-img">
+                </div>
                 <div class="member-info">
                     <div class="member-name">
                         <div class="member-icon">☁</div>
@@ -452,7 +727,9 @@
             
             <!-- Sasori -->
             <div class="member-card">
-                <img src="sasori2.jpg" alt="Sasori" class="member-img">
+                <div class="member-img-container">
+                    <img src="sasori2.jpg" alt="Sasori" class="member-img">
+                </div>
                 <div class="member-info">
                     <div class="member-name">
                         <div class="member-icon">☁</div>
@@ -465,7 +742,9 @@
             
             <!-- Kakuzu -->
             <div class="member-card">
-                <img src="kakuzu.jpg" alt="Kakuzu" class="member-img">
+                <div class="member-img-container">
+                    <img src="kakuzu.jpg" alt="Kakuzu" class="member-img">
+                </div>
                 <div class="member-info">
                     <div class="member-name">
                         <div class="member-icon">☁</div>
@@ -478,7 +757,9 @@
             
             <!-- Hidan -->
             <div class="member-card">
-                <img src="hidan.jpg" alt="Hidan" class="member-img">
+                <div class="member-img-container">
+                    <img src="hidan.jpg" alt="Hidan" class="member-img">
+                </div>
                 <div class="member-info">
                     <div class="member-name">
                         <div class="member-icon">☁</div>
@@ -491,7 +772,9 @@
             
             <!-- Tobi -->
             <div class="member-card">
-                <img src="tobi2.jpg" alt="Tobi (Obito)" class="member-img">
+                <div class="member-img-container">
+                    <img src="tobi2.jpg" alt="Tobi (Obito)" class="member-img">
+                </div>
                 <div class="member-info">
                     <div class="member-name">
                         <div class="member-icon">☁</div>
@@ -504,7 +787,9 @@
             
             <!-- Zetsu -->
             <div class="member-card">
-                <img src="zetsu.jpg" alt="Zetsu" class="member-img">
+                <div class="member-img-container">
+                    <img src="zetsu.jpg" alt="Zetsu" class="member-img">
+                </div>
                 <div class="member-info">
                     <div class="member-name">
                         <div class="member-icon">☁</div>
@@ -517,9 +802,86 @@
         </div>
     </section>
 
-    <!-- Pied de page -->
+    <!-- Pied de page amélioré -->
     <footer>
-        <p class="footer-text">© 2025 Organisation Akatsuki - Tous droits réservés. Site créé par un fan.</p>
+        <div class="footer-content">
+            <p class="akatsuki-quote">"Dans ce monde, là où il y a de la lumière, il y a aussi des ténèbres. L'Akatsuki est la lune qui brille dans la nuit pour éclairer le monde."</p>
+            
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Naruto Shippuden Universe. Tous droits réservés.</p>
+                <p>Créé par Ghazli Salah Eddine</p>
+                <p><small>Ce site est un hommage à l'œuvre de Masashi Kishimoto</small></p>
+            </div>
+        </div>
     </footer>
+
+    <script>
+        // Animation du header au scroll
+        const header = document.querySelector('.sticky-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.style.transform = 'translateY(0)';
+                header.style.boxShadow = '0 5px 25px rgba(200, 0, 0, 0.5)';
+            } else {
+                header.style.boxShadow = '0 5px 25px rgba(200, 0, 0, 0.3)';
+            }
+        });
+
+        // Animation d'apparition des cartes au défilement
+        const memberCards = document.querySelectorAll('.member-card');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, 150 * Array.from(memberCards).indexOf(entry.target));
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        });
+
+        memberCards.forEach(card => {
+            observer.observe(card);
+        });
+
+        // Effet de parallaxe sur le logo Akatsuki
+        const akatsukiLogo = document.querySelector('.akatsuki-logo');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            akatsukiLogo.style.transform = `translateY(${scrollY * -0.1}px) rotate(${scrollY * 0.05}deg)`;
+        });
+
+        // Effet de survol amélioré sur les liens
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                link.style.transform = 'scale(1.1) translateY(-3px)';
+                link.style.textShadow = '0 0 10px rgba(229, 57, 53, 0.8)';
+            });
+            
+            link.addEventListener('mouseleave', () => {
+                link.style.transform = 'scale(1) translateY(0)';
+                link.style.textShadow = 'none';
+            });
+        });
+        
+        // Animation du titre
+        const title = document.querySelector('.logo-text');
+        if (title) {
+            setInterval(() => {
+                title.style.textShadow = `0 0 ${Math.random() * 15 + 5}px rgba(200, 0, 0, ${Math.random() * 0.5 + 0.5})`;
+            }, 2000);
+        }
+    </script>
 </body>
 </html>

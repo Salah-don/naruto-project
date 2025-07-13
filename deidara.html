@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narutobidia - Profil de Deidara</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 10, 20, 0.95);
+            border-bottom: 3px solid #FF9800;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+            filter: drop-shadow(0 0 8px rgba(255, 152, 0, 0.8));
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 12px rgba(255, 152, 0, 0.8);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 0;
+            position: relative;
+            transition: color 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .nav-link:hover {
+            color: #FF9800;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #FF9800, #7B1FA2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Profil Header */
+        .profile-header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                        radial-gradient(circle at 30% 40%, #FF9800 0%, #7B1FA2 70%, #0a0a0a 100%);
+            background-size: cover;
+            background-position: center;
+            padding: 50px 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            border: 3px solid #FF9800;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(255, 152, 0, 0.3);
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.9) 100%);
+        }
+
+        .profile-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="10" fill="none" stroke="rgba(255,152,0,0.1)" stroke-width="2"/><circle cx="50" cy="50" r="20" fill="none" stroke="rgba(123,31,162,0.1)" stroke-width="2"/><circle cx="50" cy="50" r="30" fill="none" stroke="rgba(255,152,0,0.1)" stroke-width="2"/></svg>');
+            background-size: 200px;
+            opacity: 0.3;
+            animation: rotate 120s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .profile-info {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 4px solid #FF9800;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 152, 0, 0.6);
+            background: linear-gradient(45deg, #7B1FA2, #FF9800);
+            position: relative;
+            transition: transform 0.5s ease;
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-details {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .profile-name {
+            font-size: 2.8rem;
+            color: #fff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(255, 152, 0, 0.8);
+            letter-spacing: 1px;
+        }
+
+        .profile-title {
+            font-size: 1.5rem;
+            color: #FF9800;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(123, 31, 162, 0.8);
+        }
+
+        .profile-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px 25px;
+            background: rgba(30, 30, 40, 0.8);
+            border-radius: 10px;
+            border-left: 4px solid #FF9800;
+            min-width: 120px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            background: rgba(40, 40, 50, 0.9);
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            color: #FF9800;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-shadow: 0 0 8px rgba(123, 31, 162, 0.8);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #ddd;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .profile-bio {
+            margin-top: 25px;
+            line-height: 1.8;
+            max-width: 800px;
+            font-size: 1.1rem;
+            background: rgba(20, 20, 30, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #7B1FA2;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #FF9800;
+            margin: 50px 0 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #7B1FA2;
+            text-shadow: 0 0 10px rgba(123, 31, 162, 0.5);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF9800, #7B1FA2);
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            margin-bottom: 50px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 25px;
+            padding: 25px;
+            background: rgba(25, 25, 35, 0.8);
+            border-radius: 12px;
+            border-left: 5px solid #FF9800;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(255, 152, 0, 0.3);
+            border-left: 5px solid #7B1FA2;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255,152,0,0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .timeline-year {
+            min-width: 100px;
+            text-align: center;
+            font-weight: bold;
+            color: #7B1FA2;
+            font-size: 1.5rem;
+            text-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #FF9800;
+            text-shadow: 0 0 5px rgba(123, 31, 162, 0.5);
+        }
+
+        .timeline-description {
+            line-height: 1.7;
+            color: #ddd;
+            font-size: 1.1rem;
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            height: 320px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+            border-color: rgba(255, 152, 0, 0.5);
+            z-index: 2;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 20px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .gallery-caption {
+            font-size: 1.6rem;
+            font-weight: bold;
+            text-align: center;
+            color: #FF9800;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            letter-spacing: 1px;
+            padding: 10px 15px;
+            background: rgba(123, 31, 162, 0.7);
+            border-radius: 8px;
+            display: inline-block;
+            transform: translateY(10px);
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* Animation spéciale pour l'ultime explosion */
+        .gallery-item:nth-child(3):hover {
+            box-shadow: 0 0 30px rgba(255, 87, 34, 0.8), 0 0 60px rgba(255, 193, 7, 0.6);
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 30px rgba(255, 87, 34, 0.8), 0 0 60px rgba(255, 193, 7, 0.6); }
+            100% { box-shadow: 0 0 50px rgba(255, 87, 34, 1), 0 0 80px rgba(255, 193, 7, 0.8); }
+        }
+
+        /* Abilities */
+        .abilities {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .ability-card {
+            background: rgba(25, 25, 35, 0.8);
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid #333;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .ability-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,152,0,0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .ability-card:hover {
+            border-color: #FF9800;
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(255, 152, 0, 0.3);
+        }
+
+        .ability-title {
+            font-size: 1.5rem;
+            color: #FF9800;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 8px rgba(123, 31, 162, 0.5);
+        }
+
+        .ability-description {
+            line-height: 1.7;
+            color: #ddd;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ability-description ul {
+            margin-top: 15px;
+            padding-left: 25px;
+        }
+
+        .ability-description li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .ability-description li::before {
+            content: '💥';
+            position: absolute;
+            left: -25px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(10, 10, 20, 0.95);
+            border-top: 3px solid #FF9800;
+            margin-top: 60px;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,152,0,0.2)"/><circle cx="50" cy="30" r="1.5" fill="rgba(123,31,162,0.2)"/><circle cx="80" cy="20" r="1.2" fill="rgba(255,152,0,0.2)"/><circle cx="40" cy="60" r="1.8" fill="rgba(123,31,162,0.2)"/><circle cx="70" cy="70" r="1.3" fill="rgba(255,152,0,0.2)"/><circle cx="10" cy="50" r="1.5" fill="rgba(123,31,162,0.2)"/><circle cx="90" cy="80" r="1.7" fill="rgba(255,152,0,0.2)"/></svg>');
+            background-size: 300px;
+            opacity: 0.2;
+        }
+
+        .creator {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #FF9800;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 8px rgba(123, 31, 162, 0.8);
+        }
+
+        /* Quote */
+        .quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            border-left: 5px solid #7B1FA2;
+            background: rgba(123, 31, 162, 0.2);
+            border-radius: 0 10px 10px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .quote::before {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            left: 10px;
+            top: -20px;
+            color: rgba(255, 152, 0, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .profile-info {
+                justify-content: center;
+                text-align: center;
+                gap: 30px;
+            }
+            
+            .profile-stats {
+                justify-content: center;
+            }
+            
+            .stat-item {
+                padding: 12px 20px;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .timeline-year {
+                text-align: left;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .abilities {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <div class="logo-img">
+                <svg width="50" height="50" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="#FF9800" opacity="0.8" />
+                    <path d="M30,30 L70,30 L70,70 L30,70 Z" fill="none" stroke="#fff" stroke-width="5" />
+                    <circle cx="50" cy="50" r="15" fill="#7B1FA2" />
+                    <path d="M40,40 L60,60 M60,40 L40,60" stroke="#FF9800" stroke-width="4" />
+                </svg>
+            </div>
+            <div class="logo-text">NARUTOBIDIA</div>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="naruto.html" class="nav-link">Accueil</a>
+            <a href="akatsuki.html" class="nav-link">Akatsuki</a>
+            <a href="#" class="nav-link">Techniques</a>
+            <a href="#" class="nav-link">Arcs</a>
+            <a href="#" class="nav-link">Épisodes</a>
+            <a href="#" class="nav-link">À propos</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Profil Header -->
+        <div class="profile-header">
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    <img src="https://i.ibb.co/6y7n0j5/deidara-profile.png" alt="Deidara">
+                </div>
+                <div class="profile-details">
+                    <h1 class="profile-name">Deidara</h1>
+                    <div class="profile-title">Artiste Explosif • Membre de l'Akatsuki • Ninja Déserteur d'Iwa</div>
+                    
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">19</div>
+                            <div class="stat-label">Âge</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">S</div>
+                            <div class="stat-label">Rang</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">Terre</div>
+                            <div class="stat-label">Élément</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">87</div>
+                            <div class="stat-label">Épisodes</div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-bio">
+                        <p>Deidara est un ninja déserteur du village caché de Iwa et un ancien membre de l'organisation criminelle Akatsuki. Artiste passionné, il considère ses explosions comme la forme ultime d'art. Doté d'un Kekkei Genkai unique lui permettant de créer de l'argile explosive, il est connu pour son célèbre cri "L'art est une explosion !". Son style de combat unique et sa philosophie artistique en font l'un des personnages les plus mémorables de l'univers Naruto.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Histoire -->
+        <h2 class="section-title">Histoire et Évolution</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">Enfance</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Découverte de l'art explosif</h3>
+                    <p class="timeline-description">Deidara rejoint l'Académie Ninja d'Iwagakure à un jeune âge. Il développe son Kekkei Genkai unique permettant de créer de l'argile explosive. Considéré comme un prodige, il devient chūnin à 9 ans et impressionne par sa maîtrise des techniques explosives.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Part. I</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Défection et intégration à l'Akatsuki</h3>
+                    <p class="timeline-description">Après avoir quitté Iwa, Deidara rejoint l'Akatsuki où il forme un duo avec Sasori. Il participe à de nombreuses missions pour l'organisation, notamment la capture des bijū. Son art explosif devient sa signature dans le monde ninja.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Part. II</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Confrontation avec Gaara et Sasuke</h3>
+                    <p class="timeline-description">Deidara capture Gaara, le Kazekage, pour extraire le Shukaku. Plus tard, il affronte Sasuke Uchiha dans un combat épique qui se termine par son autodestruction, affirmant que sa dernière œuvre serait son chef-d'œuvre.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Guerre</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Résurrection et combat final</h3>
+                    <p class="timeline-description">Réincarné par Kabuto pendant la quatrième grande guerre ninja, Deidara affronte à nouveau les forces alliées. Il est finalement scellé après un combat contre Kankurō et Sai, mettant fin à son parcours d'artiste explosif.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Galerie d'évolution -->
+        <h2 class="section-title">Évolution du Personnage</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <div class="gallery-image" style="background-image: url('https://i.ibb.co/0FZc1yX/deidara-kid.jpg');"></div>
+                <div class="gallery-overlay">
+                    <div class="gallery-caption">Jeune prodige d'Iwa</div>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <div class="gallery-image" style="background-image: url('https://i.ibb.co/6sQqQqY/deidara-akatsuki.jpg');"></div>
+                <div class="gallery-overlay">
+                    <div class="gallery-caption">Membre de l'Akatsuki</div>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <div class="gallery-image" style="background-image: url('https://i.ibb.co/8X7tB2H/deidara-explosion.jpg');"></div>
+                <div class="gallery-overlay">
+                    <div class="gallery-caption">Ultime explosion</div>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <div class="gallery-image" style="background-image: url('https://i.ibb.co/1M9Yv8S/deidara-edo.jpg');"></div>
+                <div class="gallery-overlay">
+                    <div class="gallery-caption">Réincarné par Edo Tensei</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Capacités et techniques -->
+        <h2 class="section-title">Techniques et Capacités</h2>
+        <div class="abilities">
+            <div class="ability-card">
+                <h3 class="ability-title">Kekkei Genkai : Bakuton</h3>
+                <p class="ability-description">Deidara possède un Kekkei Genkai unique lui permettant de créer de l'argile explosive en mélangeant son chakra à de la terre. Il modèle cette argile en différentes formes qu'il peut contrôler à distance.</p>
+            </div>
+            
+            <div class="ability-card">
+                <h3 class="ability-title">Œuvres d'art explosives</h3>
+                <p class="ability-description">Ses créations les plus notables incluent :</p>
+                <ul>
+                    <li><strong>C1 :</strong> Petits oiseaux et insectes explosifs pour des attaques rapides et précises</li>
+                    <li><strong>C2 :</strong> Dragon géant volant capable de larguer des bombes</li>
+                    <li><strong>C3 :</strong> Bombe à grande échelle pour détruire des villages entiers</li>
+                    <li><strong>C4 :</strong> Nanobombes microscopiques qui pénètrent dans le corps</li>
+                </ul>
+            </div>
+            
+            <div class="ability-card">
+                <h3 class="ability-title">Œil artificiel</h3>
+                <p class="ability-description">Après sa défaite face à Itachi, Deidara s'est implanté un œil artificiel dans la paume de sa main gauche, capable de voir le chakra et de contrer les genjutsu. Cette modification lui permet de perfectionner son art.</p>
+            </div>
+        </div>
+
+        <!-- Apparitions notables -->
+        <h2 class="section-title">Apparitions Clés et Épisodes</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 126</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Première apparition</h3>
+                    <p class="timeline-description">Deidara fait sa première apparition aux côtés de Sasori pour capturer Gaara, démontrant sa puissance dès son introduction.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 144-145</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Combat contre Kakashi</h3>
+                    <p class="timeline-description">Deidara affronte Kakashi Hatake après la capture de Gaara, montrant son habileté tactique et sa maîtrise des techniques explosives.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 331-339</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Affrontement avec Sasuke</h3>
+                    <p class="timeline-description">Le combat légendaire entre Deidara et Sasuke qui se termine par l'autodestruction de Deidara, son chef-d'œuvre ultime.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 266-267</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Retour pendant la guerre</h3>
+                    <p class="timeline-description">Deidara est réincarné par Kabuto et participe à la quatrième grande guerre ninja, démontrant une fois encore son art explosif.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personnages liés -->
+        <h2 class="section-title">Personnages Associés</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <div class="gallery-image" style="background-image: url('https://i.ibb.co/vd1JdD7/sasori.jpg');"></div>
+                <div class="gallery-overlay">
+                    <div class="gallery-caption">Sasori (partenaire)</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-image" style="background-image: url('https://i.ibb.co/1rQrFv6/tobi.jpg');"></div>
+                <div class="gallery-overlay">
+                    <div class="gallery-caption">Tobi (leader Akatsuki)</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-image" style="background-image: url('https://i.ibb.co/4p8N1g0/itachi.jpg');"></div>
+                <div class="gallery-overlay">
+                    <div class="gallery-caption">Itachi Uchiha (rival)</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-image" style="background-image: url('https://i.ibb.co/G7vFZx4/gaara.jpg');"></div>
+                <div class="gallery-overlay">
+                    <div class="gallery-caption">Gaara (cible principale)</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="quote">
+            L'art est une explosion ! Une beauté éphémère, une forme d'expression qui ne dure qu'un instant mais qui reste gravée à jamais dans les mémoires. C'est cela, la véritable essence de l'art.
+        </div>
+    </div>
+
+    <footer>
+        <p>Plongez dans l'univers fascinant de Naruto Shippuden</p>
+        <div class="creator">Créé par Ghazli Salah Eddine</div>
+        <p>Ce site est un hommage à l'œuvre de Masashi Kishimoto</p>
+        <p style="margin-top: 15px; color: #FF9800; font-weight: bold; font-size: 1.2rem;">"L'art est une explosion !" - Deidara</p>
+    </footer>
+</body>
+</html>
