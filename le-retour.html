@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Histoire Complète de Shippuden - L'Épopée Ninja</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* RESET ET STYLES GÉNÉRAUX */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #c00;
+            --secondary-red: #ff3333;
+            --accent-yellow: #ffcc00;
+            --dark-bg: #0a0a12;
+            --card-bg: rgba(20, 20, 30, 0.95);
+            --text-light: #f5f5f5;
+            --text-gold: #ffd700;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(200, 0, 0, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(200, 0, 0, 0.1) 0%, transparent 20%);
+            position: relative;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Effet de particules */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 0, 0, 0.3);
+            border-radius: 50%;
+        }
+
+        /* Header */
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(10, 10, 18, 0.95), rgba(5, 5, 10, 0.85));
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid var(--primary-red);
+            box-shadow: 0 5px 25px rgba(200, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            padding: 15px 0;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        } 
+
+        .logo-img {
+            height: 55px;
+            width: auto;
+            filter: drop-shadow(0 0 8px rgba(200, 0, 0, 0.8));
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .logo-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.2rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, var(--accent-yellow), var(--primary-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(200, 0, 0, 0.6);
+            letter-spacing: 1px;
+        }
+        
+        .logo-container:hover .logo-img {
+            transform: rotate(15deg) scale(1.15);
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-red), transparent);
+            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            transition: clip-path 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover::before {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        /* Section et Titre de section */
+        .section {
+            padding: 120px 20px 60px;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 70px;
+            color: var(--accent-yellow);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-red), var(--accent-yellow));
+            border-radius: 2px;
+        }
+        
+        /* STYLE : Timeline Narrative */
+        .story-timeline {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 100px;
+        }
+
+        .arc-section {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+
+        .arc-image-placeholder, .arc-text-content {
+            flex: 1;
+            transition: transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        /* Alternance de la mise en page */
+        .arc-section:nth-child(odd) {
+            flex-direction: row;
+        }
+        .arc-section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        /* État initial pour l'animation */
+        .arc-section:nth-child(odd) .arc-image-placeholder { transform: translateX(-50px); }
+        .arc-section:nth-child(odd) .arc-text-content { transform: translateX(50px); }
+        .arc-section:nth-child(even) .arc-image-placeholder { transform: translateX(50px); }
+        .arc-section:nth-child(even) .arc-text-content { transform: translateX(-50px); }
+
+        /* État visible (activé par JS) */
+        .arc-section.is-visible {
+            opacity: 1;
+        }
+        .arc-section.is-visible .arc-image-placeholder,
+        .arc-section.is-visible .arc-text-content {
+            transform: translateX(0);
+        }
+        
+        .arc-image-placeholder {
+            height: 350px;
+            background-color: rgba(20, 20, 30, 0.8);
+            border: 3px solid var(--primary-red);
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(200, 0, 0, 0.4);
+            overflow: hidden;
+        }
+
+        .arc-image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+        }
+
+        .arc-text-content h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            color: var(--accent-yellow);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-red);
+            padding-bottom: 10px;
+        }
+
+        .arc-text-content p {
+            font-size: 1.1rem;
+            color: #ccc;
+            text-align: justify;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 100px;
+            background: linear-gradient(to top, rgba(5, 5, 10, 0.95), rgba(10, 10, 18, 0.9));
+            border-top: 3px solid var(--primary-red);
+            padding: 50px 20px 30px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent-yellow);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: #bbb; text-decoration: none; transition: all 0.3s ease; }
+        .footer-links a:hover { color: var(--accent-yellow); transform: translateX(5px); }
+        .social-icons { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+        .social-icon { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--primary-red); color: white; border-radius: 50%; font-size: 1.3rem; transition: all 0.3s ease; }
+        .social-icon:hover { transform: translateY(-5px) scale(1.1); background: var(--accent-yellow); color: var(--dark-bg); }
+        .copyright { padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 1rem; color: #888; }
+        .creator { font-size: 1.2rem; font-weight: bold; margin-top: 10px; color: var(--accent-yellow); text-shadow: 0 0 10px rgba(200, 0, 0, 0.5); }
+        
+        /* Animations CSS */
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .arc-section, .arc-section:nth-child(even) { flex-direction: column; }
+            .arc-image-placeholder { width: 100%; height: 300px; }
+        }
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; gap: 15px; }
+            .section-title { font-size: 2.5rem; }
+            .arc-text-content h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <header class="sticky-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="konoha.png" alt="Logo Konoha" class="logo-img">
+                <div class="logo-text">NARUTOBIDIA</div>
+            </div>
+            <nav class="nav-links">
+                <a href="naruto2.html" class="nav-link">Accueil</a>
+                <a href="personnages.html" class="nav-link">Personnages</a>
+                <a href="akatsuki.html" class="nav-link">Akatsuki</a>
+                <a href="techniques.html" class="nav-link">Techniques</a>
+                <a href="bijuu.html" class="nav-link">Bijū</a>
+                <a href="about.html" class="nav-link">À propos</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <h1 class="section-title">L'Épopée Complète de Shippuden</h1>
+            
+            <div class="story-timeline">
+                
+                <div class="arc-section">
+                    <div class="arc-image-placeholder">
+                        <img src="arc1.jpg" alt="Le retour de Naruto et la menace sur Gaara">
+                    </div>
+                    <div class="arc-text-content">
+                        <h2>Arc 1 : Sauvetage du Kazekage</h2>
+                        <p>Deux ans et demi après son départ, Naruto Uzumaki revient à Konoha, transformé et plus puissant. Il retrouve ses amis et passe un nouveau test contre Kakashi, prouvant ses immenses progrès. Cependant, la paix est de courte durée. L'Akatsuki passe à l'action : Deidara et Sasori infiltrent Suna pour capturer le Kazekage, Gaara. Apprenant la nouvelle, l'équipe Kakashi est dépêchée pour aider. S'ensuit une course contre la montre marquée par des combats intenses : Sakura et la grand-mère Chiyo affrontent le maître marionnettiste Sasori, tandis que Naruto et Kakashi poursuivent l'explosif Deidara. Cet arc met en lumière la nouvelle force de l'équipe 7 et la menace grandissante de l'Akatsuki.</p>
+                    </div>
+                </div>
+
+                <div class="arc-section">
+                    <div class="arc-image-placeholder">
+                        <img src="arc2.jpg" alt="Les retrouvailles tendues avec Sasuke">
+                    </div>
+                    <div class="arc-text-content">
+                        <h2>Arc 2 : Mission au Pont du Ciel et de la Terre</h2>
+                        <p>La quête pour ramener Sasuke reprend avec une nouvelle équipe dirigée par Yamato et complétée par Sai, un membre énigmatique de la Racine. Leur mission est de rencontrer un espion au Pont du Ciel et de la Terre pour obtenir des informations sur Orochimaru. La mission tourne au chaos lorsque l'espion, Kabuto, les trahit. Un combat titanesque éclate entre un Naruto déchaîné par Kyûbi et Orochimaru. L'équipe finit par infiltrer le repaire ennemi, menant à des retrouvailles explosives et déchirantes avec un Sasuke froid, distant et incroyablement plus fort, qui n'a aucune intention de retourner à Konoha et domine facilement ses anciens camarades.</p>
+                    </div>
+                </div>
+
+                <div class="arc-section">
+                    <div class="arc-image-placeholder">
+                        <img src="arc3.jpg" alt="Le sacrifice d'Asuma et la vengeance de Shikamaru">
+                    </div>
+                    <div class="arc-text-content">
+                        <h2>Arc 3 : Les Immortels de l'Akatsuki</h2>
+                        <p>L'Akatsuki révèle deux de ses membres les plus terrifiants : Hidan, un fanatique immortel, et Kakuzu, un chasseur de primes possédant cinq cœurs. L'équipe d'Asuma Sarutobi les affronte, mais le combat tourne au drame et Asuma est mortellement blessé par le rituel de Hidan. Dévasté mais animé par une volonté de fer, Shikamaru met au point une stratégie complexe pour venger son maître, réussissant à vaincre Hidan par l'intelligence pure. Pendant ce temps, Naruto perfectionne une nouvelle technique dévastatrice, le Fûton : Rasen-Shuriken, qu'il utilise pour anéantir Kakuzu, prouvant qu'il a surpassé son maître Kakashi.</p>
+                    </div>
+                </div>
+
+                <div class="arc-section">
+                    <div class="arc-image-placeholder">
+                        <img src="arc4.jpg" alt="Le combat fratricide et la terrible vérité">
+                    </div>
+                    <div class="arc-text-content">
+                        <h2>Arc 4 : La Poursuite d'Itachi</h2>
+                        <p>La nouvelle que Sasuke a tué Orochimaru se répand. Pendant que Konoha le traque, Sasuke forme sa propre équipe, "Hebi", pour l'aider à accomplir sa vengeance : tuer son frère Itachi. Le point culminant est le combat fatidique entre les deux frères Uchiha, se terminant par la mort d'Itachi. Cependant, la victoire de Sasuke est amère. Tobi (Obito Uchiha) lui révèle la terrible vérité : Itachi a massacré leur clan sur ordre des dirigeants de Konoha pour empêcher un coup d'État et sauver le village, n'épargnant que Sasuke par amour. Anéanti, Sasuke réoriente sa haine vers Konoha et renomme son équipe "Taka".</p>
+                    </div>
+                </div>
+
+                <div class="arc-section">
+                    <div class="arc-image-placeholder">
+                        <img src="arc5.jpg" alt="L'assaut de Pain et la défense héroïque de Naruto">
+                    </div>
+                    <div class="arc-text-content">
+                        <h2>Arc 5 : L'Assaut de Pain</h2>
+                        <p>Après la mort de Jiraya, qui a découvert le secret de Pain au prix de sa vie, Naruto part s'entraîner au Mont Myôboku pour maîtriser le Mode Ermite. Pendant son absence, Pain lance une invasion dévastatrice sur Konoha, réduisant le village à un cratère. Alors que tout espoir semble perdu, Naruto revient et engage un combat épique contre les Six Chemins de Pain. Poussé à bout après avoir vu Hinata se sacrifier, il perd le contrôle avant d'être arrêté par l'esprit de son père, Minato. Reprenant ses esprits, il trouve le véritable Pain, Nagato, et choisit de briser le cycle de la haine par le dialogue, devenant le héros acclamé de Konoha.</p>
+                    </div>
+                </div>
+                
+                <div class="arc-section">
+                    <div class="arc-image-placeholder">
+                        <img src="arc6.jpg" alt="Le Sommet des Cinq Kage et la déclaration de guerre">
+                    </div>
+                    <div class="arc-text-content">
+                        <h2>Arc 6 : Le Sommet des Cinq Kage</h2>
+                        <p>L'attaque de Pain pousse les grandes nations à organiser un sommet des cinq Kage. Sasuke et son équipe Taka infiltrent le sommet dans le but de tuer Danzô, le Hokage par intérim responsable de la mission d'Itachi. S'ensuivent des combats spectaculaires où les Kage déploient leur puissance contre Sasuke. L'affrontement est interrompu par Tobi, qui se présente et déclare officiellement le début de la Quatrième Grande Guerre Ninja, son but étant de capturer les deux derniers Jinchûriki, Naruto et Killer Bee. Les nations ninjas, autrefois rivales, n'ont d'autre choix que de former l'Alliance Shinobi pour faire face à cette menace sans précédent.</p>
+                    </div>
+                </div>
+
+                <div class="arc-section">
+                    <div class="arc-image-placeholder">
+                        <img src="arc7.jpg" alt="L'entraînement de Naruto et le contrôle de Kyûbi">
+                    </div>
+                    <div class="arc-text-content">
+                        <h2>Arc 7 : Quatrième Grande Guerre : Décompte</h2>
+                        <p>Alors que l'Alliance se prépare à la guerre, Naruto est envoyé sur une île isolée du Pays de la Foudre pour y être protégé. Il y rencontre Killer Bee, le Jinchûriki de Hachibi, qui accepte de l'entraîner à maîtriser le chakra de Kyûbi. Durant cet entraînement intense, Naruto affronte la haine du démon-renard et, grâce à l'aide inattendue de sa mère, Kushina Uzumaki, dont l'esprit était scellé en lui, il réussit à s'emparer du chakra de Kyûbi. Il débloque ainsi le "Mode Chakra de Kyûbi", une transformation qui décuple sa puissance. Pendant ce temps, Kabuto, ayant maîtrisé l'Edo Tensei, s'allie à Tobi et ressuscite une armée de ninjas légendaires pour renforcer leurs forces.</p>
+                    </div>
+                </div>
+
+                <div class="arc-section">
+                    <div class="arc-image-placeholder">
+                        <img src="arc8.jpg" alt="La guerre éclate et Madara entre en scène">
+                    </div>
+                    <div class="arc-text-content">
+                        <h2>Arc 8 : Quatrième Grande Guerre : Confrontation</h2>
+                        <p>La guerre éclate sur de multiples fronts. L'Alliance Shinobi affronte l'immense armée de Zetsu Blanc et les ninjas réincarnés par l'Edo Tensei. Ces batailles sont marquées par des retrouvailles tragiques et des combats contre des légendes du passé. Naruto, ayant appris que la guerre avait commencé, s'échappe de l'île avec Killer Bee et rejoint le champ de bataille. Sa nouvelle puissance change radicalement le cours des combats. Le véritable choc survient lorsque Kabuto invoque son atout maître : le véritable Madara Uchiha, révélant que l'homme masqué, Tobi, n'était qu'un imposteur. Madara, doté d'une puissance écrasante, décime une partie de l'Alliance à lui seul.</p>
+                    </div>
+                </div>
+                
+                <div class="arc-section">
+                    <div class="arc-image-placeholder">
+                        <img src="arc9.jpg" alt="La révélation d'Obito et la défaite de Kabuto">
+                    </div>
+                    <div class="arc-text-content">
+                        <h2>Arc 9 : Quatrième Grande Guerre : Climax</h2>
+                        <p>L'identité de l'homme masqué est enfin révélée : il s'agit d'Obito Uchiha, l'ancien coéquipier de Kakashi que l'on croyait mort. Naruto, Kakashi, Might Guy et Killer Bee l'affrontent dans un combat acharné. Parallèlement, les cinq Kage se battent désespérément contre l'invincible Madara. Pendant ce temps, Sasuke, ressuscité par Kabuto, retrouve son frère Itachi, lui aussi réincarné. Les deux frères Uchiha s'allient pour affronter Kabuto. Ils parviennent à le piéger dans un genjutsu infini, forçant Kabuto à annuler l'Edo Tensei. Avant de disparaître, Itachi révèle toute la vérité à Sasuke et lui confie son amour, l'incitant à trouver sa propre voie.</p>
+                    </div>
+                </div>
+
+                <div class="arc-section">
+                    <div class="arc-image-placeholder">
+                        <img src="arc10.jpg" alt="La résurrection de Jûbi et ses Jinchûriki">
+                    </div>
+                    <div class="arc-text-content">
+                        <h2>Arc 10 : Naissance du Jinchûriki de Jûbi</h2>
+                        <p>Libéré du contrôle de Kabuto, Madara prend les choses en main et, avec Obito, ressuscite le démon à Dix Queues, Jûbi. La puissance de la créature est apocalyptique, et l'Alliance Shinobi subit de lourdes pertes, dont celle de Neji Hyûga qui se sacrifie pour protéger Naruto. Obito absorbe Jûbi et devient son Jinchûriki, acquérant un pouvoir divin. Grâce à un effort combiné de Naruto et Sasuke (revenu sur le champ de bataille aux côtés des Hokage réincarnés), Obito est vaincu. Cependant, Madara met son plan à exécution, devient à son tour le Jinchûriki de Jûbi, et s'approche de son objectif final : le plan Œil de la Lune.</p>
+                    </div>
+                </div>
+                
+                <div class="arc-section">
+                    <div class="arc-image-placeholder">
+                        <img src="arc11.jpg" alt="Kaguya, la déesse et ennemie finale">
+                    </div>
+                    <div class="arc-text-content">
+                        <h2>Arc 11 : L'Attaque de Kaguya Ôtsutsuki</h2>
+                        <p>Madara active l'Arcane Lunaire Infini (Mugen Tsukuyomi), plongeant le monde entier dans une illusion. Alors qu'il savoure sa victoire, il est trahi par Zetsu Noir, qui se révèle être la volonté incarnée de Kaguya Ôtsutsuki, la mère de l'Ermite Rikudô et la véritable origine du chakra. Kaguya est ressuscitée en utilisant le corps de Madara comme réceptacle. Seuls Naruto, Sasuke, Sakura et Kakashi, protégés par le Susanoo de Sasuke, échappent à l'illusion. Ils sont entraînés dans les dimensions de Kaguya pour l'ultime confrontation. Avec l'aide d'Obito, qui se sacrifie pour les sauver, l'équipe 7 se bat pour sceller cette déesse surpuissante et sauver le monde de l'asservissement.</p>
+                    </div>
+                </div>
+
+                <div class="arc-section">
+                    <div class="arc-image-placeholder">
+                        <img src="arc12.jpg" alt="La confrontation finale entre deux amis">
+                    </div>
+                    <div class="arc-text-content">
+                        <h2>Arc 12 : La Bataille Finale et la Paix</h2>
+                        <p>Grâce à une stratégie parfaite et à la puissance qui leur a été confiée par l'Ermite Rikudô, Naruto et Sasuke réussissent à sceller Kaguya. Cependant, le combat n'est pas terminé. Sasuke révèle sa propre vision de la paix : une révolution où il tuerait les Kage et dirigerait le monde par la force, devenant le seul pôle de haine. Naruto refuse catégoriquement. Cela mène à leur combat final, inévitable et destructeur, dans la Vallée de la Fin. Ils déchaînent toute leur puissance, culminant dans un affrontement final qui leur coûte à chacun un bras. Épuisé, Sasuke admet enfin sa défaite et reconnaît les liens qui l'unissent à Naruto. La guerre est terminée, la paix est restaurée, et Kakashi devient le Sixième Hokage, ouvrant la voie à une nouvelle ère.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section"><h3>À propos</h3><p>Naruto Shippuden Universe est un site dédié à l'univers riche et passionnant de Naruto.</p></div>
+            <div class="footer-section"><h3>Liens Rapides</h3><ul class="footer-links"><li><a href="naruto2.html">Accueil</a></li><li><a href="personnages.html">Personnages</a></li><li><a href="akatsuki.html">Akatsuki</a></li><li><a href="techniques.html">Techniques</a></li><li><a href="bijuu.html">Bijū</a></li></ul></div>
+            <div class="footer-section"><h3>Nous Suivre</h3><div class="social-icons"><a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a><a href="#" class="social-icon"><i class="fab fa-twitter"></i></a><a href="#" class="social-icon"><i class="fab fa-instagram"></i></a><a href="#" class="social-icon"><i class="fab fa-youtube"></i></a></div></div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023-2025 Naruto Shippuden Universe. Tous droits réservés.</p>
+            <div class="creator">Créé par Ghazli Salah Eddine</div>
+            <p><small>Ce site est un hommage à l'œuvre de Masashi Kishimoto</small></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            headerParallax();
+            animateStoryOnScroll();
+        });
+
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            if (!particlesContainer) return;
+            const particleCount = 50;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 4 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                const duration = Math.random() * 10 + 8;
+                particle.style.animation = `float ${duration}s infinite ease-in-out`;
+                particle.style.animationDelay = `${Math.random() * 8}s`;
+                particle.style.backgroundColor = 'rgba(255, 0, 0, 0.4)';
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        function headerParallax() {
+            const header = document.querySelector('.sticky-header');
+            if (!header) return;
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                if(window.scrollY > 100) {
+                    if (lastScrollY < window.scrollY) { header.style.transform = 'translateY(-100%)'; } 
+                    else { header.style.transform = 'translateY(0)'; }
+                } else { header.style.transform = 'translateY(0)'; }
+                lastScrollY = window.scrollY;
+            });
+        }
+
+        function animateStoryOnScroll() {
+            const storySections = document.querySelectorAll('.arc-section');
+            if (storySections.length === 0) return;
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.25 };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            storySections.forEach(section => { observer.observe(section); });
+        }
+    </script>
+</body>
+</html>
