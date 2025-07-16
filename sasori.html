@@ -1,9 +1,9 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Narutobidia - Profil de Tobi</title>
+    <title>Narutobidia - Profil de Sasori</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
@@ -14,7 +14,7 @@
             font-family: 'Roboto', sans-serif;
         }
 
-        /* Variables pour les couleurs de Tobi */
+        /* Variables pour les couleurs de Sasori */
         :root {
             --red: #e53935;
             --dark: #121212;
@@ -29,24 +29,24 @@
             --card-bg: rgba(20, 20, 30, 0.95);
             --text-light: #f5f5f5;
             --text-gold: #ffd700;
-            --tobi-orange: #FF5722;
-            --tobi-purple: #7B1FA2;
-            --tobi-dark: #0a0a0a;
+            --sasori-red: #a0282c;
+            --sasori-brown: #8b4513;
+            --sasori-dark: #2c1f1f;
         }
 
         body {
-            background-color: var(--tobi-dark);
+            background-color: var(--sasori-dark);
             color: #fff;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 20% 30%, rgba(255, 87, 34, 0.2) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(123, 31, 162, 0.1) 0%, transparent 40%);
+                radial-gradient(circle at 20% 30%, rgba(160, 40, 40, 0.3) 0%, transparent 60%),
+                radial-gradient(circle at 80% 70%, rgba(139, 69, 19, 0.2) 0%, transparent 60%);
             position: relative;
             min-height: 100vh;
         }
 
-        /* Effet de vortex Kamui */
-        .kamui-vortex {
+        /* Effet de fils de marionnette */
+        .puppet-strings {
             position: fixed;
             width: 100%;
             height: 100%;
@@ -55,30 +55,18 @@
             pointer-events: none;
         }
 
-        .vortex-particle {
+        .string {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 87, 34, 0.6);
-            border-radius: 50%;
-            animation: spiral 10s infinite linear;
+            width: 1px;
+            height: 100vh;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.2), transparent);
+            animation: stringSwing 4s ease-in-out infinite;
+            transform-origin: top;
         }
 
-        @keyframes spiral {
-            0% {
-                transform: rotate(0deg) translateX(0px);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: rotate(720deg) translateX(300px);
-                opacity: 0;
-            }
+        @keyframes stringSwing {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
         }
 
         .container {
@@ -192,19 +180,19 @@
             transform: translateY(-3px);
         }
 
-        /* Profil Header avec effet dimensionnel */
+        /* Profil Header avec effet marionnette */
         .profile-header {
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
-                        radial-gradient(circle at center, #FF5722 0%, #7B1FA2 70%, #0a0a0a 100%);
+            background: linear-gradient(rgba(44,31,31,0.8), rgba(20,10,10,0.8)), 
+                        url('https://wallpapercave.com/wp/wp6985019.jpg');
             background-size: cover;
             background-position: center;
             padding: 120px 20px 40px;
             border-radius: 10px;
             margin: 100px 0 30px;
-            border: 2px solid var(--tobi-orange);
+            border: 2px solid var(--sasori-red);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(255, 87, 34, 0.3);
+            box-shadow: 0 10px 30px rgba(160, 40, 40, 0.3);
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 1s ease forwards;
@@ -224,32 +212,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.9) 100%);
+            background: radial-gradient(circle, transparent 60%, rgba(44,31,31,0.9) 100%);
             animation: pulse 4s ease-in-out infinite;
         }
 
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
-        }
-
-        /* Effet de masque tournant */
-        .mask-effect {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,10 A40,40 0 0,1 90,50 Q70,70 50,90 Q30,70 10,50 A40,40 0 0,1 50,10 Z" fill="none" stroke="rgba(255,87,34,0.2)" stroke-width="1"/><circle cx="50" cy="50" r="5" fill="rgba(255,87,34,0.3)"/></svg>');
-            background-size: 100%;
-            opacity: 0.3;
-            animation: maskSpin 20s linear infinite;
-        }
-
-        @keyframes maskSpin {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         .profile-info {
@@ -265,10 +234,9 @@
             width: 180px;
             height: 180px;
             border-radius: 50%;
-            border: 3px solid var(--tobi-orange);
+            border: 3px solid var(--sasori-red);
             overflow: hidden;
-            box-shadow: 0 0 30px rgba(255, 87, 34, 0.6);
-            background: linear-gradient(45deg, var(--tobi-purple), var(--tobi-orange));
+            box-shadow: 0 0 30px rgba(160, 40, 40, 0.6);
             position: relative;
             transform: scale(0);
             animation: scaleIn 0.8s ease 0.5s forwards;
@@ -278,21 +246,21 @@
             to { transform: scale(1); }
         }
 
-        /* Effet de distorsion sur l'avatar */
+        /* Effet de mécanisme sur l'avatar */
         .profile-avatar::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, transparent 40%, rgba(255, 87, 34, 0.3) 70%);
-            animation: distort 3s ease-in-out infinite alternate;
+            top: 50%;
+            left: 50%;
+            width: 120%;
+            height: 120%;
+            background: conic-gradient(from 0deg, transparent, rgba(139, 69, 19, 0.3), transparent);
+            transform: translate(-50%, -50%);
+            animation: gearRotate 10s linear infinite;
         }
 
-        @keyframes distort {
-            0% { transform: scale(1) rotate(0deg); }
-            100% { transform: scale(1.1) rotate(10deg); }
+        @keyframes gearRotate {
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         .profile-avatar img {
@@ -312,7 +280,7 @@
             font-size: 2.5rem;
             color: #fff;
             margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(255, 87, 34, 0.8);
+            text-shadow: 0 0 20px rgba(160, 40, 40, 0.8);
             opacity: 0;
             transform: translateX(-30px);
             animation: slideInLeft 0.8s ease 0.8s forwards;
@@ -331,10 +299,9 @@
 
         .profile-title {
             font-size: 1.3rem;
-            color: var(--tobi-orange);
+            color: var(--sasori-red);
             margin-bottom: 15px;
             font-weight: bold;
-            text-shadow: 0 0 10px rgba(123, 31, 162, 0.6);
             opacity: 0;
             animation: fadeIn 0.8s ease 1s forwards;
         }
@@ -350,9 +317,9 @@
         .stat-item {
             text-align: center;
             padding: 10px 20px;
-            background: rgba(30, 30, 30, 0.7);
+            background: rgba(130, 40, 20, 0.7);
             border-radius: 8px;
-            border-left: 3px solid var(--tobi-orange);
+            border-left: 3px solid var(--sasori-brown);
             transition: all 0.3s ease;
             transform: translateY(20px);
             animation: bounceIn 0.6s ease 1.4s forwards;
@@ -363,18 +330,16 @@
         .stat-item::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 0;
+            left: 0;
             width: 0;
-            height: 0;
-            background: radial-gradient(circle, rgba(255, 87, 34, 0.3), transparent);
-            transform: translate(-50%, -50%);
-            transition: all 0.3s ease;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 69, 19, 0.3), transparent);
+            transition: width 0.3s ease;
         }
 
         .stat-item:hover::before {
             width: 100%;
-            height: 100%;
         }
 
         @keyframes bounceIn {
@@ -385,42 +350,41 @@
 
         .stat-item:hover {
             transform: translateY(-5px) scale(1.05);
-            background: rgba(40, 40, 40, 0.8);
-            box-shadow: 0 10px 20px rgba(255, 87, 34, 0.3);
-            border-left-color: var(--tobi-purple);
+            background: rgba(160, 60, 30, 0.8);
+            box-shadow: 0 10px 20px rgba(160, 40, 40, 0.3);
         }
 
         .stat-value {
             font-size: 1.8rem;
-            color: var(--tobi-orange);
+            color: var(--sasori-red);
             font-weight: bold;
-            text-shadow: 0 0 5px rgba(123, 31, 162, 0.5);
         }
 
         .stat-label {
             font-size: 0.9rem;
-            color: #aaa;
+            color: #e0c3fc;
         }
 
         .profile-bio {
             margin-top: 20px;
             line-height: 1.6;
             max-width: 800px;
-            background: rgba(20, 20, 30, 0.5);
+            color: #ddd;
+            background: rgba(44, 31, 31, 0.5);
             padding: 15px;
             border-radius: 8px;
-            border-left: 3px solid var(--tobi-purple);
+            border-left: 3px solid var(--sasori-red);
             opacity: 0;
             animation: fadeIn 0.8s ease 1.6s forwards;
         }
 
         .section-title {
             font-size: 1.8rem;
-            color: var(--tobi-orange);
+            color: var(--sasori-red);
             margin: 30px 0 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid var(--tobi-purple);
-            text-shadow: 0 0 5px rgba(255, 87, 34, 0.3);
+            border-bottom: 2px solid var(--sasori-brown);
+            text-shadow: 0 0 5px rgba(160, 40, 40, 0.3);
             position: relative;
             opacity: 0;
             transform: translateY(20px);
@@ -437,7 +401,7 @@
             left: 0;
             width: 100px;
             height: 2px;
-            background: linear-gradient(90deg, var(--tobi-orange), var(--tobi-purple));
+            background: linear-gradient(90deg, var(--sasori-red), var(--sasori-brown));
             animation: expandWidth 1s ease forwards;
         }
 
@@ -446,7 +410,7 @@
             to { width: 100px; }
         }
 
-        /* Timeline avec effet de distorsion */
+        /* Timeline avec effet mécanique */
         .timeline {
             display: flex;
             flex-direction: column;
@@ -458,55 +422,47 @@
             display: flex;
             gap: 20px;
             padding: 20px;
-            background: rgba(20, 20, 20, 0.8);
+            background: rgba(70, 50, 50, 0.8);
             border-radius: 8px;
-            border-left: 4px solid var(--tobi-orange);
+            border-left: 4px solid var(--sasori-brown);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             opacity: 0;
-            transform: translateX(-50px) skewY(-2deg);
+            transform: translateX(-50px);
         }
 
         .timeline-item.visible {
-            animation: slideInSkew 0.8s ease forwards;
-        }
-
-        @keyframes slideInSkew {
-            to {
-                opacity: 1;
-                transform: translateX(0) skewY(0deg);
-            }
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 87, 34, 0.1), transparent);
-            transition: right 0.5s ease;
-        }
-
-        .timeline-item:hover::before {
-            right: 100%;
+            animation: slideInLeft 0.8s ease forwards;
         }
 
         .timeline-item:hover {
             transform: translateX(10px);
-            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
-            border-left: 4px solid var(--tobi-purple);
+            border-left: 4px solid var(--sasori-red);
+            box-shadow: 0 5px 15px rgba(160, 40, 40, 0.3);
         }
 
         .timeline-year {
             min-width: 80px;
             text-align: center;
             font-weight: bold;
-            color: var(--tobi-purple);
+            color: var(--sasori-red);
             font-size: 1.3rem;
-            text-shadow: 0 0 5px rgba(123, 31, 162, 0.5);
+            text-shadow: 0 0 5px rgba(139, 69, 19, 0.5);
+            position: relative;
+        }
+
+        .timeline-year::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -20px;
+            width: 12px;
+            height: 12px;
+            background: var(--sasori-red);
+            border-radius: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 0 10px rgba(160, 40, 40, 0.5);
         }
 
         .timeline-content {
@@ -521,10 +477,10 @@
 
         .timeline-description {
             line-height: 1.6;
-            color: #ccc;
+            color: #e0c3fc;
         }
 
-        /* Gallery avec effet dimensionnel */
+        /* Gallery avec effet marionnette */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -537,14 +493,14 @@
             overflow: hidden;
             height: 250px;
             position: relative;
-            border: 2px solid #333;
+            border: 2px solid #444;
             transition: all 0.3s ease;
             display: block;
             text-decoration: none;
             color: inherit;
-            background: linear-gradient(45deg, #311B92, #4527A0);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             opacity: 0;
-            transform: translateY(30px) scale(0.9);
+            transform: translateY(30px);
         }
 
         .gallery-item.visible {
@@ -552,9 +508,9 @@
         }
 
         .gallery-item:hover {
-            transform: translateY(-5px) rotateZ(2deg);
-            border-color: var(--tobi-orange);
-            box-shadow: 0 10px 20px rgba(255, 87, 34, 0.3);
+            transform: translateY(-10px) rotateZ(2deg);
+            border-color: var(--sasori-red);
+            box-shadow: 0 15px 30px rgba(160, 40, 40, 0.4);
         }
 
         .gallery-item img {
@@ -573,7 +529,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            background: linear-gradient(transparent, rgba(44, 31, 31, 0.9));
             padding: 20px 10px 10px;
             font-size: 0.9rem;
             color: #fff;
@@ -587,7 +543,7 @@
             transform: translateY(0);
         }
 
-        /* Abilities avec effet de vortex */
+        /* Abilities avec effet de contrôle */
         .abilities {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -596,56 +552,49 @@
         }
 
         .ability-card {
-            background: rgba(30, 30, 30, 0.8);
+            background: rgba(50, 30, 20, 0.8);
             border-radius: 8px;
             padding: 20px;
-            border: 1px solid #333;
+            border: 1px solid #444;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             opacity: 0;
-            transform: scale(0.9) rotate(-2deg);
+            transform: scale(0.9);
         }
 
         .ability-card.visible {
-            animation: rotateIn 0.6s ease forwards;
-        }
-
-        @keyframes rotateIn {
-            to {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
+            animation: scaleIn 0.6s ease forwards;
         }
 
         .ability-card::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,87,34,0.1) 0%, transparent 70%);
-            transform: translate(-50%, -50%) rotate(0deg);
-            transition: transform 0.5s ease;
-        }
-
-        .ability-card:hover::before {
-            transform: translate(-50%, -50%) rotate(180deg);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--sasori-red), var(--sasori-brown));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
         }
 
         .ability-card:hover {
-            border-color: var(--tobi-orange);
+            border-color: var(--sasori-red);
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(255, 87, 34, 0.3);
+            box-shadow: 0 10px 20px rgba(160, 40, 40, 0.3);
+        }
+
+        .ability-card:hover::before {
+            transform: scaleX(1);
         }
 
         .ability-title {
             font-size: 1.3rem;
-            color: var(--tobi-orange);
+            color: var(--sasori-red);
             margin-bottom: 15px;
             position: relative;
-            z-index: 2;
             padding-bottom: 10px;
         }
 
@@ -656,14 +605,12 @@
             left: 0;
             width: 50px;
             height: 2px;
-            background: var(--tobi-purple);
+            background: var(--sasori-brown);
         }
 
         .ability-description {
             line-height: 1.6;
-            color: #ccc;
-            position: relative;
-            z-index: 2;
+            color: #e0c3fc;
         }
 
         /* Footer Akatsuki */
@@ -673,19 +620,6 @@
             padding: 50px 20px 30px;
             text-align: center;
             margin-top: 50px;
-            position: relative;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,87,34,0.3)"/><circle cx="50" cy="30" r="1.5" fill="rgba(255,87,34,0.3)"/><circle cx="80" cy="20" r="1.2" fill="rgba(255,87,34,0.3)"/><circle cx="40" cy="60" r="1.8" fill="rgba(255,87,34,0.3)"/><circle cx="70" cy="70" r="1.3" fill="rgba(255,87,34,0.3)"/><circle cx="10" cy="50" r="1.5" fill="rgba(255,87,34,0.3)"/><circle cx="90" cy="80" r="1.7" fill="rgba(255,87,34,0.3)"/></svg>');
-            background-size: 200px;
-            opacity: 0.2;
         }
 
         .footer-content {
@@ -695,8 +629,6 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 40px;
             margin-bottom: 40px;
-            position: relative;
-            z-index: 2;
         }
 
         .footer-section {
@@ -797,8 +729,6 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 1rem;
             color: #888;
-            position: relative;
-            z-index: 2;
         }
 
         .creator {
@@ -807,13 +737,6 @@
             margin-top: 10px;
             color: var(--accent-yellow);
             text-shadow: 0 0 10px rgba(200, 0, 0, 0.5);
-        }
-
-        .quote {
-            margin-top: 15px;
-            color: var(--tobi-orange);
-            font-weight: bold;
-            font-style: italic;
         }
 
         /* Responsive */
@@ -861,8 +784,8 @@
     </style>
 </head>
 <body>
-    <!-- Effet de vortex Kamui -->
-    <div class="kamui-vortex"></div>
+    <!-- Effet de fils de marionnette -->
+    <div class="puppet-strings"></div>
 
     <!-- Header Akatsuki -->
     <header class="sticky-header">
@@ -884,176 +807,168 @@
     </header>
 
     <div class="container">
-        <!-- Profil Header -->
         <div class="profile-header">
-            <div class="mask-effect"></div>
             <div class="profile-info">
                 <div class="profile-avatar">
-                    <img src="obito.jpg" alt="Tobi/Obito">
+                    <img src="sasori2.jpg" alt="Sasori">
                 </div>
-                
                 <div class="profile-details">
-                    <h1 class="profile-name">Tobi (Obito Uchiha)</h1>
-                    <div class="profile-title">Leader de l'Akatsuki • Manipulateur • Porteur du Rinnegan</div>
+                    <h1 class="profile-name">Sasori</h1>
+                    <div class="profile-title">Sasori du Sable Rouge • Maître Marionnettiste • Membre de l'Akatsuki</div>
                     
                     <div class="profile-stats">
                         <div class="stat-item">
-                            <div class="stat-value">31</div>
+                            <div class="stat-value">35</div>
                             <div class="stat-label">Âge</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value">S+</div>
+                            <div class="stat-value">S</div>
                             <div class="stat-label">Rang</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value">Tous</div>
-                            <div class="stat-label">Éléments</div>
+                            <div class="stat-value">Poupée</div>
+                            <div class="stat-label">Élément</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value">245</div>
+                            <div class="stat-value">12</div>
                             <div class="stat-label">Épisodes</div>
                         </div>
                     </div>
                     
                     <div class="profile-bio">
-                        <p>Tobi, de son vrai nom Obito Uchiha, est l'un des personnages les plus mystérieux et puissants de l'univers Naruto. D'abord présenté comme un membre comique de l'Akatsuki, il se révèle être le véritable leader de l'organisation et le manipulateur derrière la plupart des événements tragiques de la série. Survivant de la troisième guerre ninja, il est devenu l'hôte du Jūbi et cherche à plonger le monde dans une illusion éternelle avec le Tsukuyomi Infini.</p>
+                        <p>Sasori, également connu sous le nom de Sasori du Sable Rouge, est un génie dans l'art de manipuler des marionnettes. Anciennement membre du village de Suna et petit-fils de Chiyo, il a transformé son propre corps en marionnette pour atteindre l'immortalité. Membre de l'Akatsuki, il fait équipe avec Deidara et possède une vision de l'art opposée à celle de son partenaire : pour lui, l'art est éternel.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Histoire -->
         <h2 class="section-title">Histoire et Évolution</h2>
         <div class="timeline">
             <div class="timeline-item">
                 <div class="timeline-year">Enfance</div>
                 <div class="timeline-content">
-                    <h3 class="timeline-title">Élève de Minato</h3>
-                    <p class="timeline-description">Obito grandit à Konoha comme membre du clan Uchiha. Il est l'élève du Quatrième Hokage, Minato Namikaze, aux côtés de Kakashi Hatake et Rin Nohara. Moins talentueux que ses camarades, il développe néanmoins un fort sens de l'amitié.</p>
+                    <h3 class="timeline-title">Orphelin de guerre</h3>
+                    <p class="timeline-description">Sasori perd ses parents très jeune lors de la guerre, tués par le Croc Blanc de Konoha. Il est élevé par sa grand-mère Chiyo qui lui enseigne l'art des marionnettes pour combler sa solitude.</p>
                 </div>
             </div>
             
             <div class="timeline-item">
-                <div class="timeline-year">Guerre</div>
+                <div class="timeline-year">Jeunesse</div>
                 <div class="timeline-content">
-                    <h3 class="timeline-title">Mort apparente</h3>
-                    <p class="timeline-description">Lors d'une mission, Obito est écrasé par un rocher en sauvant Kakashi. Il est recueilli par Madara Uchiha qui le sauve en lui greffant des cellules de Hashirama. Témoin de la mort de Rin, il sombre dans la folie et adopte les plans de Madara.</p>
+                    <h3 class="timeline-title">Marionnettiste prodige</h3>
+                    <p class="timeline-description">Sasori devient rapidement un génie des marionnettes, créant des marionnettes de ses parents pour combler le vide affectif. Sa maîtrise dépasse rapidement celle de sa grand-mère.</p>
                 </div>
             </div>
             
             <div class="timeline-item">
-                <div class="timeline-year">Part. I</div>
+                <div class="timeline-year">Adulte</div>
                 <div class="timeline-content">
-                    <h3 class="timeline-title">Manipulation de l'Akatsuki</h3>
-                    <p class="timeline-description">Obito prend l'identité de "Tobi" et se présente comme un membre comique de l'Akatsuki. En réalité, il manipule l'organisation dans l'ombre et orchestre les événements pour récupérer les bijū et ressusciter le Jūbi.</p>
+                    <h3 class="timeline-title">Transformation et Akatsuki</h3>
+                    <p class="timeline-description">Sasori transforme son propre corps en marionnette pour atteindre l'immortalité. Il rejoint l'Akatsuki et devient partenaire d'Orochimaru puis de Deidara.</p>
                 </div>
             </div>
             
             <div class="timeline-item">
-                <div class="timeline-year">Part. II</div>
+                <div class="timeline-year">Fin</div>
                 <div class="timeline-content">
-                    <h3 class="timeline-title">Révélation et guerre</h3>
-                    <p class="timeline-description">Tobi se révèle comme le véritable leader de l'Akatsuki et déclenche la quatrième grande guerre ninja. Après avoir absorbé le Jūbi, il devient le Jinchūriki des dix queues et tente d'activer le Tsukuyomi Infini.</p>
+                    <h3 class="timeline-title">Combat contre Chiyo et Sakura</h3>
+                    <p class="timeline-description">Sasori est défait par sa grand-mère Chiyo et Sakura lors d'un combat épique. Il choisit de ne pas esquiver l'attaque finale, retrouvant peut-être une part d'humanité.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Galerie d'évolution -->
         <h2 class="section-title">Évolution du Personnage</h2>
         <div class="gallery">
             <div class="gallery-item">
-                <img src="obitok.jpg" alt="Jeune Obito">
-                <div class="gallery-caption">Jeune Obito Uchiha</div>
+                <img src="sasorik.jpg" alt="Sasori enfant">
+                <div class="gallery-caption">Sasori enfant</div>
             </div>
             <div class="gallery-item">
-                <img src="obitoM.jpg" alt="Tobi masqué">
-                <div class="gallery-caption">Tobi masqué</div>
+                <img src="sasorijm.jpg" alt="Sasori jeune">
+                <div class="gallery-caption">Jeune marionnettiste</div>
             </div>
             <div class="gallery-item">
-                <img src="obitosh.jpg" alt="Révélation du Sharingan">
-                <div class="gallery-caption">Révélation du Sharingan</div>
+                <img src="Sasoriak.jpg" alt="Sasori Akatsuki">
+                <div class="gallery-caption">Membre de l'Akatsuki</div>
             </div>
             <div class="gallery-item">
-                <img src="obitoj.jpg" alt="Jinchūriki du Jūbi">
-                <div class="gallery-caption">Jinchūriki du Jūbi</div>
+                <img src="sasorim.jpg" alt="Vraie forme">
+                <div class="gallery-caption">Vraie forme de marionnette</div>
             </div>
         </div>
 
-        <!-- Capacités et techniques -->
         <h2 class="section-title">Techniques et Capacités</h2>
         <div class="abilities">
             <div class="ability-card">
-                <h3 class="ability-title">Kamui</h3>
-                <p class="ability-description">Technique spatiale du Mangekyō Sharingan permettant de se téléporter et d'envoyer des objets dans une dimension parallèle. Obito peut devenir intangible pendant 5 minutes.</p>
+                <h3 class="ability-title">Marionnettes humaines</h3>
+                <p class="ability-description">Sasori peut transformer des ninjas en marionnettes, conservant leurs techniques et capacités. Sa collection compte 298 marionnettes humaines, dont le Troisième Kazekage.</p>
             </div>
             
             <div class="ability-card">
-                <h3 class="ability-title">Contrôle des bijū</h3>
-                <p class="ability-description">Grâce au Sharingan, Obito peut contrôler les bijū et les jinchūriki. Il a capturé plusieurs bêtes à queue et les a scellés dans la statue Gedo.</p>
+                <h3 class="ability-title">Corps de marionnette</h3>
+                <p class="ability-description">Sasori a transformé son propre corps en marionnette, ne gardant que son cœur. Cela lui confère l'immortalité, l'immunité aux poisons et une force surhumaine.</p>
             </div>
             
             <div class="ability-card">
-                <h3 class="ability-title">Jinchūriki du Jūbi</h3>
-                <p class="ability-description">Obito devient l'hôte du Jūbi, lui conférant un pouvoir quasi-divin. Il peut créer des orbes de vérité, voler et utiliser toutes les transformations du chakra.</p>
+                <h3 class="ability-title">Poisons mortels</h3>
+                <p class="ability-description">Expert en poisons, Sasori enduit toutes ses armes de toxines mortelles qui paralysent et tuent en trois jours. Ses poisons sont considérés comme incurables.</p>
             </div>
         </div>
 
-        <!-- Apparitions notables -->
         <h2 class="section-title">Apparitions Clés et Épisodes</h2>
         <div class="timeline">
             <div class="timeline-item">
-                <div class="timeline-year">Ép. 134</div>
+                <div class="timeline-year">Ép. 221</div>
                 <div class="timeline-content">
                     <h3 class="timeline-title">Première apparition</h3>
-                    <p class="timeline-description">Tobi apparaît pour la première fois comme membre comique de l'Akatsuki, se présentant comme "Tobi, le bon garçon".</p>
+                    <p class="timeline-description">Sasori apparaît pour la première fois dans sa forme d'Hiruko lors de la réunion de l'Akatsuki.</p>
                 </div>
             </div>
             
             <div class="timeline-item">
-                <div class="timeline-year">Ép. 344</div>
+                <div class="timeline-year">Ép. 5-6</div>
                 <div class="timeline-content">
-                    <h3 class="timeline-title">Révélation comme leader</h3>
-                    <p class="timeline-description">Tobi se révèle comme le véritable leader de l'Akatsuki après la mort de Pain, annonçant le début de la quatrième guerre ninja.</p>
+                    <h3 class="timeline-title">Capture de Gaara</h3>
+                    <p class="timeline-description">Sasori et Deidara capturent Gaara, le Kazekage, pour extraire Shukaku.</p>
                 </div>
             </div>
             
             <div class="timeline-item">
-                <div class="timeline-year">Ép. 392</div>
-                <div class="timeline-content">
-                    <h3 class="timeline-title">Révélation de son identité</h3>
-                    <p class="timeline-description">Tobi dévoile son visage et révèle son identité comme étant Obito Uchiha face à Kakashi Hatake.</p>
-                </div>
-            </div>
-            
-            <div class="timeline-item">
-                <div class="timeline-year">Ép. 458-463</div>
+                <div class="timeline-year">Ép. 20-27</div>
                 <div class="timeline-content">
                     <h3 class="timeline-title">Combat final</h3>
-                    <p class="timeline-description">Obito, devenu Jinchūriki du Jūbi, affronte Naruto, Sasuke et l'Alliance Shinobi dans un combat épique.</p>
+                    <p class="timeline-description">Combat épique contre Chiyo et Sakura où Sasori révèle sa vraie forme et utilise ses 100 marionnettes.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 458</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Edo Tensei</h3>
+                    <p class="timeline-description">Sasori est réincarné pendant la quatrième guerre ninja et affronte Kankurō qui utilise ses propres marionnettes contre lui.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Personnages liés -->
         <h2 class="section-title">Personnages Associés</h2>
-        <div class="gallery">
-            <div class="gallery-item">
-                <img src="https://i.pinimg.com/564x/4a/5c/9a/4a5c9a6a3b6c7a0b3c0b3a6b3c0b3a.jpg" alt="Minato Namikaze">
-                <div class="gallery-caption">Minato Namikaze (Sensei)</div>
+            <div class="gallery">
+                <a href="deidara.html" class="gallery-item">
+                    <img src="deidara.jpg" alt="Deidara">
+                    <div class="gallery-caption">Deidara (partenaire)</div>
+                </a>
+                <div class="gallery-item">
+                    <img src="https://i.pinimg.com/564x/8a/7d/aa/8a7daa6a3b6c7a0b3c0b3a6b3c0b3a.jpg" alt="Chiyo">
+                    <div class="gallery-caption">Chiyo (grand-mère)</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.pinimg.com/564x/9a/8e/ba/9a8eba6a3b6c7a0b3c0b3a6b3c0b3a.jpg" alt="Sakura">
+                    <div class="gallery-caption">Sakura Haruno (adversaire)</div>
+                </div>
+                <a href="kankuro.html" class="gallery-item">
+                    <img src="kankuro.jpg" alt="Kankuro">
+                    <div class="gallery-caption">Kankurō (héritier)</div>
+                </a>
             </div>
-            <div class="gallery-item">
-                <img src="https://i.pinimg.com/564x/5a/6c/8a/5a6c8a6a3b6c7a0b3c0b3a6b3c0b3a.jpg" alt="Kakashi Hatake">
-                <div class="gallery-caption">Kakashi Hatake (Rival)</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://i.pinimg.com/564x/6a/7c/aa/6a7caa6a3b6c7a0b3c0b3a6b3c0b3a.jpg" alt="Rin Nohara">
-                <div class="gallery-caption">Rin Nohara (Amour)</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://i.pinimg.com/564x/7a/8c/ba/7a8cba6a3b6c7a0b3c0b3a6b3c0b3a.jpg" alt="Madara Uchiha">
-                <div class="gallery-caption">Madara Uchiha (Mentor)</div>
-            </div>
-        </div>
     </div>
 
     <!-- Footer Akatsuki -->
@@ -1090,33 +1005,23 @@
             <p>&copy; 2023 Naruto Shippuden Universe. Tous droits réservés.</p>
             <div class="creator">Créé par Ghazli Salah Eddine</div>
             <p><small>Ce site est un hommage à l'œuvre de Masashi Kishimoto</small></p>
-            <p class="quote">"Dans ce monde, là où il y a de la lumière, il y a aussi des ténèbres." - Obito Uchiha</p>
         </div>
     </footer>
 
     <script>
-        // Création des particules de vortex Kamui
-        function createKamuiVortex() {
-            const container = document.querySelector('.kamui-vortex');
-            const particleCount = 50;
+        // Création des fils de marionnette
+        function createPuppetStrings() {
+            const container = document.querySelector('.puppet-strings');
+            const stringCount = 15;
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'vortex-particle';
-                
-                // Position aléatoire autour du centre
-                const angle = (Math.PI * 2 * i) / particleCount;
-                const radius = Math.random() * 200 + 100;
-                particle.style.left = `50%`;
-                particle.style.top = `50%`;
-                particle.style.marginLeft = `${Math.cos(angle) * radius}px`;
-                particle.style.marginTop = `${Math.sin(angle) * radius}px`;
-                
-                // Animation delay aléatoire
-                particle.style.animationDelay = `${Math.random() * 10}s`;
-                particle.style.animationDuration = `${10 + Math.random() * 5}s`;
-                
-                container.appendChild(particle);
+            for (let i = 0; i < stringCount; i++) {
+                const string = document.createElement('div');
+                string.className = 'string';
+                string.style.left = `${(i + 1) * (100 / (stringCount + 1))}%`;
+                string.style.animationDelay = `${Math.random() * 2}s`;
+                string.style.animationDuration = `${3 + Math.random() * 2}s`;
+                string.style.opacity = Math.random() * 0.3 + 0.1;
+                container.appendChild(string);
             }
         }
 
@@ -1152,32 +1057,13 @@
             observer.observe(el);
         });
 
-        // Effet de distorsion sur l'avatar au survol
+        // Effet de parallaxe sur l'avatar
         const avatar = document.querySelector('.profile-avatar');
-        if (avatar) {
-            avatar.addEventListener('mouseenter', () => {
-                avatar.style.transform = 'scale(1.1) rotate(5deg)';
-                const mask = document.querySelector('.mask-effect');
-                if (mask) {
-                    mask.style.animationDuration = '3s';
-                }
-            });
-            
-            avatar.addEventListener('mouseleave', () => {
-                avatar.style.transform = 'scale(1) rotate(0deg)';
-                const mask = document.querySelector('.mask-effect');
-                if (mask) {
-                    mask.style.animationDuration = '20s';
-                }
-            });
-        }
-
-        // Effet de parallaxe sur le masque
-        const maskEffect = document.querySelector('.mask-effect');
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
-            if (maskEffect) {
-                maskEffect.style.transform = `translate(-50%, -50%) rotate(${scrolled * 0.1}deg)`;
+            const parallax = -scrolled * 0.5;
+            if (avatar) {
+                avatar.style.transform = `translateY(${parallax}px) scale(1)`;
             }
         });
 
@@ -1194,7 +1080,7 @@
                 const rotateX = (y - centerY) / 10;
                 const rotateY = (centerX - x) / 10;
                 
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
             });
             
             card.addEventListener('mouseleave', () => {
@@ -1202,38 +1088,9 @@
             });
         });
 
-        // Animation du titre avec effet de distorsion
-        const profileName = document.querySelector('.profile-name');
-        if (profileName) {
-            setInterval(() => {
-                const intensity = Math.random() * 2 - 1;
-                profileName.style.transform = `skewX(${intensity}deg)`;
-                setTimeout(() => {
-                    profileName.style.transform = 'skewX(0deg)';
-                }, 100);
-            }, 3000);
-        }
-
-        // Effet de distorsion sur les timeline items au survol
-        document.querySelectorAll('.timeline-item').forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                item.style.transform = 'translateX(10px) skewY(-1deg)';
-            });
-            
-            item.addEventListener('mouseleave', () => {
-                item.style.transform = 'translateX(0) skewY(0deg)';
-            });
-        });
-
         // Initialisation
         document.addEventListener('DOMContentLoaded', () => {
-            createKamuiVortex();
-            
-            // Animation d'entrée pour les stats
-            const statItems = document.querySelectorAll('.stat-item');
-            statItems.forEach((item, index) => {
-                item.style.animationDelay = `${1.4 + index * 0.1}s`;
-            });
+            createPuppetStrings();
         });
     </script>
 </body>
