@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Kage - Tous les Dirigeants des Villages Ninjas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* RESET ET STYLES GÉNÉRAUX */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #c00;
+            --secondary-red: #ff3333;
+            --accent-yellow: #ffcc00;
+            --dark-bg: #0a0a12;
+            --card-bg: rgba(20, 20, 30, 0.95);
+            --text-light: #f5f5f5;
+            --text-gold: #ffd700;
+            
+            /* Couleurs spécifiques aux villages */
+            --hokage-green: #228b22;
+            --kazekage-yellow: #daa520;
+            --mizukage-blue: #4682b4;
+            --raikage-purple: #9370db;
+            --tsuchikage-brown: #8b4513;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(200, 0, 0, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(200, 0, 0, 0.1) 0%, transparent 20%);
+            position: relative;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Effet de particules d'ombre */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .shadow-particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: shadowFloat 10s infinite ease-in-out;
+            background: radial-gradient(circle, rgba(255, 204, 0, 0.3), rgba(200, 0, 0, 0.2));
+        }
+
+        /* Header Magnifique */
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(10, 10, 18, 0.95), rgba(5, 5, 10, 0.85));
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid var(--primary-red);
+            box-shadow: 0 5px 25px rgba(200, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            padding: 15px 0;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }   
+
+        /* Header Magnifique - CORRIGER POUR CORRESPONDRE À NARUTO2.HTML */
+    .sticky-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background: linear-gradient(to bottom, rgba(10, 10, 18, 0.95), rgba(5, 5, 10, 0.85));
+        backdrop-filter: blur(10px);
+        border-bottom: 3px solid var(--primary-red);
+        box-shadow: 0 5px 25px rgba(200, 0, 0, 0.3);
+        transition: all 0.4s ease;
+        padding: 15px 0;
+    }
+
+    .header-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 30px;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }   
+
+    .logo-img {
+        height: 55px;
+        width: auto;
+        filter: drop-shadow(0 0 8px rgba(200, 0, 0, 0.8));
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .logo-text {
+        font-family: 'Oswald', sans-serif;
+        font-size: 2.2rem;
+        font-weight: bold;
+        background: linear-gradient(90deg, var(--accent-yellow), var(--primary-red));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 10px rgba(200, 0, 0, 0.6);
+        letter-spacing: 1px;
+        position: relative;
+    }
+
+    .logo-text::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary-red), transparent);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.4s ease;
+    }
+
+    .logo-container:hover .logo-img {
+        transform: rotate(15deg) scale(1.15);
+    }
+
+    .logo-container:hover .logo-text::after {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+
+    /* Navigation */
+    .nav-links {
+        display: flex;
+        gap: 25px;
+    }
+
+    .nav-link {
+        color: var(--text-light);
+        text-decoration: none;
+        font-family: 'Oswald', sans-serif;
+        font-size: 1.2rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 8px 15px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .nav-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, var(--primary-red), transparent);
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        transition: clip-path 0.4s ease;
+        z-index: -1;
+    }
+
+    .nav-link:hover::before {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .nav-link.active {
+        color: var(--accent-yellow);
+        transform: translateY(-3px);
+    }
+
+    .nav-link.active::before {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+
+        /* Section principale */
+        .main-section {
+            padding: 120px 20px 60px;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--accent-yellow);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            text-shadow: 0 0 30px rgba(255, 204, 0, 0.8);
+            animation: titlePulse 4s ease-in-out infinite alternate;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #bbb;
+            margin-bottom: 70px;
+            font-style: italic;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-red), var(--accent-yellow), var(--primary-red));
+            border-radius: 3px;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.6);
+        }
+
+        /* Section de village */
+        .village-section {
+            margin-bottom: 100px;
+            padding: 40px;
+            background: rgba(20, 20, 30, 0.3);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 2px solid transparent;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 80px;
+        }
+
+        .village-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 50px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid;
+        }
+
+        .village-symbol {
+            font-size: 4rem;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid;
+        }
+
+        .village-info h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .village-info p {
+            font-size: 1.3rem;
+            color: #bbb;
+            font-style: italic;
+        }
+
+        /* Grille des Kage */
+        .kage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .kage-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid transparent;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            animation: cardAppear 0.8s ease-out forwards;
+            cursor: pointer;
+        }
+
+        .kage-card:nth-child(1) { animation-delay: 0.1s; }
+        .kage-card:nth-child(2) { animation-delay: 0.2s; }
+        .kage-card:nth-child(3) { animation-delay: 0.3s; }
+        .kage-card:nth-child(4) { animation-delay: 0.4s; }
+        .kage-card:nth-child(5) { animation-delay: 0.5s; }
+        .kage-card:nth-child(6) { animation-delay: 0.6s; }
+        .kage-card:nth-child(7) { animation-delay: 0.7s; }
+
+        .kage-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 204, 0, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+        }
+
+        .kage-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(255, 204, 0, 0.4);
+        }
+
+        .kage-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Image du Kage */
+        .kage-image {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kage-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+            filter: brightness(0.9) contrast(1.1);
+        }
+
+        .kage-card:hover .kage-image img {
+            transform: scale(1.15);
+        }
+
+        .rank-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 204, 0, 0.9);
+            color: var(--dark-bg);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .status-badge {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .status-alive {
+            background: rgba(50, 205, 50, 0.9);
+            color: white;
+        }
+
+        .status-deceased {
+            background: rgba(139, 0, 0, 0.9);
+            color: white;
+        }
+
+        /* Contenu de la carte */
+        .kage-content {
+            padding: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .kage-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .kage-title {
+            font-size: 1.1rem;
+            color: #bbb;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .kage-period {
+            font-size: 1rem;
+            color: var(--accent-yellow);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .kage-description {
+            font-size: 0.95rem;
+            color: #ddd;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        /* Couleurs spécifiques pour chaque village */
+        .village-section[data-village="konoha"] {
+            border-color: var(--hokage-green);
+        }
+        .village-section[data-village="konoha"] .village-header {
+            border-bottom-color: var(--hokage-green);
+        }
+        .village-section[data-village="konoha"] .village-symbol {
+            background: var(--hokage-green);
+            border-color: var(--hokage-green);
+            color: white;
+        }
+        .village-section[data-village="konoha"] .village-info h2 {
+            color: var(--hokage-green);
+        }
+        .village-section[data-village="konoha"] .kage-card {
+            border-color: var(--hokage-green);
+        }
+        .village-section[data-village="konoha"] .kage-name {
+            color: var(--hokage-green);
+        }
+
+        .village-section[data-village="suna"] {
+            border-color: var(--kazekage-yellow);
+        }
+        .village-section[data-village="suna"] .village-header {
+            border-bottom-color: var(--kazekage-yellow);
+        }
+        .village-section[data-village="suna"] .village-symbol {
+            background: var(--kazekage-yellow);
+            border-color: var(--kazekage-yellow);
+            color: white;
+        }
+        .village-section[data-village="suna"] .village-info h2 {
+            color: var(--kazekage-yellow);
+        }
+        .village-section[data-village="suna"] .kage-card {
+            border-color: var(--kazekage-yellow);
+        }
+        .village-section[data-village="suna"] .kage-name {
+            color: var(--kazekage-yellow);
+        }
+
+        .village-section[data-village="kiri"] {
+            border-color: var(--mizukage-blue);
+        }
+        .village-section[data-village="kiri"] .village-header {
+            border-bottom-color: var(--mizukage-blue);
+        }
+        .village-section[data-village="kiri"] .village-symbol {
+            background: var(--mizukage-blue);
+            border-color: var(--mizukage-blue);
+            color: white;
+        }
+        .village-section[data-village="kiri"] .village-info h2 {
+            color: var(--mizukage-blue);
+        }
+        .village-section[data-village="kiri"] .kage-card {
+            border-color: var(--mizukage-blue);
+        }
+        .village-section[data-village="kiri"] .kage-name {
+            color: var(--mizukage-blue);
+        }
+
+        .village-section[data-village="kumo"] {
+            border-color: var(--raikage-purple);
+        }
+        .village-section[data-village="kumo"] .village-header {
+            border-bottom-color: var(--raikage-purple);
+        }
+        .village-section[data-village="kumo"] .village-symbol {
+            background: var(--raikage-purple);
+            border-color: var(--raikage-purple);
+            color: white;
+        }
+        .village-section[data-village="kumo"] .village-info h2 {
+            color: var(--raikage-purple);
+        }
+        .village-section[data-village="kumo"] .kage-card {
+            border-color: var(--raikage-purple);
+        }
+        .village-section[data-village="kumo"] .kage-name {
+            color: var(--raikage-purple);
+        }
+
+        .village-section[data-village="iwa"] {
+            border-color: var(--tsuchikage-brown);
+        }
+        .village-section[data-village="iwa"] .village-header {
+            border-bottom-color: var(--tsuchikage-brown);
+        }
+        .village-section[data-village="iwa"] .village-symbol {
+            background: var(--tsuchikage-brown);
+            border-color: var(--tsuchikage-brown);
+            color: white;
+        }
+        .village-section[data-village="iwa"] .village-info h2 {
+            color: var(--tsuchikage-brown);
+        }
+        .village-section[data-village="iwa"] .kage-card {
+            border-color: var(--tsuchikage-brown);
+        }
+        .village-section[data-village="iwa"] .kage-name {
+            color: var(--tsuchikage-brown);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(to top, rgba(5, 5, 10, 0.95), rgba(10, 10, 18, 0.9));
+            border-top: 3px solid var(--primary-red);
+            padding: 50px 20px 30px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent-yellow);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-yellow);
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: var(--primary-red);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            background: var(--accent-yellow);
+            color: var(--dark-bg);
+        }
+
+        .copyright {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1rem;
+            color: #888;
+        }
+
+        .creator {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 10px;
+            color: var(--accent-yellow);
+            text-shadow: 0 0 10px rgba(200, 0, 0, 0.5);
+        }
+
+        /* Animations CSS */
+        @keyframes shadowFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg) scale(1);
+                opacity: 0.3;
+            }
+            25% {
+                transform: translateY(-30px) rotate(90deg) scale(1.2);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-15px) rotate(180deg) scale(0.8);
+                opacity: 1;
+            }
+            75% {
+                transform: translateY(-40px) rotate(270deg) scale(1.1);
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes titlePulse {
+            0% { 
+                text-shadow: 0 0 30px rgba(255, 204, 0, 0.8); 
+                transform: scale(1);
+            }
+            100% { 
+                text-shadow: 0 0 50px rgba(255, 204, 0, 1), 0 0 80px rgba(200, 0, 0, 0.6); 
+                transform: scale(1.02);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .kage-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 25px;
+            }
+            
+            .section-title {
+                font-size: 3rem;
+            }
+            
+            .village-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .kage-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .village-section {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .kage-name {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Effet de particules d'ombre -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Header Magnifique -->
+    <!-- Header Magnifique -->
+    <header class="sticky-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="konoha.png" alt="Logo Konoha" class="logo-img">
+                <div class="logo-text">NARUTOBIDIA</div>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="naruto2.html" class="nav-link">Accueil</a>
+                <a href="kage.html" class="nav-link active">kage</a>
+                <a href="akatsuki.html" class="nav-link">Akatsuki</a>
+                <a href="bijuu.html" class="nav-link">Bijū</a>
+                <a href="jinch.html" class="nav-link">Jinchūriki</a>
+                <a href="about.html" class="nav-link">À propos</a>
+            </nav> 
+        </div>
+    </header>
+
+
+    <!-- Section principale -->
+    <main class="main-section">
+        <h1 class="section-title">Tous les Kage</h1>
+        <p class="section-subtitle">L'Histoire Complète des Dirigeants des Cinq Grands Villages Ninjas</p>
+        
+        <!-- KONOHAGAKURE - LES HOKAGE -->
+        <div class="village-section" data-village="konoha">
+            <div class="village-header">
+                <div class="village-symbol">🍃</div>
+                <div class="village-info">
+                    <h2>Konohagakure</h2>
+                    <p>Le Village Caché de la Feuille - Pays du Feu</p>
+                </div>
+            </div>
+            
+            <div class="kage-grid">
+                <div class="kage-card" onclick="goToKageProfile('hashirama')">
+                    <div class="kage-image">
+                        <img src="Hkage-hashirama.jpg" alt="Hashirama Senju">
+                        <div class="rank-badge">1er Hokage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Hashirama Senju</h3>
+                        <p class="kage-title">Premier Hokage - Le Dieu des Shinobi</p>
+                        <p class="kage-period">Fondateur de Konoha</p>
+                        <p class="kage-description">
+                            Fondateur de Konohagakure avec Madara Uchiha, Hashirama était surnommé le "Dieu des Shinobi". 
+                            Maître du Mokuton, il a établi le système des villages cachés et créé le titre de Hokage.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('tobirama')">
+                    <div class="kage-image">
+                        <img src="Hkage-tobirama.jpg" alt="Tobirama Senju">
+                        <div class="rank-badge">2ème Hokage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Tobirama Senju</h3>
+                        <p class="kage-title">Deuxième Hokage - Le Créateur</p>
+                        <p class="kage-period">Frère d'Hashirama</p>
+                        <p class="kage-description">
+                            Frère d'Hashirama et créateur de nombreuses institutions de Konoha. Il a développé l'Académie Ninja, 
+                            les forces de police Uchiha et de nombreux jutsu interdits comme l'Edo Tensei.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('hiruzen')">
+                    <div class="kage-image">
+                        <img src="Hkage-sarutobi.jpg" alt="Hiruzen Sarutobi">
+                        <div class="rank-badge">3ème Hokage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Hiruzen Sarutobi</h3>
+                        <p class="kage-title">Troisième Hokage - Le Professeur</p>
+                        <p class="kage-period">Le plus long règne</p>
+                        <p class="kage-description">
+                            Surnommé "Le Professeur" pour sa maîtrise de tous les jutsu de Konoha. Il a dirigé le village 
+                            pendant les Grandes Guerres Ninjas et a formé les Sannin légendaires.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('minato')">
+                    <div class="kage-image">
+                        <img src="Hkage-minato.jpg" alt="Minato Namikaze">
+                        <div class="rank-badge">4ème Hokage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Minato Namikaze</h3>
+                        <p class="kage-title">Quatrième Hokage - L'Éclair Jaune</p>
+                        <p class="kage-period">Père de Naruto</p>
+                        <p class="kage-description">
+                            L'Éclair Jaune de Konoha, célèbre pour sa vitesse légendaire et le Rasengan. Il a sacrifié sa vie 
+                            pour sceller Kurama dans son fils Naruto lors de l'attaque du démon renard.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('tsunade')">
+                    <div class="kage-image">
+                        <img src="Hkage-tsunade.jpg" alt="Tsunade">
+                        <div class="rank-badge">5ème Hokage</div>
+                        <div class="status-badge status-alive">Vivante</div>
+                    </div>
+                                        <div class="kage-content">
+                        <h3 class="kage-name">Tsunade</h3>
+                        <p class="kage-title">Cinquième Hokage - La Princesse Slug</p>
+                        <p class="kage-period">Sannin Légendaire</p>
+                        <p class="kage-description">
+                            L'un des trois Sannin légendaires, Tsunade est la plus grande ninja médicale de tous les temps. 
+                            Sa force physique monstrueuse et ses techniques de guérison ont sauvé Konoha à plusieurs reprises.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('kakashi')">
+                    <div class="kage-image">
+                        <img src="Hkage-kakashi.jpg" alt="Kakashi Hatake">
+                        <div class="rank-badge">6ème Hokage</div>
+                        <div class="status-badge status-alive">Vivant</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Kakashi Hatake</h3>
+                        <p class="kage-title">Sixième Hokage - Le Ninja Copieur</p>
+                        <p class="kage-period">Ancien Sensei de l'Équipe 7</p>
+                        <p class="kage-description">
+                            Surnommé le "Ninja Copieur" pour sa maîtrise de plus de 1000 techniques grâce au Sharingan. 
+                            Ancien sensei de Naruto, Sasuke et Sakura, il a dirigé Konoha avec sagesse après la guerre.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('naruto')">
+                    <div class="kage-image">
+                        <img src="Hkage-naruto.jpg" alt="Naruto Uzumaki">
+                        <div class="rank-badge">7ème Hokage</div>
+                        <div class="status-badge status-alive">Vivant</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Naruto Uzumaki</h3>
+                        <p class="kage-title">Septième Hokage - Le Héros de Konoha</p>
+                        <p class="kage-period">Hokage Actuel</p>
+                        <p class="kage-description">
+                            Héros de la Quatrième Grande Guerre Ninja et ancien Jinchūriki de Kurama. Naruto a réalisé 
+                            son rêve de devenir Hokage et dirige Konoha vers une ère de paix et de prospérité.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUNAGAKURE - LES KAZEKAGE -->
+        <div class="village-section" data-village="suna">
+            <div class="village-header">
+                <div class="village-symbol">🏜️</div>
+                <div class="village-info">
+                    <h2>Sunagakure</h2>
+                    <p>Le Village Caché du Sable - Pays du Vent</p>
+                </div>
+            </div>
+            
+            <div class="kage-grid">
+                <div class="kage-card" onclick="goToKageProfile('first-kazekage')">
+                    <div class="kage-image">
+                        <img src="kk-1.jpg" alt="Premier Kazekage">
+                        <div class="rank-badge">1er Kazekage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Premier Kazekage</h3>
+                        <p class="kage-title">Fondateur de Sunagakure</p>
+                        <p class="kage-period">Ère de Fondation</p>
+                        <p class="kage-description">
+                            Fondateur de Sunagakure et premier dirigeant du village du sable. Il a établi les bases 
+                            du village dans l'environnement hostile du désert et développé les premières techniques de sable.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('second-kazekage')">
+                    <div class="kage-image">
+                        <img src="2K.jpg" alt="Deuxième Kazekage">
+                        <div class="rank-badge">2ème Kazekage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Deuxième Kazekage</h3>
+                        <p class="kage-title">Successeur du Fondateur</p>
+                        <p class="kage-period">Première Grande Guerre</p>
+                        <p class="kage-description">
+                            Successeur du premier Kazekage, il a dirigé Suna pendant une période difficile et a participé 
+                            aux premières alliances entre villages. Il a renforcé les défenses du village.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('third-kazekage')">
+                    <div class="kage-image">
+                        <img src="kk-3.jpg" alt="Troisième Kazekage">
+                        <div class="rank-badge">3ème Kazekage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Troisième Kazekage</h3>
+                        <p class="kage-title">Le Plus Fort Kazekage</p>
+                        <p class="kage-period">Maître du Sable de Fer</p>
+                        <p class="kage-description">
+                            Considéré comme le plus fort Kazekage de l'histoire, il maîtrisait le Sable de Fer (Satetsu). 
+                            Il a mystérieusement disparu, assassiné par Sasori qui en a fait sa marionnette humaine.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('fourth-kazekage')">
+                    <div class="kage-image">
+                        <img src="rasa.jpg" alt="Quatrième Kazekage">
+                        <div class="rank-badge">4ème Kazekage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Rasa</h3>
+                        <p class="kage-title">Quatrième Kazekage - Père de Gaara</p>
+                        <p class="kage-period">Maître de l'Or</p>
+                        <p class="kage-description">
+                            Père de Gaara, Temari et Kankuro, Rasa maîtrisait le Sable d'Or. Il a fait de son fils 
+                            le Jinchūriki de Shukaku et a tenté de l'assassiner plusieurs fois. Tué par Orochimaru.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('gaara-kazekage')">
+                    <div class="kage-image">
+                        <img src="kk-4.jpg" alt="Gaara">
+                        <div class="rank-badge">5ème Kazekage</div>
+                        <div class="status-badge status-alive">Vivant</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Gaara</h3>
+                        <p class="kage-title">Cinquième Kazekage - Jinchūriki de Shukaku</p>
+                        <p class="kage-period">Kazekage Actuel</p>
+                        <p class="kage-description">
+                            Plus jeune Kazekage de l'histoire, ancien Jinchūriki de Shukaku. Gaara a transformé sa 
+                            solitude en force protectrice et a révolutionné Suna par sa sagesse et sa compassion.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KIRIGAKURE - LES MIZUKAGE -->
+        <div class="village-section" data-village="kiri">
+            <div class="village-header">
+                <div class="village-symbol">🌊</div>
+                <div class="village-info">
+                    <h2>Kirigakure</h2>
+                    <p>Le Village Caché de la Brume - Pays de l'Eau</p>
+                </div>
+            </div>
+            
+            <div class="kage-grid">
+                <div class="kage-card" onclick="goToKageProfile('first-mizukage')">
+                    <div class="kage-image">
+                        <img src="MK-1.jpg" alt="Premier Mizukage">
+                        <div class="rank-badge">1er Mizukage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Premier Mizukage</h3>
+                        <p class="kage-title">Fondateur de Kirigakure</p>
+                        <p class="kage-period">Ère de Fondation</p>
+                        <p class="kage-description">
+                            Fondateur de Kirigakure et créateur du système des Sept Épéistes de la Brume. Il a établi 
+                            les traditions martiales du village et développé les premières techniques aquatiques.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('second-mizukage')">
+                    <div class="kage-image">
+                        <img src="2M.jpg" alt="Deuxième Mizukage">
+                        <div class="rank-badge">2ème Mizukage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Deuxième Mizukage</h3>
+                        <p class="kage-title">Maître des Illusions</p>
+                        <p class="kage-period">Ère des Conflits</p>
+                        <p class="kage-description">
+                            Connu pour ses techniques d'illusion et sa personnalité excentrique. Il a dirigé Kiri 
+                            pendant une période de tensions avec les autres villages et a renforcé l'armée du village.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('third-mizukage')">
+                    <div class="kage-image">
+                        <img src="3M.jpg" alt="Troisième Mizukage">
+                        <div class="rank-badge">3ème Mizukage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Troisième Mizukage</h3>
+                        <p class="kage-title">Ère de la Brume Sanglante</p>
+                        <p class="kage-period">Période Sombre</p>
+                        <p class="kage-description">
+                            Il a dirigé Kiri pendant l'ère de la "Brume Sanglante", période où les méthodes 
+                            d'entraînement étaient particulièrement brutales et où les ninjas s'entretuaient.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('yagura')">
+                    <div class="kage-image">
+                        <img src="Yagura.jpg" alt="Yagura">
+                        <div class="rank-badge">4ème Mizukage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Yagura</h3>
+                        <p class="kage-title">Quatrième Mizukage - Jinchūriki de Sanbi</p>
+                        <p class="kage-period">Manipulé par Obito</p>
+                        <p class="kage-description">
+                            Jinchūriki parfait d'Isobu (Trois Queues), Yagura était manipulé par Obito. Malgré sa 
+                            petite taille, il était redoutablement puissant et a dirigé Kiri d'une main de fer.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('mei-terumi')">
+                    <div class="kage-image">
+                        <img src="MK-5.jpg" alt="Mei Terumi">
+                        <div class="rank-badge">5ème Mizukage</div>
+                        <div class="status-badge status-alive">Vivante</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Mei Terumi</h3>
+                        <p class="kage-title">Cinquième Mizukage - La Réformatrice</p>
+                        <p class="kage-period">Fin de la Brume Sanglante</p>
+                        <p class="kage-description">
+                            Réformatrice de Kiri, Mei possède deux Kekkei Genkai : Yōton (Lave) et Futton (Vapeur). 
+                            Elle a mis fin à l'ère de la "Brume Sanglante" et modernisé le village.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('chojuro')">
+                    <div class="kage-image">
+                        <img src="MK-6.jpg" alt="Chojuro">
+                        <div class="rank-badge">6ème Mizukage</div>
+                        <div class="status-badge status-alive">Vivant</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Chojuro</h3>
+                        <p class="kage-title">Sixième Mizukage - Nouvelle Ère</p>
+                        <p class="kage-period">Mizukage Actuel</p>
+                        <p class="kage-description">
+                            Successeur de Mei Terumi et membre des Sept Épéistes de la Brume. Malgré sa timidité 
+                            initiale, il est devenu un leader respecté qui continue la modernisation de Kiri.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KUMOGAKURE - LES RAIKAGE -->
+        <div class="village-section" data-village="kumo">
+            <div class="village-header">
+                <div class="village-symbol">⚡</div>
+                <div class="village-info">
+                    <h2>Kumogakure</h2>
+                    <p>Le Village Caché des Nuages - Pays de la Foudre</p>
+                </div>
+            </div>
+            
+            <div class="kage-grid">
+                <div class="kage-card" onclick="goToKageProfile('first-raikage')">
+                    <div class="kage-image">
+                        <img src="rk-1.jpg" alt="Premier Raikage">
+                        <div class="rank-badge">1er Raikage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Premier Raikage</h3>
+                        <p class="kage-title">Fondateur de Kumogakure</p>
+                        <p class="kage-period">Ère de Fondation</p>
+                        <p class="kage-description">
+                            Fondateur de Kumogakure et créateur de la culture martiale du village. Il a établi 
+                            les bases de l'entraînement physique intense et des techniques de foudre de Kumo.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('second-raikage')">
+                    <div class="kage-image">
+                        <img src="2R.jpg" alt="Deuxième Raikage">
+                        <div class="rank-badge">2ème Raikage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Deuxième Raikage</h3>
+                        <p class="kage-title">Successeur du Fondateur</p>
+                        <p class="kage-period">Première Grande Guerre</p>
+                        <p class="kage-description">
+                            Il a dirigé Kumo pendant la Première Grande Guerre Ninja et a développé les alliances 
+                            militaires du village. Connu pour sa force physique exceptionnelle.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('third-raikage')">
+                    <div class="kage-image">
+                        <img src="3R.jpg" alt="Troisième Raikage">
+                        <div class="rank-badge">3ème Raikage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Troisième Raikage</h3>
+                        <p class="kage-title">Le Plus Fort Raikage</p>
+                        <p class="kage-period">Père d'A</p>
+                        <p class="kage-description">
+                            Considéré comme le plus fort Raikage, père du Quatrième Raikage. Il possédait une défense 
+                            quasi-impénétrable et une force destructrice légendaire. Mort en héros pour sauver ses alliés.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('fourth-raikage')">
+                    <div class="kage-image">
+                        <img src="rk-3.jpg" alt="Quatrième Raikage">
+                        <div class="rank-badge">4ème Raikage</div>
+                        <div class="status-badge status-alive">Vivant</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">A</h3>
+                        <p class="kage-title">Quatrième Raikage - Éclair Noir</p>
+                        <p class="kage-period">Frère adoptif de Killer Bee</p>
+                        <p class="kage-description">
+                            Surnommé "Éclair Noir" pour sa vitesse légendaire, A était l'un des ninjas les plus rapides 
+                            au monde. Frère adoptif de Killer Bee, il a dirigé Kumo avec autorité et force.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('darui')">
+                    <div class="kage-image">
+                        <img src="rk-5.jpg" alt="Darui">
+                        <div class="rank-badge">5ème Raikage</div>
+                        <div class="status-badge status-alive">Vivant</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Darui</h3>
+                        <p class="kage-title">Cinquième Raikage - Nouvelle Génération</p>
+                        <p class="kage-period">Raikage Actuel</p>
+                        <p class="kage-description">
+                            Successeur du Quatrième Raikage, Darui maîtrise le Ranton (Style Tempête). Malgré son 
+                            attitude décontractée, il est devenu un leader compétent qui modernise Kumo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IWAGAKURE - LES TSUCHIKAGE -->
+        <div class="village-section" data-village="iwa">
+            <div class="village-header">
+                <div class="village-symbol">🗻</div>
+                <div class="village-info">
+                    <h2>Iwagakure</h2>
+                    <p>Le Village Caché de la Roche - Pays de la Terre</p>
+                </div>
+            </div>
+            
+            <div class="kage-grid">
+                <div class="kage-card" onclick="goToKageProfile('first-tsuchikage')">
+                    <div class="kage-image">
+                        <img src="tk-1.jpg" alt="Premier Tsuchikage">
+                        <div class="rank-badge">1er Tsuchikage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Ishikawa</h3>
+                        <p class="kage-title">Premier Tsuchikage - Fondateur</p>
+                        <p class="kage-period">Ère de Fondation</p>
+                        <p class="kage-description">
+                            Fondateur d'Iwagakure et grand-père d'Ōnoki. Il a établi le village dans les montagnes 
+                            rocheuses et développé les premières techniques de terre défensives du village.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('mu')">
+                    <div class="kage-image">
+                        <img src="2T.jpg" alt="Mū">
+                        <div class="rank-badge">2ème Tsuchikage</div>
+                        <div class="status-badge status-deceased">Décédé</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Mū</h3>
+                        <p class="kage-title">Deuxième Tsuchikage - L'Homme Sans</p>
+                        <p class="kage-period">Maître d'Ōnoki</p>
+                        <p class="kage-description">
+                            Surnommé "L'Homme Sans" pour sa capacité d'invisibilité, Mū était le maître d'Ōnoki. 
+                            Il maîtrisait le Jinton et pouvait diviser son corps, rendant sa détection quasi-impossible.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('onoki')">
+                    <div class="kage-image">
+                        <img src="tk-3.jpg" alt="Ōnoki">
+                        <div class="rank-badge">3ème Tsuchikage</div>
+                        <div class="status-badge status-alive">Vivant</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Ōnoki</h3>
+                        <p class="kage-title">Troisième Tsuchikage - La Balance</p>
+                        <p class="kage-period">Le Plus Ancien Kage</p>
+                        <p class="kage-description">
+                            Surnommé "La Balance", Ōnoki était le plus ancien des Kage. Maître du Jinton (Style Poussière), 
+                            il pouvait désintégrer la matière au niveau atomique. Malgré son âge, il restait redoutable.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kage-card" onclick="goToKageProfile('kurotsuchi')">
+                    <div class="kage-image">
+                        <img src="tk-4.jpg" alt="Kurotsuchi">
+                        <div class="rank-badge">4ème Tsuchikage</div>
+                        <div class="status-badge status-alive">Vivante</div>
+                    </div>
+                    <div class="kage-content">
+                        <h3 class="kage-name">Kurotsuchi</h3>
+                        <p class="kage-title">Quatrième Tsuchikage - Nouvelle Ère</p>
+                        <p class="kage-period">Tsuchikage Actuelle</p>
+                        <p class="kage-description">
+                            Petite-fille d'Ōnoki et nouvelle génération de Tsuchikage. Elle maîtrise les techniques 
+                            de Terre et de Lave, représentant l'avenir d'Iwa avec une approche moderne du leadership.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>À propos</h3>
+                <p>Naruto Shippuden Universe est un site dédié à l'univers riche et passionnant de Naruto. Nous explorons les personnages, les techniques, l'histoire et bien plus encore.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Liens Rapides</h3>
+                <ul class="footer-links">
+                    <li><a href="naruto2.html">Accueil</a></li>
+                    <li><a href="personnages.html">Personnages</a></li>
+                    <li><a href="akatsuki.html">Akatsuki</a></li>
+                    <li><a href="techniques.html">Techniques</a></li>
+                    <li><a href="bijuu.html">Bijū</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Nous Suivre</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023-2025 Naruto Shippuden Universe. Tous droits réservés.</p>
+            <div class="creator">Créé par Ghazli Salah Eddine</div>
+            <p><small>Ce site est un hommage à l'œuvre de Masashi Kishimoto</small></p>
+        </div>
+    </footer>
+
+    <script>
+        // Animation de particules d'ombre
+        function createShadowParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 80;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle', 'shadow-particle');
+                
+                // Taille aléatoire
+                const size = Math.random() * 10 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Position aléatoire
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Animation avec délai aléatoire
+                const duration = Math.random() * 8 + 6;
+                particle.style.animation = `shadowFloat ${duration}s infinite ease-in-out`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Fonction pour naviguer vers le profil du Kage
+        function goToKageProfile(kageId) {
+            // Animation de transition
+            const clickedCard = event.currentTarget;
+            clickedCard.style.transform = 'scale(1.2)';
+            clickedCard.style.filter = 'brightness(1.5)';
+            clickedCard.style.zIndex = '1000';
+            
+            // Redirection après l'animation
+            setTimeout(() => {
+                window.location.href = `${kageId}-profile.html`;
+            }, 600);
+        }
+        
+        // Animation des cartes Kage au défilement
+        function animateKageCardsOnScroll() {
+            const kageCards = document.querySelectorAll('.kage-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                                                        entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0) scale(1)';
+                        }, index * 150);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { 
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            kageCards.forEach(card => {
+                observer.observe(card);
+            });
+        }
+        
+        // Effet de parallaxe pour le header
+        function headerParallax() {
+            const header = document.querySelector('.sticky-header');
+            let lastScrollY = window.scrollY;
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    if (lastScrollY < window.scrollY) {
+                        header.style.transform = 'translateY(-100%)';
+                    } else {
+                        header.style.transform = 'translateY(0)';
+                    }
+                } else {
+                    header.style.transform = 'translateY(0)';
+                }
+                lastScrollY = window.scrollY;
+            });
+        }
+        
+        // Effet d'aura de pouvoir au survol
+        function addPowerAuraEffect() {
+            const kageCards = document.querySelectorAll('.kage-card');
+            
+            kageCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    const village = card.closest('.village-section').getAttribute('data-village');
+                    const auraColors = {
+                        'konoha': 'rgba(34, 139, 34, 0.4)',
+                        'suna': 'rgba(218, 165, 32, 0.4)',
+                        'kiri': 'rgba(70, 130, 180, 0.4)',
+                        'kumo': 'rgba(147, 112, 219, 0.4)',
+                        'iwa': 'rgba(139, 69, 19, 0.4)'
+                    };
+                    
+                    const auraColor = auraColors[village] || 'rgba(255, 204, 0, 0.4)';
+                    card.style.boxShadow = `0 0 40px ${auraColor}, 0 0 80px rgba(255, 204, 0, 0.2)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.4)';
+                });
+            });
+        }
+        
+        // Animation des badges de statut
+        function animateStatusBadges() {
+            const statusBadges = document.querySelectorAll('.status-badge');
+            
+            statusBadges.forEach(badge => {
+                if (badge.classList.contains('status-alive')) {
+                    setInterval(() => {
+                        badge.style.boxShadow = `0 0 ${Math.random() * 10 + 5}px rgba(50, 205, 50, ${Math.random() * 0.8 + 0.4})`;
+                    }, 2000);
+                } else if (badge.classList.contains('status-deceased')) {
+                    setInterval(() => {
+                        badge.style.boxShadow = `0 0 ${Math.random() * 8 + 3}px rgba(139, 0, 0, ${Math.random() * 0.6 + 0.3})`;
+                    }, 3000);
+                }
+            });
+        }
+        
+        // Effet de survol amélioré pour les cartes
+        function enhanceCardHover() {
+            const cards = document.querySelectorAll('.kage-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateY = (x - centerX) / 15;
+                    const rotateX = (centerY - y) / 15;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.05)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+                });
+            });
+        }
+        
+        // Animation des sections de village
+        function animateVillageSections() {
+            const villageSections = document.querySelectorAll('.village-section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const village = entry.target.getAttribute('data-village');
+                        const villageHeader = entry.target.querySelector('.village-header');
+                        
+                        // Animation du header de village
+                        villageHeader.style.transform = 'translateX(0)';
+                        villageHeader.style.opacity = '1';
+                        
+                        // Effet de pulsation pour le symbole
+                        const symbol = entry.target.querySelector('.village-symbol');
+                        symbol.style.animation = 'float 3s ease-in-out infinite';
+                        
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+            
+            villageSections.forEach(section => {
+                const villageHeader = section.querySelector('.village-header');
+                villageHeader.style.transform = 'translateX(-100px)';
+                villageHeader.style.opacity = '0';
+                villageHeader.style.transition = 'all 1s ease';
+                
+                observer.observe(section);
+            });
+        }
+        
+        // Initialisation de tous les effets
+        document.addEventListener('DOMContentLoaded', () => {
+            createShadowParticles();
+            animateKageCardsOnScroll();
+            headerParallax();
+            addPowerAuraEffect();
+            animateStatusBadges();
+            enhanceCardHover();
+            animateVillageSections();
+            
+            // Animation du titre principal
+            const mainTitle = document.querySelector('.section-title');
+            if (mainTitle) {
+                setInterval(() => {
+                    const intensity = Math.random() * 0.5 + 0.5;
+                    mainTitle.style.textShadow = `0 0 30px rgba(255, 204, 0, ${intensity}), 0 0 60px rgba(200, 0, 0, ${intensity * 0.7})`;
+                }, 2500);
+            }
+            
+            // Effet de clignotement pour les bordures des cartes
+            setInterval(() => {
+                const cards = document.querySelectorAll('.kage-card');
+                const randomCard = cards[Math.floor(Math.random() * cards.length)];
+                if (randomCard && !randomCard.matches(':hover')) {
+                    const village = randomCard.closest('.village-section').getAttribute('data-village');
+                    const borderColors = {
+                        'konoha': '#228b22',
+                        'suna': '#daa520',
+                        'kiri': '#4682b4',
+                        'kumo': '#9370db',
+                        'iwa': '#8b4513'
+                    };
+                    randomCard.style.borderColor = borderColors[village];
+                    setTimeout(() => {
+                        randomCard.style.borderColor = 'transparent';
+                    }, 800);
+                }
+            }, 4000);
+            
+            // Animation des particules au scroll
+            window.addEventListener('scroll', () => {
+                const particles = document.querySelectorAll('.shadow-particle');
+                const scrollPosition = window.pageYOffset;
+                
+                particles.forEach((particle, index) => {
+                    const speed = 0.03 + (index % 4) * 0.01;
+                    const currentTransform = particle.style.transform || '';
+                    particle.style.transform = `${currentTransform} translateY(${scrollPosition * speed}px)`;
+                });
+            });
+            
+            // Effet de pouvoir qui émane des badges de rang
+            const rankBadges = document.querySelectorAll('.rank-badge');
+            rankBadges.forEach(badge => {
+                setInterval(() => {
+                    badge.style.boxShadow = `0 0 ${Math.random() * 15 + 10}px rgba(255, 204, 0, ${Math.random() * 0.8 + 0.4})`;
+                }, 2000);
+            });
+            
+            // Animation spéciale pour les symboles de village
+            const villageSymbols = document.querySelectorAll('.village-symbol');
+            villageSymbols.forEach(symbol => {
+                symbol.addEventListener('mouseenter', () => {
+                    symbol.style.transform = 'scale(1.2) rotate(15deg)';
+                    symbol.style.boxShadow = '0 0 30px rgba(255, 204, 0, 0.8)';
+                });
+                
+                symbol.addEventListener('mouseleave', () => {
+                    symbol.style.transform = 'scale(1) rotate(0deg)';
+                    symbol.style.boxShadow = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
