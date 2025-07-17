@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirigakure - Le Village Caché de la Brume</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* RESET ET STYLES GÉNÉRAUX */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --kiri-blue: #4682b4;
+            --kiri-light: #87ceeb;
+            --kiri-dark: #2f4f4f;
+            --accent-cyan: #00ffff;
+            --dark-bg: #0a0a12;
+            --text-light: #f5f5f5;
+            --card-bg: rgba(15, 25, 35, 0.9);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(47, 79, 79, 0.4)), url('kirigakure.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Effet de particules de brume */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .mist-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(135, 206, 235, 0.3), rgba(70, 130, 180, 0.1));
+            animation: mistFloat 20s infinite ease-in-out;
+            opacity: 0.6;
+            filter: blur(2px);
+        }
+
+        .water-drop {
+            position: absolute;
+            width: 4px;
+            height: 8px;
+            background: linear-gradient(to bottom, rgba(0, 255, 255, 0.8), rgba(70, 130, 180, 0.6));
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: waterDrop 8s infinite linear;
+        }
+
+        /* Bouton de retour */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--kiri-blue);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(70, 130, 180, 0.4);
+        }
+
+        .back-button:hover {
+            background: var(--kiri-light);
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(70, 130, 180, 0.6);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(45deg, rgba(70, 130, 180, 0.3), rgba(47, 79, 79, 0.3));
+        }
+
+        .hero-content {
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .hero-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 5rem;
+            color: var(--kiri-blue);
+            text-shadow: 0 0 30px rgba(70, 130, 180, 0.8);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: #ddd;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Section des personnages */
+        .characters-section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            color: var(--kiri-blue);
+            text-align: center;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(70, 130, 180, 0.6);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--kiri-blue), var(--accent-cyan), var(--kiri-blue));
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(70, 130, 180, 0.5);
+        }
+
+        /* Grille des personnages */
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .character-card {
+            background: var(--card-bg);
+            border: 3px solid var(--kiri-blue);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: cardAppear 0.8s ease-out forwards;
+        }
+
+        .character-card:nth-child(1) { animation-delay: 0.1s; }
+        .character-card:nth-child(2) { animation-delay: 0.2s; }
+        .character-card:nth-child(3) { animation-delay: 0.3s; }
+        .character-card:nth-child(4) { animation-delay: 0.4s; }
+        .character-card:nth-child(5) { animation-delay: 0.5s; }
+        .character-card:nth-child(6) { animation-delay: 0.6s; }
+        .character-card:nth-child(7) { animation-delay: 0.7s; }
+        .character-card:nth-child(8) { animation-delay: 0.8s; }
+        .character-card:nth-child(9) { animation-delay: 0.9s; }
+        .character-card:nth-child(10) { animation-delay: 1.0s; }
+
+        .character-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(70, 130, 180, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .character-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 25px 50px rgba(70, 130, 180, 0.4);
+        }
+
+        .character-card:hover::before {
+            opacity: 1;
+        }
+
+        .character-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 4px solid var(--kiri-blue);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(70, 130, 180, 0.3);
+        }
+
+        .character-card:hover .character-img {
+            border-color: var(--accent-cyan);
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+
+        .character-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--kiri-blue);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .character-card:hover .character-name {
+            color: var(--accent-cyan);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .character-role {
+            color: #bbb;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .character-description {
+            color: #ddd;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .character-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            color: var(--kiri-blue);
+            font-weight: bold;
+        }
+
+        /* Section des Mizukage */
+        .mizukage-section {
+            padding: 100px 20px;
+            background: rgba(70, 130, 180, 0.1);
+            margin: 50px 0;
+        }
+
+        .mizukage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .mizukage-card {
+            background: var(--card-bg);
+            border: 3px solid var(--accent-cyan);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .mizukage-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.3);
+        }
+
+        .mizukage-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            border: 3px solid var(--accent-cyan);
+        }
+
+        .mizukage-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            color: var(--accent-cyan);
+            margin-bottom: 5px;
+        }
+
+        .mizukage-title {
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        /* Section des Sept Épéistes */
+        .swordsmen-section {
+            padding: 100px 20px;
+            background: rgba(47, 79, 79, 0.2);
+            margin: 50px 0;
+        }
+
+        .swordsmen-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .swordsman-card {
+            background: var(--card-bg);
+            border: 3px solid var(--kiri-dark);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .swordsman-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(47, 79, 79, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .swordsman-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 20px 40px rgba(47, 79, 79, 0.4);
+        }
+
+        .swordsman-card:hover::before {
+            opacity: 1;
+        }
+
+        .sword-img {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+        }
+
+        .sword-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4rem;
+            color: var(--accent-cyan);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .sword-wielder {
+            color: #ddd;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .sword-description {
+            color: #bbb;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Animations CSS */
+        @keyframes mistFloat {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px) scale(1);
+                opacity: 0.3;
+            }
+            25% {
+                transform: translateY(-30px) translateX(20px) scale(1.1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-10px) translateX(-15px) scale(0.9);
+                opacity: 0.8;
+            }
+            75% {
+                transform: translateY(-40px) translateX(10px) scale(1.05);
+                opacity: 0.4;
+            }
+        }
+
+        @keyframes waterDrop {
+            0% {
+                transform: translateY(-100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 30px rgba(70, 130, 180, 0.8); }
+            100% { text-shadow: 0 0 50px rgba(70, 130, 180, 1), 0 0 80px rgba(70, 130, 180, 0.6); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .characters-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .character-card {
+                padding: 20px;
+            }
+
+            .character-img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .characters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .back-button {
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <a href="village.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Retour aux Villages
+    </a>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Kirigakure</h1>
+            <p class="hero-subtitle">Le Village Caché de la Brume - Pays de l'Eau</p>
+            <p class="hero-description">
+                Kirigakure était autrefois connu comme le "Village de la Brume Sanglante" en raison de ses 
+                méthodes d'entraînement brutales. Le village a produit les légendaires Sept Épéistes de la Brume 
+                et maîtrise les techniques d'eau. Après des années sombres sous la tyrannie, Kiri a entamé une 
+                réforme pour devenir plus pacifique.
+            </p>
+        </div>
+    </section>
+
+    <!-- Section des Mizukage -->
+    <section class="mizukage-section">
+        <h2 class="section-title">Les Six Mizukage</h2>
+        <div class="mizukage-grid">
+            <div class="mizukage-card">
+                <img src="1M.jpg" alt="Premier Mizukage" class="mizukage-img">
+                <div class="mizukage-name">Premier Mizukage</div>
+                <div class="mizukage-title">Fondateur de Kiri</div>
+            </div>
+            <div class="mizukage-card">
+                <img src="2M.jpg" alt="Deuxième Mizukage" class="mizukage-img">
+                <div class="mizukage-name">Deuxième Mizukage</div>
+                <div class="mizukage-title">Maître des Illusions</div>
+            </div>
+            <div class="mizukage-card")">
+                <img src="3M.jpg" alt="Troisième Mizukage" class="mizukage-img">
+                <div class="mizukage-name">Troisième Mizukage</div>
+                <div class="mizukage-title">Ère de la Brume Sanglante</div>
+            </div>
+            <div class="mizukage-card">
+                <img src="yagura.jpg" alt="Yagura" class="mizukage-img">
+                <div class="mizukage-name">Yagura</div>
+                <div class="mizukage-title">Quatrième Mizukage - Jinchūriki</div>
+            </div>
+            <div class="mizukage-card">
+                <img src="Mei.jpg" alt="Mei Terumi" class="mizukage-img">
+                <div class="mizukage-name">Mei Terumi</div>
+                <div class="mizukage-title">Cinquième Mizukage - Réformatrice</div>
+            </div>
+            <div class="mizukage-card">
+                <img src="6M.jpg" alt="Chojuro" class="mizukage-img">
+                <div class="mizukage-name">Chojuro</div>
+                <div class="mizukage-title">Sixième Mizukage - Nouvelle Ère</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section des personnages principaux -->
+    <section class="characters-section">
+        <h2 class="section-title">Légendes de la Brume</h2>
+        <div class="characters-grid">
+            
+            <div class="character-card" >
+                <img src="zabuza.jpg" alt="Zabuza Momochi" class="character-img">
+                <div class="character-name">Zabuza Momochi</div>
+                <div class="character-role">Le Démon de la Brume (†)</div>
+                <div class="character-description">
+                    L'un des Sept Épéistes de la Brume, Zabuza était surnommé le "Démon de la Brume" 
+                    pour sa cruauté légendaire. Maître de l'épée Kubikiribōchō, il était un assassin redoutable.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Kenjutsu</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Eau</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Assassinat</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card" >
+                <img src="hako.jpg" alt="Haku" class="character-img">
+                <div class="character-name">Haku</div>
+                <div class="character-role">Maître de la Glace Cristalline (†)</div>
+                <div class="character-description">
+                    Possesseur du Kekkei Genkai Hyōton, Haku pouvait créer et manipuler la glace. 
+                    Loyal serviteur de Zabuza, il était d'une gentillesse rare malgré sa puissance.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Hyōton</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Vitesse</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Loyauté</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card" >
+                <img src="kisameak.jpeg" alt="Kisame Hoshigaki" class="character-img">
+                <div class="character-name">Kisame Hoshigaki</div>
+                <div class="character-role">Le Monstre de Kiri (†)</div>
+                <div class="character-description">
+                    Membre de l'Akatsuki et ancien des Sept Épéistes, Kisame était surnommé le "Monstre sans Queue". 
+                    Sa fusion avec Samehada lui donnait des capacités aquatiques extraordinaires.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Chakra</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Eau</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Endurance</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card" >
+                <img src="mei.jpg" alt="Mei Terumi" class="character-img">
+                <div class="character-name">Mei Terumi</div>
+                <div class="character-role">Cinquième Mizukage</div>
+                <div class="character-description">
+                    Réformatrice de Kiri, Mei possède deux Kekkei Genkai : Yōton (Lave) et Futton (Vapeur). 
+                    Elle a mis fin à l'ère de la "Brume Sanglante" et modernisé le village.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Yōton</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Futton</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Leadership</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="6M.jpg" alt="Chojuro" class="character-img">
+                <div class="character-name">Chojuro</div>
+                <div class="character-role">Sixième Mizukage</div>
+                <div class="character-description">
+                    Successeur de Mei Terumi, Chojuro était initialement timide mais est devenu un leader respecté. 
+                    Il manie l'épée Hiramekarei des Sept Épéistes de la Brume.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Kenjutsu</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Eau</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Humilité</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="suigetsu-hozuki.jpg" alt="Suigetsu Hōzuki" class="character-img">
+                <div class="character-name">Suigetsu Hōzuki</div>
+                <div class="character-role">Maître de la Liquéfaction</div>
+                <div class="character-description">
+                    Membre du clan Hōzuki, Suigetsu peut liquéfier son corps. Ancien prisonnier d'Orochimaru, 
+                    il rêve de rassembler toutes les épées des Sept Épéistes de la Brume.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Liquéfaction</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Kenjutsu</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Ambition</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="mangestsu.jpg" alt="Mangetsu Hōzuki" class="character-img">
+                <div class="character-name">Mangetsu Hōzuki</div>
+                <div class="character-role">Génie des Épées (†)</div>
+                <div class="character-description">
+                    Frère aîné de Suigetsu, Mangetsu était le seul ninja à avoir maîtrisé les sept épées 
+                    légendaires de Kiri. Il était considéré comme un prodige du Kenjutsu.
+                </div>
+                                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Kenjutsu</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Génie</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Légende</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card" >
+                <img src="utakata.jpg" alt="Utakata" class="character-img">
+                <div class="character-name">Utakata</div>
+                <div class="character-role">Jinchūriki de Rokubi (†)</div>
+                <div class="character-description">
+                    Ancien Jinchūriki de Saiken (Six Queues), Utakata était un ninja déserteur de Kiri. 
+                    Il maîtrisait les techniques de bulles et était poursuivi par son ancien maître.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Bulles</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Bijū</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Indépendance</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card" >
+                <img src="Yagura.jpg" alt="Yagura Jinchūriki" class="character-img">
+                <div class="character-name">Yagura</div>
+                <div class="character-role">Jinchūriki de Sanbi (†)</div>
+                <div class="character-description">
+                    Quatrième Mizukage et Jinchūriki d'Isobu (Trois Queues), Yagura était manipulé par Obito. 
+                    Malgré sa petite taille, il était redoutablement puissant au combat.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Bijū</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Eau</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Leadership</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card" >
+                <img src="ao.jpg" alt="Ao" class="character-img">
+                <div class="character-name">Ao</div>
+                <div class="character-role">Ninja Sensoriel</div>
+                <div class="character-description">
+                    Vétéran de Kiri possédant un Byakugan volé, Ao était un ninja sensoriel d'élite. 
+                    Il a servi fidèlement sous Mei Terumi et était respecté pour son expérience.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Byakugan</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Expérience</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Détection</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section des Sept Épéistes de la Brume -->
+    <section class="swordsmen-section">
+        <h2 class="section-title">Les Sept Épées Légendaires de la Brume</h2>
+        <div class="swordsmen-grid">
+            
+            <div class="swordsman-card" >
+                <img src="1ep.jpg" alt="Kubikiribōchō" class="sword-img">
+                <div class="sword-name">Kubikiribōchō</div>
+                <div class="sword-wielder">Porteur : Zabuza Momochi</div>
+                <div class="sword-description">
+                    L'épée décapiteuse, capable de se régénérer en absorbant le fer du sang de ses victimes. 
+                    Arme signature de Zabuza, elle peut trancher presque n'importe quoi.
+                </div>
+            </div>
+
+            <div class="swordsman-card" >
+                <img src="2ep.jpg" alt="Samehada" class="sword-img">
+                <div class="sword-name">Samehada</div>
+                <div class="sword-wielder">Porteur : Kisame Hoshigaki</div>
+                <div class="sword-description">
+                    L'épée vivante qui dévore le chakra, capable de fusionner avec son porteur. 
+                    Elle choisit elle-même son maître et peut trahir si elle trouve mieux.
+                </div>
+            </div>
+
+            <div class="swordsman-card" >
+                <img src="3ep.jpg" alt="Hiramekarei" class="sword-img">
+                <div class="sword-name">Hiramekarei</div>
+                <div class="sword-wielder">Porteur : Chojuro</div>
+                <div class="sword-description">
+                    Épée à double lame capable de libérer et de solidifier le chakra pour créer 
+                    diverses formes d'armes selon les besoins du combat.
+                </div>
+            </div>
+
+            <div class="swordsman-card">
+                <img src="4ep.jpg" alt="Nuibari" class="sword-img">
+                <div class="sword-name">Nuibari</div>
+                <div class="sword-wielder">Porteur : Kushimaru Kuriarare</div>
+                <div class="sword-description">
+                    L'aiguille à coudre, une épée fine comme une aiguille reliée à un fil métallique. 
+                    Permet de "coudre" les ennemis ensemble ou de les attacher.
+                </div>
+            </div>
+
+            <div class="swordsman-card">
+                <img src="5ep.jpg" alt="Shibuki" class="sword-img">
+                <div class="sword-name">Shibuki</div>
+                <div class="sword-wielder">Porteur : Jinin Akebino</div>
+                <div class="sword-description">
+                    L'épée explosive, remplie de parchemins explosifs. Chaque coup peut déclencher 
+                    des explosions dévastatrices, en faisant une arme de destruction massive.
+                </div>
+            </div>
+
+            <div class="swordsman-card">
+                <img src="6ep.jpg" alt="Kiba" class="sword-img">
+                <div class="sword-name">Kiba</div>
+                <div class="sword-wielder">Porteur : Ameyuri Ringo</div>
+                <div class="sword-description">
+                    Les épées jumelles de la foudre, capables de générer et de canaliser l'électricité. 
+                    Utilisées en paire, elles créent des attaques électriques dévastatrices.
+                </div>
+            </div>
+
+            <div class="swordsman-card">
+                <img src="7ep.jpg" alt="Kabutowari" class="sword-img">
+                <div class="sword-name">Kabutowari</div>
+                <div class="sword-wielder">Porteur : Jinin Akebino</div>
+                <div class="sword-description">
+                    Le brise-casque, composé d'un marteau et d'une hache reliés par une chaîne. 
+                    Conçu pour briser les défenses les plus solides d'un seul coup.
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        // Animation de particules de brume et gouttes d'eau
+        function createMistParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const mistCount = 40;
+            const dropCount = 30;
+            
+            // Particules de brume
+            for (let i = 0; i < mistCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('mist-particle');
+                
+                // Taille aléatoire
+                const size = Math.random() * 60 + 30;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Position aléatoire
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Animation avec délai aléatoire
+                const duration = Math.random() * 15 + 15;
+                particle.style.animation = `mistFloat ${duration}s infinite ease-in-out`;
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Gouttes d'eau
+            for (let i = 0; i < dropCount; i++) {
+                const drop = document.createElement('div');
+                drop.classList.add('water-drop');
+                
+                // Position aléatoire
+                drop.style.left = `${Math.random() * 100}%`;
+                drop.style.top = `${Math.random() * -100}px`;
+                
+                // Animation avec délai aléatoire
+                const duration = Math.random() * 4 + 6;
+                drop.style.animation = `waterDrop ${duration}s infinite linear`;
+                drop.style.animationDelay = `${Math.random() * 8}s`;
+                
+                particlesContainer.appendChild(drop);
+            }
+        }
+        
+        // Fonction pour naviguer vers la page du personnage
+        function goToCharacter(character) {
+            // Animation de transition
+            const clickedCard = event.currentTarget;
+            clickedCard.style.transform = 'scale(1.2)';
+            clickedCard.style.filter = 'brightness(1.5)';
+            clickedCard.style.zIndex = '1000';
+            
+            // Redirection après l'animation
+            setTimeout(() => {
+                window.location.href = `${character}-profile.html`;
+            }, 600);
+        }
+        
+        // Animation d'apparition des cartes au scroll
+        function animateCardsOnScroll() {
+            const cards = document.querySelectorAll('.character-card, .mizukage-card, .swordsman-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { 
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        }
+        
+        // Effet de survol amélioré pour les cartes
+        function enhanceCardHover() {
+            const cards = document.querySelectorAll('.character-card, .mizukage-card, .swordsman-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateY = (x - centerX) / 10;
+                    const rotateX = (centerY - y) / 10;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.05)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+                });
+            });
+        }
+        
+        // Animation des statistiques
+        function animateStats() {
+            const statValues = document.querySelectorAll('.stat-value');
+            
+            statValues.forEach(stat => {
+                stat.addEventListener('mouseenter', () => {
+                    stat.style.transform = 'scale(1.2)';
+                    stat.style.color = 'var(--accent-cyan)';
+                    stat.style.textShadow = '0 0 10px rgba(0, 255, 255, 0.8)';
+                });
+                
+                stat.addEventListener('mouseleave', () => {
+                    stat.style.transform = 'scale(1)';
+                    stat.style.color = 'var(--kiri-blue)';
+                    stat.style.textShadow = 'none';
+                });
+            });
+        }
+        
+        // Effet de brouillard dense au scroll
+        function mistEffect() {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const mistParticles = document.querySelectorAll('.mist-particle');
+                
+                mistParticles.forEach((particle, index) => {
+                    const speed = 0.1 + (index % 4) * 0.05;
+                    const currentOpacity = parseFloat(particle.style.opacity) || 0.6;
+                    const newOpacity = Math.max(0.2, currentOpacity - scrolled * 0.0001);
+                    particle.style.opacity = newOpacity;
+                    
+                    const currentTransform = particle.style.transform || '';
+                    particle.style.transform = `${currentTransform} translateY(${scrolled * speed}px)`;
+                });
+            });
+        }
+        
+        // Effet de vagues sur les épées
+        function swordWaveEffect() {
+            const swordCards = document.querySelectorAll('.swordsman-card');
+            
+            swordCards.forEach((card, index) => {
+                card.addEventListener('mouseenter', () => {
+                    const swordImg = card.querySelector('.sword-img');
+                    swordImg.style.transform = 'scale(1.1) rotate(5deg)';
+                    swordImg.style.filter = 'drop-shadow(0 0 20px rgba(0, 255, 255, 0.8))';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    const swordImg = card.querySelector('.sword-img');
+                    swordImg.style.transform = 'scale(1) rotate(0deg)';
+                    swordImg.style.filter = 'drop-shadow(0 0 10px rgba(0, 255, 255, 0.5))';
+                });
+            });
+        }
+        
+        // Initialisation de tous les effets
+        document.addEventListener('DOMContentLoaded', () => {
+            createMistParticles();
+            animateCardsOnScroll();
+            enhanceCardHover();
+            animateStats();
+            mistEffect();
+            swordWaveEffect();
+            
+            // Animation du titre principal
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                setInterval(() => {
+                    const intensity = Math.random() * 0.5 + 0.5;
+                    heroTitle.style.textShadow = `0 0 30px rgba(70, 130, 180, ${intensity}), 0 0 60px rgba(70, 130, 180, ${intensity * 0.7})`;
+                }, 2000);
+            }
+            
+            // Effet de clignotement pour les bordures des cartes
+            setInterval(() => {
+                const cards = document.querySelectorAll('.character-card');
+                const randomCard = cards[Math.floor(Math.random() * cards.length)];
+                if (randomCard && !randomCard.matches(':hover')) {
+                    randomCard.style.borderColor = 'var(--accent-cyan)';
+                    setTimeout(() => {
+                        randomCard.style.borderColor = 'var(--kiri-blue)';
+                    }, 500);
+                }
+            }, 3500);
+            
+            // Effet de brume qui s'intensifie
+            setInterval(() => {
+                const mistParticles = document.querySelectorAll('.mist-particle');
+                mistParticles.forEach(particle => {
+                    const currentOpacity = parseFloat(particle.style.opacity) || 0.6;
+                    const newOpacity = Math.min(0.8, currentOpacity + Math.random() * 0.2);
+                    particle.style.opacity = newOpacity;
+                    
+                    setTimeout(() => {
+                        particle.style.opacity = currentOpacity;
+                    }, 1000);
+                });
+            }, 6000);
+            
+            // Effet de reflet aquatique sur le background
+            setInterval(() => {
+                document.body.style.filter = `hue-rotate(${Math.random() * 10 - 5}deg) brightness(${0.95 + Math.random() * 0.1})`;
+                setTimeout(() => {
+                    document.body.style.filter = 'hue-rotate(0deg) brightness(1)';
+                }, 300);
+            }, 10000);
+        });
+        
+    </script>
+</body>
+</html>

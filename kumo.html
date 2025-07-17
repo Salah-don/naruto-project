@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumogakure - Le Village Caché des Nuages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* RESET ET STYLES GÉNÉRAUX */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --kumo-purple: #9370db;
+            --kumo-light: #dda0dd;
+            --kumo-dark: #663399;
+            --accent-electric: #00bfff;
+            --dark-bg: #0a0a12;
+            --text-light: #f5f5f5;
+            --card-bg: rgba(25, 15, 35, 0.9);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(102, 51, 153, 0.4)), url('kumogakure.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Effet de particules électriques */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .lightning-particle {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(to bottom, rgba(0, 191, 255, 1), rgba(147, 112, 219, 0.5));
+            animation: lightningStrike 3s infinite ease-in-out;
+            opacity: 0.8;
+            border-radius: 1px;
+        }
+
+        .cloud-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(221, 160, 221, 0.4), rgba(147, 112, 219, 0.2));
+            animation: cloudFloat 25s infinite ease-in-out;
+            opacity: 0.6;
+            filter: blur(3px);
+        }
+
+        /* Bouton de retour */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--kumo-purple);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(147, 112, 219, 0.4);
+        }
+
+        .back-button:hover {
+            background: var(--kumo-light);
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(147, 112, 219, 0.6);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(45deg, rgba(147, 112, 219, 0.3), rgba(102, 51, 153, 0.3));
+        }
+
+        .hero-content {
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .hero-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 5rem;
+            color: var(--kumo-purple);
+            text-shadow: 0 0 30px rgba(147, 112, 219, 0.8);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: #ddd;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Section des personnages */
+        .characters-section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            color: var(--kumo-purple);
+            text-align: center;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(147, 112, 219, 0.6);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--kumo-purple), var(--accent-electric), var(--kumo-purple));
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(147, 112, 219, 0.5);
+        }
+
+        /* Grille des personnages */
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .character-card {
+            background: var(--card-bg);
+            border: 3px solid var(--kumo-purple);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: cardAppear 0.8s ease-out forwards;
+        }
+
+        .character-card:nth-child(1) { animation-delay: 0.1s; }
+        .character-card:nth-child(2) { animation-delay: 0.2s; }
+        .character-card:nth-child(3) { animation-delay: 0.3s; }
+        .character-card:nth-child(4) { animation-delay: 0.4s; }
+        .character-card:nth-child(5) { animation-delay: 0.5s; }
+        .character-card:nth-child(6) { animation-delay: 0.6s; }
+        .character-card:nth-child(7) { animation-delay: 0.7s; }
+        .character-card:nth-child(8) { animation-delay: 0.8s; }
+
+        .character-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(147, 112, 219, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .character-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            border-color: var(--accent-electric);
+            box-shadow: 0 25px 50px rgba(147, 112, 219, 0.4);
+        }
+
+        .character-card:hover::before {
+            opacity: 1;
+        }
+
+        .character-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 4px solid var(--kumo-purple);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(147, 112, 219, 0.3);
+        }
+
+        .character-card:hover .character-img {
+            border-color: var(--accent-electric);
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 191, 255, 0.5);
+        }
+
+        .character-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--kumo-purple);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .character-card:hover .character-name {
+            color: var(--accent-electric);
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+        }
+
+        .character-role {
+            color: #bbb;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .character-description {
+            color: #ddd;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .character-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            color: var(--kumo-purple);
+            font-weight: bold;
+        }
+
+        /* Section des Raikage */
+        .raikage-section {
+            padding: 100px 20px;
+            background: rgba(147, 112, 219, 0.1);
+            margin: 50px 0;
+        }
+
+        .raikage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .raikage-card {
+            background: var(--card-bg);
+            border: 3px solid var(--accent-electric);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .raikage-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 191, 255, 0.3);
+        }
+
+        .raikage-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            border: 3px solid var(--accent-electric);
+        }
+
+        .raikage-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            color: var(--accent-electric);
+            margin-bottom: 5px;
+        }
+
+        .raikage-title {
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        /* Animations CSS */
+        @keyframes lightningStrike {
+            0%, 90%, 100% {
+                opacity: 0;
+                transform: scaleY(0);
+            }
+            5%, 10% {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+            15%, 20% {
+                opacity: 0.7;
+                transform: scaleY(0.8);
+            }
+            25% {
+                opacity: 0;
+                transform: scaleY(0);
+            }
+        }
+
+        @keyframes cloudFloat {
+            0%, 100% {
+                transform: translateX(-50px) translateY(0px) scale(1);
+                opacity: 0.4;
+            }
+            25% {
+                transform: translateX(20px) translateY(-30px) scale(1.1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateX(50px) translateY(-10px) scale(0.9);
+                opacity: 0.8;
+            }
+            75% {
+                transform: translateX(-20px) translateY(-40px) scale(1.05);
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 30px rgba(147, 112, 219, 0.8); }
+            100% { text-shadow: 0 0 50px rgba(147, 112, 219, 1), 0 0 80px rgba(147, 112, 219, 0.6); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .characters-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .character-card {
+                padding: 20px;
+            }
+
+            .character-img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .characters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .back-button {
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <a href="village.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Retour aux Villages
+    </a>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Kumogakure</h1>
+            <p class="hero-subtitle">Le Village Caché des Nuages - Pays de la Foudre</p>
+            <p class="hero-description">
+                Kumogakure est réputé pour sa puissance militaire et ses techniques de foudre dévastatrices. 
+                Situé dans les montagnes, le village a développé une culture martiale forte. Kumo possède deux 
+                Jinchūriki parfaitement maîtrisés et maintient une armée redoutable, ce qui en fait l'un des 
+                villages les plus puissants militairement.
+            </p>
+        </div>
+    </section>
+
+    <!-- Section des Raikage -->
+    <section class="raikage-section">
+        <h2 class="section-title">Les Cinq Raikage</h2>
+        <div class="raikage-grid">
+            <div class="raikage-card">
+                <img src="1R.jpg" alt="Premier Raikage" class="raikage-img">
+                <div class="raikage-name">Premier Raikage</div>
+                <div class="raikage-title">Fondateur de Kumo</div>
+            </div>
+            <div class="raikage-card">
+                <img src="2R.jpg" alt="Deuxième Raikage" class="raikage-img">
+                <div class="raikage-name">Deuxième Raikage</div>
+                <div class="raikage-title">Successeur du Fondateur</div>
+            </div>
+            <div class="raikage-card">
+                <img src="3R.jpg" alt="Troisième Raikage" class="raikage-img">
+                <div class="raikage-name">Troisième Raikage</div>
+                <div class="raikage-title">Le Plus Fort Raikage</div>
+            </div>
+            <div class="raikage-card">
+                <img src="4R.jpg" alt="Quatrième Raikage" class="raikage-img">
+                <div class="raikage-name">A</div>
+                <div class="raikage-title">Quatrième Raikage - Éclair Noir</div>
+            </div>
+            <div class="raikage-card">
+                <img src="darui.jpg" alt="Darui" class="raikage-img">
+                <div class="raikage-name">Darui</div>
+                <div class="raikage-title">Cinquième Raikage - Nouvelle Génération</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section des personnages principaux -->
+    <section class="characters-section">
+        <h2 class="section-title">Maîtres de la Foudre</h2>
+        <div class="characters-grid">
+            
+            <div class="character-card">
+                <img src="killer-bee.jpg" alt="Killer Bee" class="character-img">
+                <div class="character-name">Killer Bee</div>
+                <div class="character-role">Jinchūriki de Hachibi</div>
+                <div class="character-description">
+                    Jinchūriki parfait de Gyūki (Huit Queues), Killer Bee est un rappeur excentrique 
+                    et un combattant redoutable. Sa maîtrise du Bijū et ses techniques de Kenjutsu en font une légende.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Bijū</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Kenjutsu</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Rap</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="raikage-a.jpg" alt="A (Raikage)" class="character-img">
+                <div class="character-name">A</div>
+                <div class="character-role">Quatrième Raikage</div>
+                <div class="character-description">
+                    Le Quatrième Raikage, connu pour sa vitesse et sa force physique extraordinaires. 
+                    Surnommé "Éclair Noir", il peut rivaliser avec la vitesse de l'Éclair Jaune de Konoha.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Vitesse</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Force</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Leadership</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="darui-adult.jpg" alt="Darui" class="character-img">
+                <div class="character-name">Darui</div>
+                <div class="character-role">Cinquième Raikage</div>
+                <div class="character-description">
+                    Successeur du Quatrième Raikage, Darui maîtrise le Ranton (Style Tempête) et le Raiton. 
+                    Malgré son attitude décontractée, il est un leader compétent et respecté.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Ranton</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Raiton</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Calme</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="c-kumo.jpg" alt="C" class="character-img">
+                <div class="character-name">C</div>
+                <div class="character-role">Ninja Sensoriel d'Élite</div>
+                <div class="character-description">
+                    Bras droit du Raikage et ninja sensoriel exceptionnel, C peut détecter les ennemis 
+                    sur de vastes distances. Il maîtrise également les techniques de foudre avancées.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Détection</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Foudre</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Loyauté</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="samui.jpg" alt="Samui" class="character-img">
+                <div class="character-name">Samui</div>
+                <div class="character-role">Jōnin d'Élite</div>
+                <div class="character-description">
+                    Leader de l'équipe de Samui, elle est connue pour son attitude froide et professionnelle. 
+                    Excellente combattante, elle maîtrise les techniques de Kenjutsu et de Raiton.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Kenjutsu</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Raiton</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Discipline</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="karui.jpg" alt="Karui" class="character-img">
+                <div class="character-name">Karui</div>
+                <div class="character-role">Épéiste de Kumo</div>
+                <div class="character-description">
+                    Membre de l'équipe de Samui, Karui est une épéiste talentueuse avec un tempérament fougueux. 
+                    Elle est devenue l'épouse de Choji Akimichi et mère de Chocho.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Kenjutsu</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Tempérament</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Détermination</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="omoi.jpg" alt="Omoi" class="character-img">
+                <div class="character-name">Omoi</div>
+                <div class="character-role">Épéiste Penseur</div>
+                <div class="character-description">
+                    Coéquipier de Karui, Omoi est un épéiste qui a tendance à trop réfléchir aux situations. 
+                    Malgré ses inquiétudes constantes, il est un combattant fiable et loyal.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Kenjutsu</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Réflexion</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Prudence</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="yugito.jpg" alt="Yugito Nii" class="character-img">
+                <div class="character-name">Yugito Nii</div>
+                <div class="character-role">Jinchūriki de Nibi (†)</div>
+                <div class="character-description">
+                    Ancienne Jinchūriki de Matatabi (Deux Queues), Yugito était une kunoichi d'élite de Kumo. 
+                    Elle maîtrisait parfaitement son Bijū avant d'être capturée par l'Akatsuki.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Bijū</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Feu</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Maîtrise</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        // Animation de particules électriques et nuages
+        function createElectricParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const lightningCount = 30;
+            const cloudCount = 20;
+            
+            // Particules de foudre
+            for (let i = 0; i < lightningCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('lightning-particle');
+                
+                // Position aléatoire
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 80}%`;
+                
+                // Taille aléatoire
+                const height = Math.random() * 30 + 15;
+                particle.style.height = `${height}px`;
+                
+                // Animation avec délai aléatoire
+                const duration = Math.random() * 2 + 2;
+                particle.style.animation = `lightningStrike ${duration}s infinite ease-in-out`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Particules de nuages
+            for (let i = 0; i < cloudCount; i++) {
+                const cloud = document.createElement('div');
+                cloud.classList.add('cloud-particle');
+                
+                // Taille aléatoire
+                const size = Math.random() * 80 + 40;
+                cloud.style.width = `${size}px`;
+                cloud.style.height = `${size * 0.6}px`;
+                
+                // Position aléatoire
+                cloud.style.left = `${Math.random() * 100}%`;
+                cloud.style.top = `${Math.random() * 60}%`;
+                
+                // Animation avec délai aléatoire
+                const duration = Math.random() * 20 + 20;
+                                cloud.style.animation = `cloudFloat ${duration}s infinite ease-in-out`;
+                cloud.style.animationDelay = `${Math.random() * 15}s`;
+                
+                particlesContainer.appendChild(cloud);
+            }
+        }
+        
+        // Animation d'apparition des cartes au scroll
+        function animateCardsOnScroll() {
+            const cards = document.querySelectorAll('.character-card, .raikage-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { 
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        }
+        
+        // Effet de survol amélioré pour les cartes
+        function enhanceCardHover() {
+            const cards = document.querySelectorAll('.character-card, .raikage-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateY = (x - centerX) / 10;
+                    const rotateX = (centerY - y) / 10;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.05)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+                });
+            });
+        }
+        
+        // Animation des statistiques
+        function animateStats() {
+            const statValues = document.querySelectorAll('.stat-value');
+            
+            statValues.forEach(stat => {
+                stat.addEventListener('mouseenter', () => {
+                    stat.style.transform = 'scale(1.2)';
+                    stat.style.color = 'var(--accent-electric)';
+                    stat.style.textShadow = '0 0 10px rgba(0, 191, 255, 0.8)';
+                });
+                
+                stat.addEventListener('mouseleave', () => {
+                    stat.style.transform = 'scale(1)';
+                    stat.style.color = 'var(--kumo-purple)';
+                    stat.style.textShadow = 'none';
+                });
+            });
+        }
+        
+        // Effet d'orage électrique au scroll
+        function thunderstormEffect() {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const lightningParticles = document.querySelectorAll('.lightning-particle');
+                
+                lightningParticles.forEach((particle, index) => {
+                    const speed = 0.3 + (index % 4) * 0.1;
+                    const currentOpacity = parseFloat(particle.style.opacity) || 0.8;
+                    const newOpacity = Math.max(0.3, currentOpacity - scrolled * 0.0002);
+                    particle.style.opacity = newOpacity;
+                    
+                    // Effet de scintillement électrique
+                    if (Math.random() < 0.1) {
+                        particle.style.opacity = 1;
+                        setTimeout(() => {
+                            particle.style.opacity = newOpacity;
+                        }, 100);
+                    }
+                });
+            });
+        }
+        
+        // Effet d'éclair sur les cartes
+        function lightningCardEffect() {
+            const cards = document.querySelectorAll('.character-card, .raikage-card');
+            
+            cards.forEach((card, index) => {
+                card.addEventListener('mouseenter', () => {
+                    // Effet d'éclair sur la bordure
+                    card.style.boxShadow = `
+                        0 0 20px var(--accent-electric),
+                        0 0 40px var(--accent-electric),
+                        0 0 60px var(--kumo-purple)
+                    `;
+                    
+                    // Effet de scintillement
+                    let flickerCount = 0;
+                    const flickerInterval = setInterval(() => {
+                        card.style.borderColor = flickerCount % 2 === 0 ? 'var(--accent-electric)' : 'var(--kumo-purple)';
+                        flickerCount++;
+                        if (flickerCount >= 6) {
+                            clearInterval(flickerInterval);
+                            card.style.borderColor = 'var(--accent-electric)';
+                        }
+                    }, 50);
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.boxShadow = '';
+                    card.style.borderColor = 'var(--kumo-purple)';
+                });
+            });
+        }
+        
+        // Initialisation de tous les effets
+        document.addEventListener('DOMContentLoaded', () => {
+            createElectricParticles();
+            animateCardsOnScroll();
+            enhanceCardHover();
+            animateStats();
+            thunderstormEffect();
+            lightningCardEffect();
+            
+            // Animation du titre principal
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                setInterval(() => {
+                    const intensity = Math.random() * 0.5 + 0.5;
+                    heroTitle.style.textShadow = `0 0 30px rgba(147, 112, 219, ${intensity}), 0 0 60px rgba(147, 112, 219, ${intensity * 0.7})`;
+                }, 2000);
+            }
+            
+            // Effet de clignotement pour les bordures des cartes
+            setInterval(() => {
+                const cards = document.querySelectorAll('.character-card');
+                const randomCard = cards[Math.floor(Math.random() * cards.length)];
+                if (randomCard && !randomCard.matches(':hover')) {
+                    randomCard.style.borderColor = 'var(--accent-electric)';
+                    setTimeout(() => {
+                        randomCard.style.borderColor = 'var(--kumo-purple)';
+                    }, 500);
+                }
+            }, 3000);
+            
+            // Effet d'orage électrique périodique
+            setInterval(() => {
+                const lightningParticles = document.querySelectorAll('.lightning-particle');
+                lightningParticles.forEach(particle => {
+                    if (Math.random() < 0.3) {
+                        particle.style.opacity = 1;
+                        particle.style.transform = 'scaleY(1.5)';
+                        setTimeout(() => {
+                            particle.style.opacity = 0.8;
+                            particle.style.transform = 'scaleY(1)';
+                        }, 150);
+                    }
+                });
+            }, 4000);
+            
+            // Effet de tonnerre sur le background
+            setInterval(() => {
+                document.body.style.filter = `brightness(${1.2 + Math.random() * 0.3}) contrast(${1.1 + Math.random() * 0.2})`;
+                setTimeout(() => {
+                    document.body.style.filter = 'brightness(1) contrast(1)';
+                }, 200);
+            }, 12000);
+            
+            // Effet d'électricité statique sur les nuages
+            setInterval(() => {
+                const cloudParticles = document.querySelectorAll('.cloud-particle');
+                cloudParticles.forEach(cloud => {
+                    if (Math.random() < 0.2) {
+                        cloud.style.boxShadow = '0 0 20px rgba(0, 191, 255, 0.8)';
+                        setTimeout(() => {
+                            cloud.style.boxShadow = '';
+                        }, 300);
+                    }
+                });
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

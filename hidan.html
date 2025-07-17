@@ -14,7 +14,7 @@
             font-family: 'Roboto', sans-serif;
         }
 
-        /* Variables pour les couleurs de Hidan */
+        /* Variables pour les couleurs de Hidan - Noir, Blanc, Gris, Rouge */
         :root {
             --red: #e53935;
             --dark: #121212;
@@ -29,18 +29,19 @@
             --card-bg: rgba(20, 20, 30, 0.95);
             --text-light: #f5f5f5;
             --text-gold: #ffd700;
-            --hidan-purple: #6a0dad;
-            --hidan-silver: #c0c0c0;
-            --hidan-dark: #1a0033;
+            --hidan-black: #000000;
+            --hidan-white: #ffffff;
+            --hidan-gray: #808080;
+            --hidan-red: #dc143c;
         }
 
         body {
-            background-color: var(--hidan-dark);
+            background-color: var(--hidan-black);
             color: #fff;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 20% 30%, rgba(106, 13, 173, 0.3) 0%, transparent 60%),
-                radial-gradient(circle at 80% 70%, rgba(192, 192, 192, 0.1) 0%, transparent 60%);
+                radial-gradient(circle at 20% 30%, rgba(220, 20, 60, 0.2) 0%, transparent 60%),
+                radial-gradient(circle at 80% 70%, rgba(128, 128, 128, 0.1) 0%, transparent 60%);
             position: relative;
             min-height: 100vh;
         }
@@ -59,7 +60,7 @@
             position: absolute;
             width: 30px;
             height: 30px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(106,13,173,0.3)" stroke-width="2"/><path d="M50,10 L50,90 M10,50 L90,50 M25,25 L75,75 M75,25 L25,75" stroke="rgba(106,13,173,0.3)" stroke-width="2"/></svg>');
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(220,20,60,0.3)" stroke-width="2"/><path d="M50,10 L50,90 M10,50 L90,50 M25,25 L75,75 M75,25 L25,75" stroke="rgba(220,20,60,0.3)" stroke-width="2"/></svg>');
             background-size: contain;
             animation: floatSymbol 15s infinite linear;
             opacity: 0.3;
@@ -195,17 +196,17 @@
 
         /* Profil Header avec effet immortel */
         .profile-header {
-            background: linear-gradient(rgba(26,0,51,0.8), rgba(10,0,20,0.8)), 
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(40,40,40,0.8)), 
                         url('') no-repeat center center;
             background-size: cover;
             background-position: center;
             padding: 120px 20px 40px;
             border-radius: 10px;
             margin: 100px 0 30px;
-            border: 2px solid var(--hidan-purple);
+            border: 2px solid var(--hidan-red);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(106, 13, 173, 0.4);
+            box-shadow: 0 10px 30px rgba(220, 20, 60, 0.4);
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 1s ease forwards;
@@ -225,7 +226,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, transparent 60%, rgba(26,0,51,0.9) 100%);
+            background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.9) 100%);
             animation: pulse 4s ease-in-out infinite;
         }
 
@@ -249,7 +250,7 @@
             position: absolute;
             width: 4px;
             height: 10px;
-            background: linear-gradient(to bottom, transparent, rgba(139, 0, 0, 0.8));
+            background: linear-gradient(to bottom, transparent, rgba(220, 20, 60, 0.8));
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
             animation: bloodDrip 3s ease-in infinite;
         }
@@ -284,9 +285,9 @@
             width: 180px;
             height: 180px;
             border-radius: 50%;
-            border: 3px solid var(--hidan-purple);
+            border: 3px solid var(--hidan-white);
             overflow: hidden;
-            box-shadow: 0 0 30px rgba(106, 13, 173, 0.6);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
             position: relative;
             transform: scale(0);
             animation: scaleIn 0.8s ease 0.5s forwards;
@@ -304,7 +305,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, transparent 40%, rgba(106, 13, 173, 0.4) 70%);
+            background: radial-gradient(circle at center, transparent 40%, rgba(128, 128, 128, 0.4) 70%);
             animation: immortalGlow 3s ease-in-out infinite;
         }
 
@@ -328,9 +329,9 @@
 
         .profile-name {
             font-size: 2.5rem;
-            color: #fff;
+            color: var(--hidan-white);
             margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(106, 13, 173, 0.8);
+            text-shadow: 0 0 20px rgba(220, 20, 60, 0.8);
             opacity: 0;
             transform: translateX(-30px);
             animation: slideInLeft 0.8s ease 0.8s forwards;
@@ -349,7 +350,7 @@
 
         .profile-title {
             font-size: 1.3rem;
-            color: var(--hidan-purple);
+            color: var(--hidan-gray);
             margin-bottom: 15px;
             font-weight: bold;
             opacity: 0;
@@ -367,9 +368,9 @@
         .stat-item {
             text-align: center;
             padding: 10px 20px;
-            background: rgba(40, 0, 60, 0.7);
+            background: rgba(40, 40, 40, 0.7);
             border-radius: 8px;
-            border-left: 3px solid var(--hidan-silver);
+            border-left: 3px solid var(--hidan-red);
             transition: all 0.3s ease;
             transform: translateY(20px);
             animation: bounceIn 0.6s ease 1.4s forwards;
@@ -384,7 +385,7 @@
             left: 0;
             width: 0;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(106, 13, 173, 0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(128, 128, 128, 0.3), transparent);
             transition: width 0.3s ease;
         }
 
@@ -400,40 +401,40 @@
 
         .stat-item:hover {
             transform: translateY(-5px) scale(1.05);
-            background: rgba(60, 0, 90, 0.8);
-            box-shadow: 0 10px 20px rgba(106, 13, 173, 0.3);
+            background: rgba(60, 60, 60, 0.8);
+            box-shadow: 0 10px 20px rgba(220, 20, 60, 0.3);
         }
 
         .stat-value {
             font-size: 1.8rem;
-            color: var(--hidan-silver);
+            color: var(--hidan-white);
             font-weight: bold;
         }
 
         .stat-label {
             font-size: 0.9rem;
-            color: #ddd;
+            color: var(--hidan-gray);
         }
 
         .profile-bio {
             margin-top: 20px;
             line-height: 1.6;
             max-width: 800px;
-            background: rgba(26, 0, 51, 0.5);
+            background: rgba(40, 40, 40, 0.5);
             padding: 15px;
             border-radius: 8px;
-            border-left: 3px solid var(--hidan-purple);
+            border-left: 3px solid var(--hidan-red);
             opacity: 0;
             animation: fadeIn 0.8s ease 1.6s forwards;
         }
 
         .section-title {
             font-size: 1.8rem;
-            color: var(--hidan-purple);
+            color: var(--hidan-red);
             margin: 30px 0 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid var(--hidan-silver);
-            text-shadow: 0 0 5px rgba(106, 13, 173, 0.3);
+            border-bottom: 2px solid var(--hidan-gray);
+            text-shadow: 0 0 5px rgba(220, 20, 60, 0.3);
             position: relative;
             opacity: 0;
             transform: translateY(20px);
@@ -450,7 +451,7 @@
             left: 0;
             width: 100px;
             height: 2px;
-            background: linear-gradient(90deg, var(--hidan-purple), var(--hidan-silver));
+            background: linear-gradient(90deg, var(--hidan-red), var(--hidan-white));
             animation: expandWidth 1s ease forwards;
         }
 
@@ -471,9 +472,9 @@
             display: flex;
             gap: 20px;
             padding: 20px;
-            background: rgba(30, 0, 50, 0.8);
+            background: rgba(30, 30, 30, 0.8);
             border-radius: 8px;
-            border-left: 4px solid var(--hidan-purple);
+            border-left: 4px solid var(--hidan-red);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -492,7 +493,7 @@
             right: 20px;
             width: 30px;
             height: 30px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="rgba(106,13,173,0.3)" stroke-width="2"/><path d="M25,5 L25,45 M5,25 L45,25" stroke="rgba(106,13,173,0.3)" stroke-width="2"/></svg>');
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="rgba(220,20,60,0.3)" stroke-width="2"/><path d="M25,5 L25,45 M5,25 L45,25" stroke="rgba(220,20,60,0.3)" stroke-width="2"/></svg>');
             background-size: contain;
             transform: translateY(-50%);
             opacity: 0.3;
@@ -500,17 +501,17 @@
 
         .timeline-item:hover {
             transform: translateX(10px);
-            box-shadow: 0 5px 15px rgba(106, 13, 173, 0.3);
-            border-left: 4px solid var(--hidan-silver);
+            box-shadow: 0 5px 15px rgba(220, 20, 60, 0.3);
+            border-left: 4px solid var(--hidan-white);
         }
 
         .timeline-year {
             min-width: 80px;
             text-align: center;
             font-weight: bold;
-            color: var(--hidan-silver);
+            color: var(--hidan-white);
             font-size: 1.3rem;
-            text-shadow: 0 0 5px rgba(192, 192, 192, 0.5);
+            text-shadow: 0 0 5px rgba(128, 128, 128, 0.5);
         }
 
         .timeline-content {
@@ -520,12 +521,12 @@
         .timeline-title {
             font-size: 1.3rem;
             margin-bottom: 10px;
-            color: #fff;
+            color: var(--hidan-white);
         }
 
         .timeline-description {
             line-height: 1.6;
-            color: #ddd;
+            color: var(--hidan-gray);
         }
 
         /* Gallery avec effet immortel */
@@ -541,7 +542,7 @@
             overflow: hidden;
             height: 250px;
             position: relative;
-            border: 2px solid #333;
+            border: 2px solid var(--hidan-gray);
             transition: all 0.3s ease;
             display: block;
             text-decoration: none;
@@ -557,8 +558,8 @@
 
         .gallery-item:hover {
             transform: translateY(-5px) scale(1.02);
-            border-color: var(--hidan-purple);
-            box-shadow: 0 10px 20px rgba(106, 13, 173, 0.3);
+            border-color: var(--hidan-red);
+            box-shadow: 0 10px 20px rgba(220, 20, 60, 0.3);
         }
 
         .gallery-item img {
@@ -577,10 +578,10 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(transparent, rgba(26, 0, 51, 0.9));
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
             padding: 20px 10px 10px;
             font-size: 0.9rem;
-            color: #fff;
+            color: var(--hidan-white);
             text-align: center;
             font-weight: 600;
             transform: translateY(100%);
@@ -600,10 +601,10 @@
         }
 
         .ability-card {
-            background: rgba(40, 0, 60, 0.8);
+            background: rgba(40, 40, 40, 0.8);
             border-radius: 8px;
             padding: 20px;
-            border: 1px solid #333;
+            border: 1px solid var(--hidan-gray);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -622,16 +623,16 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, var(--hidan-purple), var(--hidan-silver));
+            background: linear-gradient(90deg, var(--hidan-red), var(--hidan-white));
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.3s ease;
         }
 
         .ability-card:hover {
-            border-color: var(--hidan-purple);
+            border-color: var(--hidan-red);
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(106, 13, 173, 0.3);
+            box-shadow: 0 10px 20px rgba(220, 20, 60, 0.3);
         }
 
         .ability-card:hover::before {
@@ -640,7 +641,7 @@
 
         .ability-title {
             font-size: 1.3rem;
-            color: var(--hidan-silver);
+            color: var(--hidan-white);
             margin-bottom: 15px;
             position: relative;
             padding-bottom: 10px;
@@ -653,12 +654,12 @@
             left: 0;
             width: 50px;
             height: 2px;
-            background: var(--hidan-purple);
+            background: var(--hidan-red);
         }
 
         .ability-description {
             line-height: 1.6;
-            color: #ddd;
+            color: var(--hidan-gray);
         }
 
         /* Footer Akatsuki */
@@ -844,7 +845,7 @@
             </div>
             
             <nav class="nav-links">
-                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="naruto2.html" class="nav-link">Accueil</a>
                 <a href="personnages.html" class="nav-link">Personnages</a>
                 <a href="akatsuki.html" class="nav-link active">Akatsuki</a>
                 <a href="techniques.html" class="nav-link">Techniques</a>
@@ -860,7 +861,7 @@
             <div class="blood-effect"></div>
             <div class="profile-info">
                 <div class="profile-avatar">
-                    <img src="" alt="Hidan">
+                    <img src="hidanp.jpg" alt="Hidan">
                 </div>
                 <div class="profile-details">
                     <h1 class="profile-name">Hidan</h1>
@@ -932,19 +933,19 @@
         <h2 class="section-title">Évolution du Personnage</h2>
         <div class="gallery">
             <div class="gallery-item">
-                <img src="" alt="Hidan jeune">
+                <img src="hidank.jpg" alt="Hidan jeune">
                 <div class="gallery-caption">Jeune ninja de Yu</div>
             </div>
             <div class="gallery-item">
-                <img src="" alt="Hidan Jashin">
+                <img src="hidanj1.jpg" alt="Hidan Jashin">
                 <div class="gallery-caption">Adepte de Jashin</div>
             </div>
             <div class="gallery-item">
-                <img src="" alt="Hidan Akatsuki">
+                <img src="hidanak.jpg" alt="Hidan Akatsuki">
                 <div class="gallery-caption">Membre de l'Akatsuki</div>
             </div>
             <div class="gallery-item">
-                <img src="" alt="Hidan rituel">
+                <img src="hidanj.jpg" alt="Hidan rituel">
                 <div class="gallery-caption">Rituel de Jashin</div>
             </div>
         </div>

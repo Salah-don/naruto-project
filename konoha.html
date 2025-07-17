@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konohagakure - Le Village Caché de la Feuille</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* RESET ET STYLES GÉNÉRAUX */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --konoha-green: #228b22;
+            --konoha-light: #32cd32;
+            --konoha-dark: #006400;
+            --accent-yellow: #ffcc00;
+            --dark-bg: #0a0a12;
+            --text-light: #f5f5f5;
+            --card-bg: rgba(20, 30, 20, 0.9);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('konoha.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        color: var(--text-light);
+        overflow-x: hidden;
+        position: relative;
+        min-height: 100vh;
+        line-height: 1.6;
+    }
+
+
+        /* Effet de particules de feuilles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .leaf-particle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url('leaf-particle.png') center/contain no-repeat;
+            animation: leafFall 15s infinite linear;
+            opacity: 0.7;
+        }
+
+        /* Bouton de retour */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--konoha-green);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(34, 139, 34, 0.4);
+        }
+
+        .back-button:hover {
+            background: var(--konoha-light);
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(34, 139, 34, 0.6);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(45deg, rgba(34, 139, 34, 0.3), rgba(0, 100, 0, 0.3));
+        }
+
+        .hero-content {
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .hero-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 5rem;
+            color: var(--konoha-green);
+            text-shadow: 0 0 30px rgba(34, 139, 34, 0.8);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: #ddd;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Section des personnages */
+        .characters-section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            color: var(--konoha-green);
+            text-align: center;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(34, 139, 34, 0.6);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--konoha-green), var(--accent-yellow), var(--konoha-green));
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(34, 139, 34, 0.5);
+        }
+
+        /* Grille des personnages */
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .character-card {
+            background: var(--card-bg);
+            border: 3px solid var(--konoha-green);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: cardAppear 0.8s ease-out forwards;
+        }
+
+        .character-card:nth-child(1) { animation-delay: 0.1s; }
+        .character-card:nth-child(2) { animation-delay: 0.2s; }
+        .character-card:nth-child(3) { animation-delay: 0.3s; }
+        .character-card:nth-child(4) { animation-delay: 0.4s; }
+        .character-card:nth-child(5) { animation-delay: 0.5s; }
+        .character-card:nth-child(6) { animation-delay: 0.6s; }
+        .character-card:nth-child(7) { animation-delay: 0.7s; }
+        .character-card:nth-child(8) { animation-delay: 0.8s; }
+        .character-card:nth-child(9) { animation-delay: 0.9s; }
+        .character-card:nth-child(10) { animation-delay: 1.0s; }
+        .character-card:nth-child(11) { animation-delay: 1.1s; }
+        .character-card:nth-child(12) { animation-delay: 1.2s; }
+
+        .character-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(34, 139, 34, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .character-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            border-color: var(--accent-yellow);
+            box-shadow: 0 25px 50px rgba(34, 139, 34, 0.4);
+        }
+
+        .character-card:hover::before {
+            opacity: 1;
+        }
+
+        .character-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 4px solid var(--konoha-green);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(34, 139, 34, 0.3);
+        }
+
+        .character-card:hover .character-img {
+            border-color: var(--accent-yellow);
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 204, 0, 0.5);
+        }
+
+        .character-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--konoha-green);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .character-card:hover .character-name {
+            color: var(--accent-yellow);
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+
+        .character-role {
+            color: #bbb;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .character-description {
+            color: #ddd;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .character-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            color: var(--konoha-green);
+            font-weight: bold;
+        }
+
+        /* Section des Hokage */
+        .hokage-section {
+            padding: 100px 20px;
+            background: rgba(34, 139, 34, 0.1);
+            margin: 50px 0;
+        }
+
+        .hokage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hokage-card {
+            background: var(--card-bg);
+            border: 3px solid var(--accent-yellow);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .hokage-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 204, 0, 0.3);
+        }
+
+        .hokage-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            border: 3px solid var(--accent-yellow);
+        }
+
+        .hokage-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            color: var(--accent-yellow);
+            margin-bottom: 5px;
+        }
+
+        .hokage-title {
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        /* Animations CSS */
+        @keyframes leafFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 30px rgba(34, 139, 34, 0.8); }
+            100% { text-shadow: 0 0 50px rgba(34, 139, 34, 1), 0 0 80px rgba(34, 139, 34, 0.6); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .characters-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .character-card {
+                padding: 20px;
+            }
+
+            .character-img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .characters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .back-button {
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <a href="village.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Retour aux Villages
+    </a>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Konohagakure</h1>
+            <p class="hero-subtitle">Le Village Caché de la Feuille - Pays du Feu</p>
+            <p class="hero-description">
+                Fondé par Hashirama Senju et Madara Uchiha, Konoha incarne la "Volonté du Feu" - 
+                l'idée que les générations futures sont les feuilles de l'arbre, et que les anciens 
+                doivent les protéger et les nourrir. Le village a produit certains des ninjas les plus 
+                légendaires de l'histoire.
+            </p>
+        </div>
+    </section>
+
+    <!-- Section des Hokage -->
+    <section class="hokage-section">
+        <h2 class="section-title">Les Sept Hokage</h2>
+        <div class="hokage-grid">
+            <div class="hokage-card"   .="goToCharacter('hashirama')">
+                <img src="Hashirama-Senju.jpg" alt="Hashirama Senju" class="hokage-img">
+                <div class="hokage-name">Hashirama Senju</div>
+                <div class="hokage-title">Premier Hokage - Le Dieu des Shinobi</div>
+            </div>
+            <div class="hokage-card"   .="goToCharacter('tobirama')">
+                <img src="tonbirama-senju.jpg" alt="Tobirama Senju" class="hokage-img">
+                <div class="hokage-name">Tobirama Senju</div>
+                <div class="hokage-title">Deuxième Hokage - Le Créateur</div>
+            </div>
+            <div class="hokage-card"   .="goToCharacter('hiruzen')">
+                <img src="sarutobi.jpg" alt="Hiruzen Sarutobi" class="hokage-img">
+                <div class="hokage-name">Hiruzen Sarutobi</div>
+                <div class="hokage-title">Troisième Hokage - Le Professeur</div>
+            </div>
+            <div class="hokage-card"   .="goToCharacter('minato')">
+                <img src="minato.jpg" alt="Minato Namikaze" class="hokage-img">
+                <div class="hokage-name">Minato Namikaze</div>
+                <div class="hokage-title">Quatrième Hokage - L'Éclair Jaune</div>
+            </div>
+            <div class="hokage-card"   .="goToCharacter('tsunade')">
+                <img src="tsunade.jpg" alt="Tsunade" class="hokage-img">
+                <div class="hokage-name">Tsunade</div>
+                <div class="hokage-title">Cinquième Hokage - La Princesse Slug</div>
+            </div>
+            <div class="hokage-card"   .="goToCharacter('kakashi')">
+                <img src="kakashi.jpg" alt="Kakashi Hatake" class="hokage-img">
+                <div class="hokage-name">Kakashi Hatake</div>
+                <div class="hokage-title">Sixième Hokage - Le Ninja Copieur</div>
+            </div>
+            <div class="hokage-card"   .="goToCharacter('naruto')">
+                <img src="naruto.jpg" alt="Naruto Uzumaki" class="hokage-img">
+                <div class="hokage-name">Naruto Uzumaki</div>
+                <div class="hokage-title">Septième Hokage - Le Héros de Konoha</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section des personnages principaux -->
+    <section class="characters-section">
+        <h2 class="section-title">Personnages Légendaires de Konoha</h2>
+        <div class="characters-grid">
+            
+            <div class="character-card"   .="goToCharacter('naruto-adult')">
+                <img src="naruto.jpg" alt="Naruto Uzumaki" class="character-img">
+                <div class="character-name">Naruto Uzumaki</div>
+                <div class="character-role">Septième Hokage</div>
+                <div class="character-description">
+                    Le héros de Konoha, ancien Jinchūriki de Kurama et actuel Hokage. 
+                    Il a sauvé le monde ninja et réalisé son rêve de devenir Hokage.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Ninjutsu</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Taijutsu</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Chakra</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('sasuke-adult')">
+                <img src="sasuke.jpg" alt="Sasuke Uchiha" class="character-img">
+                <div class="character-name">Sasuke Uchiha</div>
+                <div class="character-role">L'Autre Hokage</div>
+                <div class="character-description">
+                    Le dernier survivant du clan Uchiha, rival éternel de Naruto et protecteur 
+                    de l'ombre de Konoha. Maître du Sharingan et du Rinnegan.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Ninjutsu</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Taijutsu</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Dōjutsu</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('sakura-adult')">
+                <img src="SH.jpg" alt="Sakura Haruno" class="character-img">
+                <div class="character-name">Sakura Haruno</div>
+                <div class="character-role">Ninja Médical Légendaire</div>
+                <div class="character-description">
+                    Disciple de Tsunade, elle est devenue l'une des plus grandes ninjas médicales. 
+                    Sa force physique rivalise avec celle de son maître.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Médical</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Force</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Intelligence</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('kakashi-sensei')">
+                <img src="kH.jpg" alt="Kakashi Hatake" class="character-img">
+                <div class="character-name">Kakashi Hatake</div>
+                <div class="character-role">Le Ninja Copieur</div>
+                <div class="character-description">
+                    Ancien Hokage et sensei de l'Équipe 7. Surnommé le "Ninja Copieur" 
+                    pour sa maîtrise de plus de 1000 techniques.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Ninjutsu</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Intelligence</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Expérience</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('shikamaru-adult')">
+                <img src="shikamaru.jpg" alt="Shikamaru Nara" class="character-img">
+                <div class="character-name">Shikamaru Nara</div>
+                <div class="character-role">Conseiller du Hokage</div>
+                <div class="character-description">
+                    Génie stratégique du clan Nara, il est devenu le bras droit de Naruto 
+                    en tant que conseiller principal du Hokage.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Intelligence</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Stratégie</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Leadership</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('rock-lee-adult')">
+                <img src="Rock-Lee.jpg" alt="Rock Lee" class="character-img">
+                <div class="character-name">Rock Lee</div>
+                <div class="character-role">Maître du Taijutsu</div>
+                <div class="character-description">
+                    Spécialiste du Taijutsu pur, il a prouvé qu'on peut devenir un ninja 
+                    exceptionnel sans ninjutsu ni genjutsu, par le seul travail acharné.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Taijutsu</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Vitesse</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Détermination</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('neji-hyuga')">
+                <img src="neji.jpg" alt="Neji Hyuga" class="character-img">
+                <div class="character-name">Neji Hyuga</div>
+                <div class="character-role">Génie du Byakugan (†)</div>
+                <div class="character-description">
+                    Prodige du clan Hyuga, il a surmonté les traditions de sa famille 
+                    et est mort en héros lors de la Quatrième Grande Guerre Ninja.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Byakugan</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Taijutsu</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Génie</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('hinata-adult')">
+                <img src="hinata.jpg" alt="Hinata Hyuga" class="character-img">
+                <div class="character-name">Hinata Hyuga</div>
+                <div class="character-role">Épouse du Hokage</div>
+                <div class="character-description">
+                    Héritière du clan Hyuga et épouse de Naruto. Sa gentillesse et sa 
+                    détermination ont inspiré le futur Hokage depuis leur enfance.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Byakugan</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Gentillesse</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Courage</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('ino-adult')">
+                <img src="ino.jpg" alt="Ino Yamanaka" class="character-img">
+                <div class="character-name">Ino Yamanaka</div>
+                <div class="character-role">Ninja Sensorielle</div>
+                <div class="character-description">
+                    Maître des techniques mentales du clan Yamanaka, elle dirige l'unité 
+                    sensorielle de Konoha et excelle dans la communication télépathique.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Mental</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Sensoriel</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Communication</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('choji-adult')">
+                <img src="chojiA.jpg" alt="Choji Akimichi" class="character-img">
+                <div class="character-name">Choji Akimichi</div>
+                <div class="character-role">Géant du Clan Akimichi</div>
+                                <div class="character-description">
+                    Maître des techniques d'expansion du clan Akimichi, sa force physique 
+                    et sa loyauté en font un allié précieux dans toutes les batailles.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Force</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Expansion</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Loyauté</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('kiba-adult')">
+                <img src="kibaA.jpg" alt="Kiba Inuzuka" class="character-img">
+                <div class="character-name">Kiba Inuzuka</div>
+                <div class="character-role">Ninja Animalier</div>
+                <div class="character-description">
+                    Spécialiste du combat en duo avec son partenaire canin Akamaru. 
+                    Leur lien indéfectible leur permet des techniques de combat uniques.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Flair</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Vitesse</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Teamwork</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('shino-adult')">
+                <img src="shino.webp" alt="Shino Aburame" class="character-img">
+                <div class="character-name">Shino Aburame</div>
+                <div class="character-role">Maître des Insectes</div>
+                <div class="character-description">
+                    Membre du clan Aburame, il contrôle des insectes destructeurs de chakra. 
+                    Sa nature calme cache une puissance redoutable.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Insectes</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Analyse</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Discrétion</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section des clans -->
+    <section class="characters-section">
+        <h2 class="section-title">Clans Légendaires de Konoha</h2>
+        <div class="characters-grid">
+            
+            <div class="character-card"   .="goToCharacter('clan-uchiha')">
+                <img src="uchiwa.jpg" alt="Clan Uchiha" class="character-img">
+                <div class="character-name">Clan Uchiha</div>
+                <div class="character-role">Maîtres du Sharingan</div>
+                <div class="character-description">
+                    Clan légendaire possédant le Sharingan, presque entièrement exterminé 
+                    par Itachi. Sasuke en est le dernier survivant connu.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Dōjutsu</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Feu</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Prestige</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('clan-hyuga')">
+                <img src="Hyuuga_Clan.jpg" alt="Clan Hyuga" class="character-img">
+                <div class="character-name">Clan Hyuga</div>
+                <div class="character-role">Maîtres du Byakugan</div>
+                <div class="character-description">
+                    Clan noble de Konoha possédant le Byakugan. Divisé entre famille 
+                    principale et famille secondaire selon d'anciennes traditions.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Byakugan</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Taijutsu</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Noblesse</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('clan-senju')">
+                <img src="senju.jpg" alt="Clan Senju" class="character-img">
+                <div class="character-name">Clan Senju</div>
+                <div class="character-role">Fondateurs de Konoha</div>
+                <div class="character-description">
+                    Clan fondateur de Konoha avec Hashirama. Connus pour leur vitalité 
+                    exceptionnelle et leurs techniques de bois légendaires.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Vitalité</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Mokuton</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Leadership</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        // Animation de particules de feuilles
+        function createLeafParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('leaf-particle');
+                
+                // Position aléatoire
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * -100}px`;
+                
+                // Taille aléatoire
+                const size = Math.random() * 15 + 10;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Animation avec délai aléatoire
+                const duration = Math.random() * 10 + 10;
+                particle.style.animation = `leafFall ${duration}s infinite linear`;
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                
+                // Couleurs de feuilles
+                const leafColors = [
+                    'rgba(34, 139, 34, 0.8)',
+                    'rgba(50, 205, 50, 0.8)',
+                    'rgba(0, 100, 0, 0.8)',
+                    'rgba(154, 205, 50, 0.8)'
+                ];
+                particle.style.backgroundColor = leafColors[Math.floor(Math.random() * leafColors.length)];
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Fonction pour naviguer vers la page du personnage
+        function goToCharacter(character) {
+            // Animation de transition
+            const clickedCard = event.currentTarget;
+            clickedCard.style.transform = 'scale(1.2)';
+            clickedCard.style.filter = 'brightness(1.5)';
+            clickedCard.style.zIndex = '1000';
+            
+            // Redirection après l'animation
+            setTimeout(() => {
+                window.location.href = `${character}-profile.html`;
+            }, 600);
+        }
+        
+        // Animation d'apparition des cartes au scroll
+        function animateCardsOnScroll() {
+            const cards = document.querySelectorAll('.character-card, .hokage-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { 
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        }
+        
+        // Effet de survol amélioré pour les cartes
+        function enhanceCardHover() {
+            const cards = document.querySelectorAll('.character-card, .hokage-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateY = (x - centerX) / 10;
+                    const rotateX = (centerY - y) / 10;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.05)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+                });
+            });
+        }
+        
+        // Animation des statistiques
+        function animateStats() {
+            const statValues = document.querySelectorAll('.stat-value');
+            
+            statValues.forEach(stat => {
+                stat.addEventListener('mouseenter', () => {
+                    stat.style.transform = 'scale(1.2)';
+                    stat.style.color = 'var(--accent-yellow)';
+                    stat.style.textShadow = '0 0 10px rgba(255, 204, 0, 0.8)';
+                });
+                
+                stat.addEventListener('mouseleave', () => {
+                    stat.style.transform = 'scale(1)';
+                    stat.style.color = 'var(--konoha-green)';
+                    stat.style.textShadow = 'none';
+                });
+            });
+        }
+        
+            // Animation du titre principal
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                setInterval(() => {
+                    const intensity = Math.random() * 0.5 + 0.5;
+                    heroTitle.style.textShadow = `0 0 30px rgba(34, 139, 34, ${intensity}), 0 0 60px rgba(34, 139, 34, ${intensity * 0.7})`;
+                }, 2000);
+            }
+            
+            // Effet de clignotement pour les bordures des cartes
+            setInterval(() => {
+                const cards = document.querySelectorAll('.character-card');
+                const randomCard = cards[Math.floor(Math.random() * cards.length)];
+                if (randomCard && !randomCard.matches(':hover')) {
+                    randomCard.style.borderColor = 'var(--accent-yellow)';
+                    setTimeout(() => {
+                        randomCard.style.borderColor = 'var(--konoha-green)';
+                    }, 500);
+                }
+            }, 3000);
+
+    </script>
+</body>
+</html>

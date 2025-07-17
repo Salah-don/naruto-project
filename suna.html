@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunagakure - Le Village Caché du Sable</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* RESET ET STYLES GÉNÉRAUX */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --suna-yellow: #daa520;
+            --suna-light: #ffd700;
+            --suna-dark: #b8860b;
+            --accent-orange: #ff8c00;
+            --dark-bg: #0a0a12;
+            --text-light: #f5f5f5;
+            --card-bg: rgba(30, 25, 15, 0.9);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(139, 69, 19, 0.3)), url('suna.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Effet de particules de sable */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .sand-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(218, 165, 32, 0.8), rgba(255, 140, 0, 0.6));
+            animation: sandStorm 12s infinite linear;
+            opacity: 0.7;
+        }
+
+        /* Bouton de retour */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--suna-yellow);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(218, 165, 32, 0.4);
+        }
+
+        .back-button:hover {
+            background: var(--suna-light);
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.6);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(45deg, rgba(218, 165, 32, 0.3), rgba(255, 140, 0, 0.3));
+        }
+
+        .hero-content {
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .hero-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 5rem;
+            color: var(--suna-yellow);
+            text-shadow: 0 0 30px rgba(218, 165, 32, 0.8);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: #ddd;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Section des personnages */
+        .characters-section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            color: var(--suna-yellow);
+            text-align: center;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(218, 165, 32, 0.6);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--suna-yellow), var(--accent-orange), var(--suna-yellow));
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(218, 165, 32, 0.5);
+        }
+
+        /* Grille des personnages */
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .character-card {
+            background: var(--card-bg);
+            border: 3px solid var(--suna-yellow);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: cardAppear 0.8s ease-out forwards;
+        }
+
+        .character-card:nth-child(1) { animation-delay: 0.1s; }
+        .character-card:nth-child(2) { animation-delay: 0.2s; }
+        .character-card:nth-child(3) { animation-delay: 0.3s; }
+        .character-card:nth-child(4) { animation-delay: 0.4s; }
+        .character-card:nth-child(5) { animation-delay: 0.5s; }
+        .character-card:nth-child(6) { animation-delay: 0.6s; }
+        .character-card:nth-child(7) { animation-delay: 0.7s; }
+        .character-card:nth-child(8) { animation-delay: 0.8s; }
+
+        .character-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(218, 165, 32, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .character-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            border-color: var(--accent-orange);
+            box-shadow: 0 25px 50px rgba(218, 165, 32, 0.4);
+        }
+
+        .character-card:hover::before {
+            opacity: 1;
+        }
+
+        .character-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 4px solid var(--suna-yellow);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(218, 165, 32, 0.3);
+        }
+
+        .character-card:hover .character-img {
+            border-color: var(--accent-orange);
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 140, 0, 0.5);
+        }
+
+        .character-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--suna-yellow);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .character-card:hover .character-name {
+            color: var(--accent-orange);
+            text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+        }
+
+        .character-role {
+            color: #bbb;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .character-description {
+            color: #ddd;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .character-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            color: var(--suna-yellow);
+            font-weight: bold;
+        }
+
+        /* Section des Kazekage */
+        .kazekage-section {
+            padding: 100px 20px;
+            background: rgba(218, 165, 32, 0.1);
+            margin: 50px 0;
+        }
+
+        .kazekage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .kazekage-card {
+            background: var(--card-bg);
+            border: 3px solid var(--accent-orange);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .kazekage-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 140, 0, 0.3);
+        }
+
+        .kazekage-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            border: 3px solid var(--accent-orange);
+        }
+
+        .kazekage-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            color: var(--accent-orange);
+            margin-bottom: 5px;
+        }
+
+        .kazekage-title {
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        /* Animations CSS */
+        @keyframes sandStorm {
+            0% {
+                transform: translateX(-100vw) translateY(0px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(-50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 30px rgba(218, 165, 32, 0.8); }
+            100% { text-shadow: 0 0 50px rgba(218, 165, 32, 1), 0 0 80px rgba(218, 165, 32, 0.6); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .characters-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .character-card {
+                padding: 20px;
+            }
+
+            .character-img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .characters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .back-button {
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <a href="village.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Retour aux Villages
+    </a>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Sunagakure</h1>
+            <p class="hero-subtitle">Le Village Caché du Sable - Pays du Vent</p>
+            <p class="hero-description">
+                Situé dans un environnement désertique hostile, Sunagakure a forgé des ninjas endurcis 
+                et adaptés aux conditions extrêmes. Le village est célèbre pour ses techniques de manipulation 
+                du sable et ses marionnettistes légendaires. Malgré des ressources limitées, Suna a développé 
+                des techniques uniques et maintient une alliance forte avec Konoha.
+            </p>
+        </div>
+    </section>
+
+    <!-- Section des Kazekage -->
+    <section class="kazekage-section">
+        <h2 class="section-title">Les Cinq Kazekage</h2>
+        <div class="kazekage-grid">
+            <div class="kazekage-card"   .="goToCharacter('first-kazekage')">
+                <img src="1K.jpg" alt="Premier Kazekage" class="kazekage-img">
+                <div class="kazekage-name">reto</div>
+                <div class="kazekage-title">Fondateur de Suna 1</div>
+            </div>
+            <div class="kazekage-card"   .="goToCharacter('second-kazekage')">
+                <img src="2K.jpg" alt="Deuxième Kazekage" class="kazekage-img">
+                <div class="kazekage-name">shamon</div>
+                <div class="kazekage-title">Successeur du Fondateur 2</div>
+            </div>
+            <div class="kazekage-card"   .="goToCharacter('third-kazekage')">
+                <img src="3K.jpg" alt="Troisième Kazekage" class="kazekage-img">
+                <div class="kazekage-name">Sandaime </div>
+                <div class="kazekage-title">Le Plus Fort Kazekage 3</div>
+            </div>
+            <div class="kazekage-card"   .="goToCharacter('fourth-kazekage')">
+                <img src="rasa.jpg" alt="Quatrième Kazekage" class="kazekage-img">
+                <div class="kazekage-name">Rasa</div>
+                <div class="kazekage-title">Quatrième Kazekage - Père de Gaara 4</div>
+            </div>
+            <div class="kazekage-card"   .="goToCharacter('gaara-kazekage')">
+                <img src="gaaraA.jpg" alt="Gaara Kazekage" class="kazekage-img">
+                <div class="kazekage-name">Gaara</div>
+                <div class="kazekage-title">Cinquième Kazekage - Jinchūriki 5</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section des personnages principaux -->
+    <section class="characters-section">
+        <h2 class="section-title">Légendes du Désert</h2>
+        <div class="characters-grid">
+            
+            <div class="character-card"   .="goToCharacter('gaara-adult')">
+                <img src="gaaraA.jpg" alt="Gaara" class="character-img">
+                <div class="character-name">Gaara</div>
+                <div class="character-role">Cinquième Kazekage</div>
+                <div class="character-description">
+                    Ancien Jinchūriki de Shukaku, Gaara est devenu le plus jeune Kazekage de l'histoire. 
+                    Sa maîtrise absolue du sable et sa transformation d'un monstre en protecteur font de lui une légende.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Sable</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Défense</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Leadership</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('temari-adult')">
+                <img src="timari.jpg" alt="Temari" class="character-img">
+                <div class="character-name">Temari</div>
+                <div class="character-role">Maître du Vent</div>
+                <div class="character-description">
+                    Sœur aînée de Gaara, Temari maîtrise les techniques de vent avec son éventail géant. 
+                    Stratège redoutable, elle est devenue l'épouse de Shikamaru et ambassadrice de Suna.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Vent</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Stratégie</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Diplomatie</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('kankuro-adult')">
+                <img src="kankuru.jpg" alt="Kankuro" class="character-img">
+                <div class="character-name">Kankuro</div>
+                <div class="character-role">Marionnettiste Légendaire</div>
+                <div class="character-description">
+                    Frère de Gaara, Kankuro est un maître marionnettiste qui a hérité des techniques 
+                    de Sasori. Il dirige maintenant l'unité de marionnettistes de Suna.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Marionnettes</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Poison</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Tactique</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('chiyo')">
+                <img src="chiyo.jpg" alt="Chiyo" class="character-img">
+                <div class="character-name">Chiyo</div>
+                <div class="character-role">Ancienne Légendaire (†)</div>
+                <div class="character-description">
+                    Grand-mère de Sasori et légende de Suna, Chiyo était une maître marionnettiste 
+                    et experte en poisons. Elle a sacrifié sa vie pour ressusciter Gaara.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Marionnettes</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Médical</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Expérience</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('sasori')">
+                <img src="sasori.jpg" alt="Sasori" class="character-img">
+                <div class="character-name">Sasori</div>
+                <div class="character-role">Sasori du Sable Rouge (†)</div>
+                <div class="character-description">
+                    Génie des marionnettes devenu membre de l'Akatsuki, Sasori a transformé son propre 
+                    corps en marionnette. Il était considéré comme l'un des plus dangereux criminels.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Marionnettes</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Poison</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Art</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('baki')">
+                <img src="baki.jpg" alt="Baki" class="character-img">
+                <div class="character-name">Baki</div>
+                <div class="character-role">Jōnin Instructeur</div>
+                <div class="character-description">
+                    Sensei de Gaara, Temari et Kankuro, Baki est un jōnin expérimenté de Suna. 
+                    Il maîtrise les techniques de vent et a formé la nouvelle génération de Suna.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Vent</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Enseignement</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Expérience</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('pakura')">
+                <img src="pakura.jpg" alt="Pakura" class="character-img">
+                <div class="character-name">Pakura</div>
+                <div class="character-role">Héroïne de Suna (†)</div>
+                <div class="character-description">
+                    Kunoichi légendaire de Suna maîtrisant le Shakuton (Style Brûlure), Pakura était 
+                    considérée comme une héroïne avant d'être trahie par son propre village.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Shakuton</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Combat</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Honneur</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card"   .="goToCharacter('maki')">
+                <img src="maki.jpg" alt="Maki" class="character-img">
+                <div class="character-name">Maki</div>
+                <div class="character-role">Jōnin de Suna</div>
+                <div class="character-description">
+                    Kunoichi expérimentée de Suna, Maki est une combattante redoutable qui a participé 
+                    à de nombreuses missions importantes pour la défense du village.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Combat</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Loyauté</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Endurance</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        // Animation de particules de sable
+        function createSandParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 60;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('sand-particle');
+                
+                // Taille aléatoire
+                const size = Math.random() * 8 + 3;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Position aléatoire
+                particle.style.left = `${Math.random() * -100}px`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Animation avec délai aléatoire
+                const duration = Math.random() * 8 + 8;
+                particle.style.animation = `sandStorm ${duration}s infinite linear`;
+                particle.style.animationDelay = `${Math.random() * 8}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Fonction pour naviguer vers la page du personnage
+        function goToCharacter(character) {
+            // Animation de transition
+            const clickedCard = event.currentTarget;
+            clickedCard.style.transform = 'scale(1.2)';
+            clickedCard.style.filter = 'brightness(1.5)';
+            clickedCard.style.zIndex = '1000';
+            
+            // Redirection après l'animation
+            setTimeout(() => {
+                window.location.href = `${character}-profile.html`;
+            }, 600);
+        }
+        
+        // Animation d'apparition des cartes au scroll
+        function animateCardsOnScroll() {
+            const cards = document.querySelectorAll('.character-card, .kazekage-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { 
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        }
+        
+                // Effet de survol amélioré pour les cartes
+        function enhanceCardHover() {
+            const cards = document.querySelectorAll('.character-card, .kazekage-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateY = (x - centerX) / 10;
+                    const rotateX = (centerY - y) / 10;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.05)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+                });
+            });
+        }
+        
+        // Animation des statistiques
+        function animateStats() {
+            const statValues = document.querySelectorAll('.stat-value');
+            
+            statValues.forEach(stat => {
+                stat.addEventListener('mouseenter', () => {
+                    stat.style.transform = 'scale(1.2)';
+                    stat.style.color = 'var(--accent-orange)';
+                    stat.style.textShadow = '0 0 10px rgba(255, 140, 0, 0.8)';
+                });
+                
+                stat.addEventListener('mouseleave', () => {
+                    stat.style.transform = 'scale(1)';
+                    stat.style.color = 'var(--suna-yellow)';
+                    stat.style.textShadow = 'none';
+                });
+            });
+        }
+        
+        // Effet de tempête de sable au scroll
+        function sandStormEffect() {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const particles = document.querySelectorAll('.sand-particle');
+                
+                particles.forEach((particle, index) => {
+                    const speed = 0.5 + (index % 3) * 0.2;
+                    const currentLeft = parseFloat(particle.style.left) || 0;
+                    particle.style.left = `${currentLeft + speed}px`;
+                });
+            });
+        }
+        
+        // Initialisation de tous les effets
+        document.addEventListener('DOMContentLoaded', () => {
+            createSandParticles();
+            animateCardsOnScroll();
+            enhanceCardHover();
+            animateStats();
+            sandStormEffect();
+            
+            // Animation du titre principal
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                setInterval(() => {
+                    const intensity = Math.random() * 0.5 + 0.5;
+                    heroTitle.style.textShadow = `0 0 30px rgba(218, 165, 32, ${intensity}), 0 0 60px rgba(218, 165, 32, ${intensity * 0.7})`;
+                }, 2000);
+            }
+            
+            // Effet de clignotement pour les bordures des cartes
+            setInterval(() => {
+                const cards = document.querySelectorAll('.character-card');
+                const randomCard = cards[Math.floor(Math.random() * cards.length)];
+                if (randomCard && !randomCard.matches(':hover')) {
+                    randomCard.style.borderColor = 'var(--accent-orange)';
+                    setTimeout(() => {
+                        randomCard.style.borderColor = 'var(--suna-yellow)';
+                    }, 500);
+                }
+            }, 4000);
+            
+            // Effet de mirage (scintillement du background)
+            setInterval(() => {
+                document.body.style.filter = `brightness(${0.9 + Math.random() * 0.2}) contrast(${1 + Math.random() * 0.1})`;
+                setTimeout(() => {
+                    document.body.style.filter = 'brightness(1) contrast(1)';
+                }, 200);
+            }, 8000);
+        });
+    </script>
+</body>
+</html>

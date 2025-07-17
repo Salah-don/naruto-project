@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iwagakure - Le Village Caché de la Roche</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* RESET ET STYLES GÉNÉRAUX */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --iwa-brown: #8b4513;
+            --iwa-light: #cd853f;
+            --iwa-dark: #654321;
+            --accent-orange: #ff6347;
+            --dark-bg: #0a0a12;
+            --text-light: #f5f5f5;
+            --card-bg: rgba(35, 25, 15, 0.9);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(101, 67, 33, 0.4)), url('iwagakure.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Effet de particules de roche */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .rock-particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(205, 133, 63, 0.8), rgba(139, 69, 19, 0.6));
+            animation: rockFall 15s infinite linear;
+            opacity: 0.7;
+            border-radius: 20% 80% 30% 70%;
+        }
+
+        .dust-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(160, 82, 45, 0.4), rgba(139, 69, 19, 0.2));
+            animation: dustFloat 25s infinite ease-in-out;
+            opacity: 0.5;
+            filter: blur(1px);
+        }
+
+        /* Bouton de retour */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--iwa-brown);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.4);
+        }
+
+        .back-button:hover {
+            background: var(--iwa-light);
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.6);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(45deg, rgba(139, 69, 19, 0.3), rgba(101, 67, 33, 0.3));
+        }
+
+        .hero-content {
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .hero-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 5rem;
+            color: var(--iwa-brown);
+            text-shadow: 0 0 30px rgba(139, 69, 19, 0.8);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: #ddd;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Section des personnages */
+        .characters-section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            color: var(--iwa-brown);
+            text-align: center;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(139, 69, 19, 0.6);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--iwa-brown), var(--accent-orange), var(--iwa-brown));
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(139, 69, 19, 0.5);
+        }
+
+        /* Grille des personnages */
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .character-card {
+            background: var(--card-bg);
+            border: 3px solid var(--iwa-brown);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: cardAppear 0.8s ease-out forwards;
+        }
+
+        .character-card:nth-child(1) { animation-delay: 0.1s; }
+        .character-card:nth-child(2) { animation-delay: 0.2s; }
+        .character-card:nth-child(3) { animation-delay: 0.3s; }
+        .character-card:nth-child(4) { animation-delay: 0.4s; }
+        .character-card:nth-child(5) { animation-delay: 0.5s; }
+        .character-card:nth-child(6) { animation-delay: 0.6s; }
+        .character-card:nth-child(7) { animation-delay: 0.7s; }
+        .character-card:nth-child(8) { animation-delay: 0.8s; }
+
+        .character-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(139, 69, 19, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .character-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            border-color: var(--accent-orange);
+            box-shadow: 0 25px 50px rgba(139, 69, 19, 0.4);
+        }
+
+        .character-card:hover::before {
+            opacity: 1;
+        }
+
+        .character-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 4px solid var(--iwa-brown);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(139, 69, 19, 0.3);
+        }
+
+        .character-card:hover .character-img {
+            border-color: var(--accent-orange);
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 99, 71, 0.5);
+        }
+
+        .character-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--iwa-brown);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .character-card:hover .character-name {
+            color: var(--accent-orange);
+            text-shadow: 0 0 10px rgba(255, 99, 71, 0.5);
+        }
+
+        .character-role {
+            color: #bbb;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .character-description {
+            color: #ddd;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .character-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            color: var(--iwa-brown);
+            font-weight: bold;
+        }
+
+        /* Section des Tsuchikage */
+        .tsuchikage-section {
+            padding: 100px 20px;
+            background: rgba(139, 69, 19, 0.1);
+            margin: 50px 0;
+        }
+
+        .tsuchikage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tsuchikage-card {
+            background: var(--card-bg);
+            border: 3px solid var(--accent-orange);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .tsuchikage-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 99, 71, 0.3);
+        }
+
+        .tsuchikage-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            border: 3px solid var(--accent-orange);
+        }
+
+        .tsuchikage-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            color: var(--accent-orange);
+            margin-bottom: 5px;
+        }
+
+        .tsuchikage-title {
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        /* Animations CSS */
+        @keyframes rockFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes dustFloat {
+            0%, 100% {
+                transform: translateX(-30px) translateY(0px) scale(1);
+                opacity: 0.3;
+            }
+            25% {
+                transform: translateX(20px) translateY(-20px) scale(1.1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translateX(40px) translateY(-5px) scale(0.9);
+                opacity: 0.7;
+            }
+            75% {
+                transform: translateX(-10px) translateY(-30px) scale(1.05);
+                opacity: 0.4;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 30px rgba(139, 69, 19, 0.8); }
+            100% { text-shadow: 0 0 50px rgba(139, 69, 19, 1), 0 0 80px rgba(139, 69, 19, 0.6); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .characters-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .character-card {
+                padding: 20px;
+            }
+
+            .character-img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .characters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .back-button {
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <a href="village.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Retour aux Villages
+    </a>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Iwagakure</h1>
+            <p class="hero-subtitle">Le Village Caché de la Roche - Pays de la Terre</p>
+            <p class="hero-description">
+                Iwagakure est construit dans les montagnes rocheuses, créant une forteresse naturelle 
+                quasi-imprenable. Le village est réputé pour ses techniques de terre dévastatrices et sa 
+                discipline militaire stricte. Les ninjas d'Iwa sont connus pour leur endurance exceptionnelle 
+                et leur maîtrise des techniques défensives.
+            </p>
+        </div>
+    </section>
+
+    <!-- Section des Tsuchikage -->
+    <section class="tsuchikage-section">
+        <h2 class="section-title">Les Quatre Tsuchikage</h2>
+        <div class="tsuchikage-grid">
+            <div class="tsuchikage-card">
+                <img src="1T.jpg" alt="Premier Tsuchikage" class="tsuchikage-img">
+                <div class="tsuchikage-name">Ishikawa</div>
+                <div class="tsuchikage-title">Premier Tsuchikage - Fondateur</div>
+            </div>
+            <div class="tsuchikage-card">
+                <img src="2T.jpg" alt="Deuxième Tsuchikage" class="tsuchikage-img">
+                <div class="tsuchikage-name">Mū</div>
+                <div class="tsuchikage-title">Deuxième Tsuchikage - L'Homme Sans</div>
+            </div>
+            <div class="tsuchikage-card">
+                <img src="3T.jpg" alt="Troisième Tsuchikage" class="tsuchikage-img">
+                <div class="tsuchikage-name">Ōnoki</div>
+                <div class="tsuchikage-title">Troisième Tsuchikage - La Balance</div>
+            </div>
+            <div class="tsuchikage-card">
+                <img src="4T.jpg" alt="Quatrième Tsuchikage" class="tsuchikage-img">
+                <div class="tsuchikage-name">Kurotsuchi</div>
+                <div class="tsuchikage-title">Quatrième Tsuchikage - Nouvelle Ère</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section des personnages principaux -->
+    <section class="characters-section">
+        <h2 class="section-title">Maîtres de la Terre</h2>
+        <div class="characters-grid">
+            
+            <div class="character-card">
+                <img src="3T.jpg" alt="Ōnoki" class="character-img">
+                <div class="character-name">Ōnoki</div>
+                <div class="character-role">Troisième Tsuchikage</div>
+                <div class="character-description">
+                    Surnommé "La Balance", Ōnoki était le plus ancien des Kage. Maître du Jinton (Style Poussière), 
+                    il pouvait désintégrer la matière au niveau atomique. Malgré son âge, il restait redoutable.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Jinton</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Expérience</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Volonté</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="4T.jpg" alt="Kurotsuchi" class="character-img">
+                <div class="character-name">Kurotsuchi</div>
+                <div class="character-role">Quatrième Tsuchikage</div>
+                <div class="character-description">
+                    Petite-fille d'Ōnoki et actuelle Tsuchikage, Kurotsuchi maîtrise les techniques de Terre et de Lave. 
+                    Elle représente la nouvelle génération d'Iwa avec une approche plus moderne du leadership.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Doton</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Yōton</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Leadership</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="akatsuchi.jpg" alt="Akatsuchi" class="character-img">
+                <div class="character-name">Akatsuchi</div>
+                <div class="character-role">Garde du Corps du Tsuchikage</div>
+                <div class="character-description">
+                    Fidèle garde du corps d'Ōnoki, Akatsuchi est un ninja imposant spécialisé dans les techniques 
+                    de terre défensives. Sa loyauté envers Iwa et son Tsuchikage est absolue.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Défense</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Force</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Loyauté</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="deidara.jpg" alt="Deidara" class="character-img">
+                <div class="character-name">Deidara</div>
+                <div class="character-role">Artiste Explosif (†)</div>
+                <div class="character-description">
+                    Ancien ninja d'Iwa devenu membre de l'Akatsuki, Deidara était obsédé par l'art explosif. 
+                    Ses créations d'argile explosive étaient à la fois belles et destructrices.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Explosifs</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Art</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Créativité</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="han.jpg" alt="Han" class="character-img">
+                <div class="character-name">Han</div>
+                <div class="character-role">Jinchūriki de Gobi (†)</div>
+                <div class="character-description">
+                    Jinchūriki de Kokuō (Cinq Queues), Han était surnommé "Han de la Vapeur" pour sa maîtrise 
+                    du Futton. Il portait une armure de vapeur qui le protégeait et amplifiait ses attaques.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Futton</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Bijū</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Défense</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="roshi.jpg" alt="Rōshi" class="character-img">
+                <div class="character-name">Rōshi</div>
+                <div class="character-role">Jinchūriki de Yonbi (†)</div>
+                <div class="character-description">
+                    Ancien Jinchūriki de Son Gokū (Quatre Queues), Rōshi était un moine ninja qui maîtrisait 
+                    le Yōton (Style Lave). Il avait quitté Iwa pour perfectionner sa maîtrise du Bijū.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Yōton</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Bijū</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Sagesse</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="kitsuchi.jpg" alt="Kitsuchi" class="character-img">
+                <div class="character-name">Kitsuchi</div>
+                <div class="character-role">Père de Kurotsuchi</div>
+                <div class="character-description">
+                    Père de Kurotsuchi et fils d'Ōnoki, Kitsuchi est un jōnin expérimenté d'Iwa. 
+                    Il maîtrise les techniques de terre et a participé à la Quatrième Grande Guerre Ninja.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Doton</div>
+                        <div class="stat-value">8/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Expérience</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Famille</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-card">
+                <img src="mu.jpg" alt="Mū" class="character-img">
+                <div class="character-name">Mū</div>
+                <div class="character-role">Deuxième Tsuchikage (†)</div>
+                <div class="character-description">
+                    Surnommé "L'Homme Sans" pour sa capacité d'invisibilité, Mū était le maître d'Ōnoki. 
+                    Il maîtrisait le Jinton et pouvait diviser son corps, rendant sa détection quasi-impossible.
+                </div>
+                <div class="character-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Jinton</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Furtivité</div>
+                        <div class="stat-value">10/10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Enseignement</div>
+                        <div class="stat-value">9/10</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        // Animation de particules de roche et poussière
+        function createRockParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const rockCount = 25;
+            const dustCount = 40;
+            
+            // Particules de roche
+            for (let i = 0; i < rockCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('rock-particle');
+                
+                // Taille aléatoire
+                const size = Math.random() * 12 + 6;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Position aléatoire
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * -100}px`;
+                
+                // Animation avec délai aléatoire
+                const duration = Math.random() * 10 + 10;
+                particle.style.animation = `rockFall ${duration}s infinite linear`;
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Particules de poussière
+            for (let i = 0; i < dustCount; i++) {
+                const dust = document.createElement('div');
+                dust.classList.add('dust-particle');
+                
+                // Taille aléatoire
+                const size = Math.random() * 40 + 20;
+                dust.style.width = `${size}px`;
+                dust.style.height = `${size}px`;
+                
+                // Position aléatoire
+                dust.style.left = `${Math.random() * 100}%`;
+                dust.style.top = `${Math.random() * 100}%`;
+                
+                // Animation avec délai aléatoire
+                const duration = Math.random() * 20 + 20;
+                dust.style.animation = `dustFloat ${duration}s infinite ease-in-out`;
+                dust.style.animationDelay = `${Math.random() * 15}s`;
+                
+                particlesContainer.appendChild(dust);
+            }
+        }
+        
+                // Animation d'apparition des cartes au scroll
+        function animateCardsOnScroll() {
+            const cards = document.querySelectorAll('.character-card, .tsuchikage-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { 
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        }
+        
+        // Effet de survol amélioré pour les cartes
+        function enhanceCardHover() {
+            const cards = document.querySelectorAll('.character-card, .tsuchikage-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateY = (x - centerX) / 10;
+                    const rotateX = (centerY - y) / 10;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.05)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+                });
+            });
+        }
+        
+        // Animation des statistiques
+        function animateStats() {
+            const statValues = document.querySelectorAll('.stat-value');
+            
+            statValues.forEach(stat => {
+                stat.addEventListener('mouseenter', () => {
+                    stat.style.transform = 'scale(1.2)';
+                    stat.style.color = 'var(--accent-orange)';
+                    stat.style.textShadow = '0 0 10px rgba(255, 99, 71, 0.8)';
+                });
+                
+                stat.addEventListener('mouseleave', () => {
+                    stat.style.transform = 'scale(1)';
+                    stat.style.color = 'var(--iwa-brown)';
+                    stat.style.textShadow = 'none';
+                });
+            });
+        }
+        
+        // Effet de tremblement de terre au scroll
+        function earthquakeEffect() {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const rockParticles = document.querySelectorAll('.rock-particle');
+                
+                rockParticles.forEach((particle, index) => {
+                    const speed = 0.2 + (index % 4) * 0.1;
+                    const currentOpacity = parseFloat(particle.style.opacity) || 0.7;
+                    const newOpacity = Math.max(0.3, currentOpacity - scrolled * 0.0001);
+                    particle.style.opacity = newOpacity;
+                    
+                    // Effet de secousse
+                    if (Math.random() < 0.05) {
+                        particle.style.transform = `translateX(${Math.random() * 4 - 2}px) translateY(${Math.random() * 4 - 2}px)`;
+                        setTimeout(() => {
+                            particle.style.transform = 'translateX(0) translateY(0)';
+                        }, 100);
+                    }
+                });
+            });
+        }
+        
+        // Effet de roche sur les cartes
+        function rockCardEffect() {
+            const cards = document.querySelectorAll('.character-card, .tsuchikage-card');
+            
+            cards.forEach((card, index) => {
+                card.addEventListener('mouseenter', () => {
+                    // Effet de roche sur la bordure
+                    card.style.boxShadow = `
+                        0 0 20px var(--accent-orange),
+                        0 0 40px var(--accent-orange),
+                        0 0 60px var(--iwa-brown)
+                    `;
+                    
+                    // Effet de tremblement léger
+                    let shakeCount = 0;
+                    const shakeInterval = setInterval(() => {
+                        const shakeX = Math.random() * 2 - 1;
+                        const shakeY = Math.random() * 2 - 1;
+                        card.style.transform = `perspective(1000px) translateX(${shakeX}px) translateY(${shakeY}px) translateY(-15px) scale(1.05)`;
+                        shakeCount++;
+                        if (shakeCount >= 5) {
+                            clearInterval(shakeInterval);
+                            card.style.transform = 'perspective(1000px) translateY(-15px) scale(1.05)';
+                        }
+                    }, 50);
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.boxShadow = '';
+                    card.style.transform = 'perspective(1000px) translateX(0) translateY(0) scale(1)';
+                });
+            });
+        }
+        
+        // Initialisation de tous les effets
+        document.addEventListener('DOMContentLoaded', () => {
+            createRockParticles();
+            animateCardsOnScroll();
+            enhanceCardHover();
+            animateStats();
+            earthquakeEffect();
+            rockCardEffect();
+            
+            // Animation du titre principal
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                setInterval(() => {
+                    const intensity = Math.random() * 0.5 + 0.5;
+                    heroTitle.style.textShadow = `0 0 30px rgba(139, 69, 19, ${intensity}), 0 0 60px rgba(139, 69, 19, ${intensity * 0.7})`;
+                }, 2000);
+            }
+            
+            // Effet de clignotement pour les bordures des cartes
+            setInterval(() => {
+                const cards = document.querySelectorAll('.character-card');
+                const randomCard = cards[Math.floor(Math.random() * cards.length)];
+                if (randomCard && !randomCard.matches(':hover')) {
+                    randomCard.style.borderColor = 'var(--accent-orange)';
+                    setTimeout(() => {
+                        randomCard.style.borderColor = 'var(--iwa-brown)';
+                    }, 500);
+                }
+            }, 3500);
+            
+            // Effet de tremblement de terre périodique
+            setInterval(() => {
+                const rockParticles = document.querySelectorAll('.rock-particle');
+                rockParticles.forEach(particle => {
+                    if (Math.random() < 0.3) {
+                        particle.style.transform = `translateX(${Math.random() * 6 - 3}px) translateY(${Math.random() * 6 - 3}px)`;
+                        setTimeout(() => {
+                            particle.style.transform = 'translateX(0) translateY(0)';
+                        }, 200);
+                    }
+                });
+            }, 5000);
+            
+            // Effet de poussière qui se soulève
+            setInterval(() => {
+                const dustParticles = document.querySelectorAll('.dust-particle');
+                dustParticles.forEach(dust => {
+                    if (Math.random() < 0.2) {
+                        const currentOpacity = parseFloat(dust.style.opacity) || 0.5;
+                        dust.style.opacity = Math.min(0.8, currentOpacity + 0.3);
+                        dust.style.transform = 'scale(1.2)';
+                        setTimeout(() => {
+                            dust.style.opacity = currentOpacity;
+                            dust.style.transform = 'scale(1)';
+                        }, 500);
+                    }
+                });
+            }, 4000);
+            
+            // Effet de séisme sur le background
+            setInterval(() => {
+                document.body.style.filter = `brightness(${0.95 + Math.random() * 0.1}) sepia(${Math.random() * 0.1})`;
+                document.body.style.transform = `translateX(${Math.random() * 2 - 1}px) translateY(${Math.random() * 2 - 1}px)`;
+                setTimeout(() => {
+                    document.body.style.filter = 'brightness(1) sepia(0)';
+                    document.body.style.transform = 'translateX(0) translateY(0)';
+                }, 150);
+            }, 15000);
+            
+            // Effet de cristallisation sur les cartes
+            setInterval(() => {
+                const cards = document.querySelectorAll('.character-card, .tsuchikage-card');
+                const randomCard = cards[Math.floor(Math.random() * cards.length)];
+                if (randomCard && !randomCard.matches(':hover')) {
+                    randomCard.style.background = 'rgba(139, 69, 19, 0.2)';
+                    setTimeout(() => {
+                        randomCard.style.background = 'var(--card-bg)';
+                    }, 800);
+                }
+            }, 6000);
+        });
+    </script>
+</body>
+</html>

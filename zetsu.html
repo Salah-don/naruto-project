@@ -5,428 +5,861 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Narutobidia - Profil de Zetsu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-        background-color: #121212;
-        color: #fff;
-        overflow-x: hidden;
-        background-image: radial-gradient(circle at 20% 30%, rgba(40, 60, 20, 0.3) 0%, transparent 60%);
-    }
-
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-
-    /* Header */
-    header {
-        background-color: rgba(10, 10, 10, 0.95);
-        border-bottom: 2px solid #666;
-        padding: 15px 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
-    }
-
-    .logo-container {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .logo-img {
-        height: 50px;
-        width: auto;
-        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
-    }
-
-    .logo-text {
-        font-size: 1.8rem;
-        font-weight: bold;
-        color: #fff;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        letter-spacing: 1px;
-    }
-
-    .nav-links {
-        display: flex;
-        gap: 25px;
-    }
-
-    .nav-link {
-        color: #ccc;
-        text-decoration: none;
-        font-weight: 600;
-        padding: 8px 0;
-        position: relative;
-        transition: color 0.3s ease;
-    }
-
-    .nav-link:hover {
-        color: #fff;
-    }
-
-    .nav-link::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: linear-gradient(90deg, #aaa, #fff);
-        transition: width 0.3s ease;
-    }
-
-    .nav-link:hover::after {
-        width: 100%;
-    }
-
-    /* Profil Header */
-    .profile-header {
-        background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
-                    var(--bg-image);
-        background-size: cover;
-        background-position: center;
-        padding: 40px 20px;
-        border-radius: 10px;
-        margin: 30px 0;
-        border: 2px solid #666;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
-    }
-
-    .profile-header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.9) 100%);
-    }
-
-    .profile-info {
-        position: relative;
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        gap: 30px;
-        flex-wrap: wrap;
-    }
-
-    .profile-avatar {
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-        border: 3px solid #aaa;
-        overflow: hidden;
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-    }
-
-    .profile-avatar img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .profile-details {
-        flex: 1;
-        min-width: 300px;
-    }
-
-    .profile-name {
-        font-size: 2.5rem;
-        color: #fff;
-        margin-bottom: 10px;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-    }
-
-    .profile-title {
-        font-size: 1.3rem;
-        color: #aaa;
-        margin-bottom: 15px;
-        font-weight: bold;
-    }
-
-    .profile-stats {
-        display: flex;
-        gap: 20px;
-        margin: 20px 0;
-    }
-
-    .stat-item {
-        text-align: center;
-        padding: 10px 20px;
-        background: rgba(50, 70, 30, 0.7);
-        border-radius: 8px;
-        border-left: 3px solid #aaa;
-        transition: transform 0.3s ease;
-    }
-
-    .stat-item:hover {
-        transform: translateY(-5px);
-        background: rgba(60, 90, 40, 0.8);
-    }
-
-    .stat-value {
-        font-size: 1.8rem;
-        color: #fff;
-        font-weight: bold;
-    }
-
-    .stat-label {
-        font-size: 0.9rem;
-        color: #ccc;
-    }
-
-    .profile-bio {
-        margin-top: 20px;
-        line-height: 1.6;
-        max-width: 800px;
-        color: #ddd;
-    }
-
-    .section-title {
-        font-size: 1.8rem;
-        color: #fff;
-        margin: 30px 0 20px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #666;
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-    }
-
-    /* Timeline */
-    .timeline {
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        margin-bottom: 40px;
-    }
-
-    .timeline-item {
-        display: flex;
-        gap: 20px;
-        padding: 20px;
-        background: rgba(40, 40, 40, 0.8);
-        border-radius: 8px;
-        border-left: 4px solid #666;
-        transition: transform 0.3s ease;
-    }
-
-    .timeline-item:hover {
-        transform: translateX(10px);
-        border-left: 4px solid #fff;
-    }
-
-    .timeline-year {
-        min-width: 80px;
-        text-align: center;
-        font-weight: bold;
-        color: #fff;
-        font-size: 1.3rem;
-    }
-
-    .timeline-content {
-        flex: 1;
-    }
-
-    .timeline-title {
-        font-size: 1.3rem;
-        margin-bottom: 10px;
-        color: #fff;
-    }
-
-    .timeline-description {
-        line-height: 1.6;
-        color: #ccc;
-    }
-
-    /* Gallery */
-    .gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-        margin-bottom: 40px;
-    }
-
-    .gallery-item {
-        border-radius: 8px;
-        overflow: hidden;
-        height: 250px;
-        position: relative;
-        border: 2px solid #444;
-        transition: all 0.3s ease;
-    }
-
-    .gallery-item:hover {
-        transform: translateY(-5px);
-        border-color: #aaa;
-        box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
-    }
-
-    .gallery-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-
-    .gallery-item:hover img {
-        transform: scale(1.05);
-    }
-
-    .gallery-caption {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        padding: 10px;
-        font-size: 0.9rem;
-        color: #fff;
-        text-align: center;
-    }
-
-    /* Abilities */
-    .abilities {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-        margin-bottom: 40px;
-    }
-
-    .ability-card {
-        background: rgba(30, 30, 30, 0.8);
-        border-radius: 8px;
-        padding: 20px;
-        border: 1px solid #444;
-        transition: all 0.3s ease;
-    }
-
-    .ability-card:hover {
-        border-color: #aaa;
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
-    }
-
-    .ability-title {
-        font-size: 1.3rem;
-        color: #fff;
-        margin-bottom: 15px;
-        position: relative;
-    }
-
-    .ability-title::after {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        left: 0;
-        width: 50px;
-        height: 2px;
-        background: #aaa;
-    }
-
-    .ability-description {
-        line-height: 1.6;
-        color: #ccc;
-    }
-
-    /* Footer */
-    footer {
-        padding: 30px 20px;
-        text-align: center;
-        background-color: rgba(10, 10, 10, 0.9);
-        border-top: 2px solid #666;
-        margin-top: 50px;
-    }
-
-    .creator {
-        font-size: 1.2rem;
-        font-weight: bold;
-        margin-top: 10px;
-        color: #aaa;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        header {
-            flex-direction: column;
-            padding: 15px;
-            gap: 15px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
         }
-        
+
+        /* Variables pour les couleurs de Zetsu - Blanc, Noir et Vert bouteille */
+        :root {
+            --red: #e53935;
+            --dark: #121212;
+            --cloud: #b71c1c;
+            --text: #f5f5f5;
+            --gold: #ffcc00;
+            --dark-red: #8b0000;
+            --primary-red: #c00;
+            --secondary-red: #ff3333;
+            --accent-yellow: #ffcc00;
+            --dark-bg: #0a0a12;
+            --card-bg: rgba(20, 20, 30, 0.95);
+            --text-light: #f5f5f5;
+            --text-gold: #ffd700;
+            --zetsu-white: #ffffff;
+            --zetsu-black: #000000;
+            --zetsu-bottle-green: #006a4e;
+            --zetsu-dark-green: #004d3a;
+            --zetsu-light-green: #228b22;
+        }
+
+        body {
+            background-color: var(--zetsu-black);
+            color: var(--zetsu-white);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 106, 78, 0.3) 0%, transparent 60%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Effet de végétation */
+        .vegetation-effect {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .plant {
+            position: absolute;
+            width: 3px;
+            background: linear-gradient(to top, var(--zetsu-bottle-green), transparent);
+            animation: grow 8s ease-out infinite;
+            transform-origin: bottom;
+        }
+
+        @keyframes grow {
+            0% {
+                height: 0;
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                height: 150px;
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header Akatsuki */
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(10, 10, 18, 0.95), rgba(5, 5, 10, 0.85));
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid var(--primary-red);
+            box-shadow: 0 5px 25px rgba(200, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            padding: 15px 0;
+            transform: translateY(0);
+        }
+
+        .sticky-header.hidden {
+            transform: translateY(-100%);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }   
+
+        .logo-img {
+            height: 55px;
+            width: auto;
+            filter: drop-shadow(0 0 8px rgba(200, 0, 0, 0.8));
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .logo-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.2rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, var(--accent-yellow), var(--primary-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(200, 0, 0, 0.6);
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .logo-container:hover .logo-img {
+            transform: rotate(15deg) scale(1.15);
+        }
+
+        /* Navigation */
         .nav-links {
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
+            display: flex;
+            gap: 25px;
         }
-        
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-red), transparent);
+            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            transition: clip-path 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover::before {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .nav-link.active {
+            color: var(--accent-yellow);
+            transform: translateY(-3px);
+        }
+
+        /* Profil Header avec effet de dualité */
+        .profile-header {
+            background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(255,255,255,0.1)), 
+                        url('') no-repeat center center;
+            background-size: cover;
+            background-position: center;
+            padding: 120px 20px 40px;
+            border-radius: 10px;
+            margin: 100px 0 30px;
+            border: 2px solid var(--zetsu-bottle-green);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 106, 78, 0.3);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Effet de division noir/blanc */
+        .duality-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .duality-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0.2), transparent);
+            animation: dualityShift 6s ease-in-out infinite;
+        }
+
+        .duality-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to left, rgba(0,0,0,0.3), transparent);
+            animation: dualityShift 6s ease-in-out infinite reverse;
+        }
+
+        @keyframes dualityShift {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.5; }
+        }
+
         .profile-info {
-            justify-content: center;
-            text-align: center;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
         }
-        
+
+        .profile-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 3px solid var(--zetsu-bottle-green);
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 106, 78, 0.6);
+            position: relative;
+            transform: scale(0);
+            animation: scaleIn 0.8s ease 0.5s forwards;
+        }
+
+        @keyframes scaleIn {
+            to { transform: scale(1); }
+        }
+
+        /* Effet de fusion végétale sur l'avatar */
+        .profile-avatar::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            right: -20px;
+            height: 40px;
+            background: linear-gradient(0deg, rgba(0, 106, 78, 0.6) 0%, transparent 100%);
+            animation: plantGrow 3s ease-in-out infinite;
+        }
+
+        @keyframes plantGrow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-details {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .profile-name {
+            font-size: 2.5rem;
+            color: var(--zetsu-white);
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 106, 78, 0.8);
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: slideInLeft 0.8s ease 0.8s forwards;
+        }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .profile-title {
+            font-size: 1.3rem;
+            color: var(--zetsu-light-green);
+            margin-bottom: 15px;
+            font-weight: bold;
+            opacity: 0;
+            animation: fadeIn 0.8s ease 1s forwards;
+        }
+
         .profile-stats {
-            justify-content: center;
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            opacity: 0;
+            animation: fadeIn 0.8s ease 1.2s forwards;
         }
-        
+
         .stat-item {
-            padding: 10px 15px;
+            text-align: center;
+            padding: 10px 20px;
+            background: rgba(0, 106, 78, 0.6);
+            border-radius: 8px;
+            border-left: 3px solid var(--zetsu-white);
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+            animation: bounceIn 0.6s ease 1.4s forwards;
+            position: relative;
+            overflow: hidden;
         }
-        
-        .timeline-item {
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(to top, rgba(255, 255, 255, 0.1), transparent);
+            transition: height 0.3s ease;
+        }
+
+        .stat-item:hover::before {
+            height: 100%;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: translateY(20px); opacity: 0; }
+            60% { transform: translateY(-5px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: rgba(0, 77, 58, 0.8);
+            box-shadow: 0 10px 20px rgba(0, 106, 78, 0.3);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            color: var(--zetsu-white);
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .profile-bio {
+            margin-top: 20px;
+            line-height: 1.6;
+            max-width: 800px;
+            background: rgba(0, 106, 78, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--zetsu-bottle-green);
+            opacity: 0;
+            animation: fadeIn 0.8s ease 1.6s forwards;
+            color: var(--zetsu-white);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--zetsu-bottle-green);
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--zetsu-white);
+            text-shadow: 0 0 5px rgba(0, 106, 78, 0.3);
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .section-title.visible {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--zetsu-bottle-green), var(--zetsu-white));
+            animation: expandWidth 1s ease forwards;
+        }
+
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 100px; }
+        }
+
+        /* Timeline avec effet de croissance */
+        .timeline {
+            display: flex;
             flex-direction: column;
+            gap: 30px;
+            margin-bottom: 40px;
         }
-        
+
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(0, 106, 78, 0.4);
+            border-radius: 8px;
+            border-left: 4px solid var(--zetsu-white);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .timeline-item.visible {
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--zetsu-bottle-green), transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .timeline-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 106, 78, 0.3);
+            border-left: 4px solid var(--zetsu-bottle-green);
+        }
+
         .timeline-year {
-            text-align: left;
+            min-width: 80px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--zetsu-white);
+            font-size: 1.3rem;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
-    }
-</style>
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--zetsu-white);
+        }
+
+        .timeline-description {
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        /* Gallery avec effet de fusion */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            height: 250px;
+            position: relative;
+            border: 2px solid var(--zetsu-bottle-green);
+            transition: all 0.3s ease;
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+        }
+
+        .gallery-item.visible {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--zetsu-white);
+            box-shadow: 0 10px 20px rgba(0, 106, 78, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            filter: brightness(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            padding: 20px 10px 10px;
+            font-size: 0.9rem;
+            color: var(--zetsu-white);
+            text-align: center;
+            font-weight: 600;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* Abilities avec effet de fusion végétale */
+        .abilities {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .ability-card {
+            background: rgba(0, 106, 78, 0.4);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid var(--zetsu-bottle-green);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .ability-card.visible {
+            animation: scaleIn 0.6s ease forwards;
+        }
+
+        .ability-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--zetsu-white), var(--zetsu-bottle-green));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .ability-card:hover {
+            border-color: var(--zetsu-white);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 106, 78, 0.3);
+        }
+
+        .ability-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .ability-title {
+            font-size: 1.3rem;
+            color: var(--zetsu-white);
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .ability-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--zetsu-bottle-green);
+        }
+
+        .ability-description {
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        /* Footer Akatsuki */
+        footer {
+            background: linear-gradient(to top, rgba(5, 5, 10, 0.95), rgba(10, 10, 18, 0.9));
+            border-top: 3px solid var(--cloud);
+            padding: 50px 20px 30px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .footer-section:nth-child(1) { animation-delay: 0.1s; }
+        .footer-section:nth-child(2) { animation-delay: 0.2s; }
+        .footer-section:nth-child(3) { animation-delay: 0.3s; }
+
+        .footer-section h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent-yellow);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a::before {
+            content: '→';
+            position: absolute;
+            left: -20px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-yellow);
+            transform: translateX(20px);
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: -15px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: var(--primary-red);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            transform: scale(0);
+            animation: popIn 0.5s ease forwards;
+        }
+
+        .social-icon:nth-child(1) { animation-delay: 0.1s; }
+        .social-icon:nth-child(2) { animation-delay: 0.2s; }
+        .social-icon:nth-child(3) { animation-delay: 0.3s; }
+        .social-icon:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0) rotate(180deg);
+            }
+            to {
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1) rotate(360deg);
+            background: var(--accent-yellow);
+            color: var(--dark-bg);
+        }
+
+        .copyright {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1rem;
+            color: #888;
+        }
+
+        .creator {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 10px;
+            color: var(--accent-yellow);
+            text-shadow: 0 0 10px rgba(200, 0, 0, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .profile-info {
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .profile-stats {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .stat-item {
+                padding: 10px 15px;
+                flex: 1;
+                min-width: 120px;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+            }
+            
+            .timeline-year {
+                text-align: left;
+                width: fit-content;
+            }
+            
+            .abilities {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <img src="konoha.png" alt="Logo Konoha" class="logo-img">
-            <div class="logo-text">NARUTOBIDIA</div>
+    <!-- Effet de végétation -->
+    <div class="vegetation-effect"></div>
+
+    <!-- Header Akatsuki -->
+    <header class="sticky-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="konoha.png" alt="Logo Konoha" class="logo-img">
+                <div class="logo-text">NARUTOBIDIA</div>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="naruto2.html" class="nav-link">Accueil</a>
+                <a href="personnages.html" class="nav-link">Personnages</a>
+                <a href="akatsuki.html" class="nav-link active">Akatsuki</a>
+                <a href="techniques.html" class="nav-link">Techniques</a>
+                <a href="bijuu.html" class="nav-link">Bijū</a>
+                <a href="about.html" class="nav-link">À propos</a>
+            </nav>
         </div>
-        
-        <nav class="nav-links">
-            <a href="index.html" class="nav-link">Accueil</a>
-            <a href="personnages.html" class="nav-link">Personnages</a>
-            <a href="akatsuki.html" class="nav-link active">Akatsuki</a>
-            <a href="techniques.html" class="nav-link">Techniques</a>
-            <a href="bijuu.html" class="nav-link">Bijū</a>
-            <a href="about.html" class="nav-link">À propos</a>
-        </nav>
     </header>
 
     <div class="container">
-        <div class="profile-header" style="--bg-image: url('https://wallpapercave.com/wp/wp6985019.jpg');">
+        <!-- Profil Header -->
+        <div class="profile-header">
+            <div class="duality-effect"></div>
             <div class="profile-info">
                 <div class="profile-avatar">
-                    <img src="Zetsup.jpg" alt="Zetsu">
+                    <img src="zetsuob.jpg" alt="Zetsu">
                 </div>
                 <div class="profile-details">
                     <h1 class="profile-name">Zetsu</h1>
-                    <div class="profile-title">Les deux faces d'un ninja mystérieux</div>
+                    <div class="profile-title">L'Espion de l'Akatsuki • La Plante Carnivore</div>
                     
                     <div class="profile-stats">
                         <div class="stat-item">
-                            <div class="stat-value">Unknown</div>
+                            <div class="stat-value">???</div>
                             <div class="stat-label">Âge</div>
                         </div>
                         <div class="stat-item">
@@ -434,84 +867,324 @@
                             <div class="stat-label">Rang</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value">Végétal et Ombre</div>
+                            <div class="stat-value">Nature</div>
                             <div class="stat-label">Élément</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value">18</div>
+                            <div class="stat-value">89</div>
                             <div class="stat-label">Épisodes</div>
                         </div>
                     </div>
                     
                     <div class="profile-bio">
-                        <p>Zetsu est un membre mystérieux de l'Akatsuki avec une double personnalité. Son côté vert représente l'élément végétal, tandis que son côté noir est lié à l'ombre et à l'espionnage. Zetsu est souvent vu avec son partenaire, Akatsuki, en missions secrètes.</p>
+                        <p>Zetsu est l'espion de l'Akatsuki, un être unique composé de deux personnalités distinctes : Zetsu Blanc et Zetsu Noir. Capable de fusionner avec le sol et les végétaux, il peut se déplacer librement à travers le monde ninja. Sa véritable nature et ses origines restent mystérieuses pendant une grande partie de la série.</p>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Histoire -->
         <h2 class="section-title">Histoire et Évolution</h2>
         <div class="timeline">
             <div class="timeline-item">
-                <div class="timeline-year">Enfance</div>
+                <div class="timeline-year">Origines</div>
                 <div class="timeline-content">
-                    <h3 class="timeline-title">Origine mystérieuse</h3>
-                    <p class="timeline-description">Zetsu reste énigmatique sur ses origines, mais il a une profonde connexion avec l'ombre et les plantes.</p>
+                    <h3 class="timeline-title">Création mystérieuse</h3>
+                    <p class="timeline-description">Les origines de Zetsu sont enveloppées de mystère. Il semble avoir été créé ou modifié par des techniques interdites liées aux plantes et à la nature.</p>
                 </div>
             </div>
             
             <div class="timeline-item">
-                <div class="timeline-year">Jeunesse</div>
+                <div class="timeline-year">Akatsuki</div>
                 <div class="timeline-content">
-                    <h3 class="timeline-title">Partenaire de l'Akatsuki</h3>
-                    <p class="timeline-description">Zetsu rejoint l'Akatsuki en tant qu'espion pour recueillir des informations secrètes.</p>
+                    <h3 class="timeline-title">L'espion parfait</h3>
+                    <p class="timeline-description">Zetsu rejoint l'Akatsuki et devient leur espion principal grâce à ses capacités uniques de fusion avec l'environnement et de déplacement furtif.</p>
                 </div>
             </div>
             
             <div class="timeline-item">
-                <div class="timeline-year">Adulte</div>
+                <div class="timeline-year">Révélation</div>
                 <div class="timeline-content">
-                    <h3 class="timeline-title">Combat avec l'Akatsuki</h3>
-                    <p class="timeline-description">Zetsu joue un rôle clé dans plusieurs missions et conspirations au sein de l'Akatsuki.</p>
+                                        <h3 class="timeline-title">Deux personnalités</h3>
+                    <p class="timeline-description">Il est révélé que Zetsu est composé de deux entités : Zetsu Blanc, créé à partir des cellules de Hashirama, et Zetsu Noir, une création de Kaguya.</p>
                 </div>
             </div>
             
             <div class="timeline-item">
-                <div class="timeline-year">Fin</div>
+                <div class="timeline-year">Guerre</div>
                 <div class="timeline-content">
-                    <h3 class="timeline-title">Les secrets de Zetsu</h3>
-                    <p class="timeline-description">La véritable nature de Zetsu est enfin révélée lors des événements clés de la guerre.</p>
+                    <h3 class="timeline-title">Armée de clones</h3>
+                    <p class="timeline-description">Pendant la quatrième guerre ninja, des milliers de clones de Zetsu Blanc sont utilisés comme soldats, révélant l'ampleur du plan de Tobi.</p>
                 </div>
             </div>
         </div>
 
+        <!-- Galerie d'évolution -->
         <h2 class="section-title">Évolution du Personnage</h2>
         <div class="gallery">
             <div class="gallery-item">
-                <img src="zetsu1.jpg" alt="Zetsu enfant">
-                <div class="gallery-caption">Zetsu enfant</div>
+                <img src="zetsuak.png" alt="Zetsu original">
+                <div class="gallery-caption">Forme originale</div>
             </div>
             <div class="gallery-item">
-                <img src="zetsu2.jpg" alt="Zetsu en mission">
-                <div class="gallery-caption">Zetsu en mission</div>
+                <img src="zetsus.jpg" alt="Zetsu split">
+                <div class="gallery-caption">Séparation Blanc/Noir</div>
             </div>
             <div class="gallery-item">
-                <img src="zetsu3.jpg" alt="Zetsu Akatsuki">
-                <div class="gallery-caption">Zetsu avec l'Akatsuki</div>
+                <img src="zetsub.jpg" alt="Zetsu Blanc">
+                <div class="gallery-caption">Zetsu Blanc</div>
+            </div>
+            <div class="gallery-item">
+                <img src="zetsun.jpg" alt="Zetsu Noir">
+                <div class="gallery-caption">Zetsu Noir</div>
             </div>
         </div>
 
+        <!-- Capacités et techniques -->
         <h2 class="section-title">Techniques et Capacités</h2>
         <div class="abilities">
             <div class="ability-card">
-                <h3 class="ability-title">Affinité Végétale</h3>
-                <p class="ability-description">Zetsu a la capacité de manipuler et de se fondre dans la végétation grâce à son affinité avec la nature.</p>
+                <h3 class="ability-title">Fusion Végétale</h3>
+                <p class="ability-description">Zetsu peut fusionner complètement avec le sol, les arbres et toute surface naturelle, lui permettant de voyager rapidement et de rester indétectable.</p>
             </div>
             
             <div class="ability-card">
-                <h3 class="ability-title">Espionnage</h3>
-                <p class="ability-description">Il peut se déplacer silencieusement et récolter des informations sans être détecté.</p>
+                <h3 class="ability-title">Espionnage Parfait</h3>
+                <p class="ability-description">Ses capacités de camouflage et de déplacement furtif font de lui l'espion idéal. Il peut enregistrer et transmettre des informations sur de longues distances.</p>
             </div>
             
             <div class="ability-card">
-                <h3 class="ability-title
+                <h3 class="ability-title">Cannibalisme</h3>
+                <p class="ability-description">Zetsu peut absorber les corps morts pour récupérer leur chakra et effacer toute trace. Cette capacité macabre est utilisée pour nettoyer les champs de bataille.</p>
+            </div>
+        </div>
+
+        <!-- Apparitions notables -->
+        <h2 class="section-title">Apparitions Clés et Épisodes</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 134</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Première apparition</h3>
+                    <p class="timeline-description">Zetsu fait sa première apparition lors d'une réunion de l'Akatsuki, démontrant ses capacités d'espionnage.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 143</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Surveillance de Sasuke</h3>
+                    <p class="timeline-description">Zetsu surveille discrètement Sasuke et rapporte ses mouvements à l'Akatsuki.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 322</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Révélation de la dualité</h3>
+                    <p class="timeline-description">La nature duale de Zetsu est révélée, montrant Zetsu Blanc et Zetsu Noir comme des entités séparées.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">Ép. 460-461</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Armée de Zetsu Blanc</h3>
+                    <p class="timeline-description">L'armée de 100 000 clones de Zetsu Blanc est déployée pendant la quatrième guerre ninja.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personnages liés -->
+        <h2 class="section-title">Personnages Associés</h2>
+        <div class="gallery">
+            <a href="tobi.html" class="gallery-item">
+                <img src="tobi.jpg" alt="Tobi">
+                <div class="gallery-caption">Tobi (manipulateur)</div>
+            </a>
+            <div class="gallery-item">
+                <img src="" alt="Madara">
+                <div class="gallery-caption">Madara Uchiha (créateur supposé)</div>
+            </div>
+            <div class="gallery-item">
+                <img src="" alt="Kaguya">
+                <div class="gallery-caption">Kaguya Ōtsutsuki (créatrice de Zetsu Noir)</div>
+            </div>
+            <div class="gallery-item">
+                <img src="" alt="Hashirama">
+                <div class="gallery-caption">Hashirama Senju (source des cellules)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Akatsuki -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>À propos</h3>
+                <p>Naruto Shippuden Universe est un site dédié à l'univers riche et passionnant de Naruto. Nous explorons les personnages, les techniques, l'histoire et bien plus encore.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Liens Rapides</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="personnages.html">Personnages</a></li>
+                    <li><a href="akatsuki.html">Akatsuki</a></li>
+                    <li><a href="techniques.html">Techniques</a></li>
+                    <li><a href="bijuu.html">Bijū</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Nous Suivre</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Naruto Shippuden Universe. Tous droits réservés.</p>
+            <div class="creator">Créé par Ghazli Salah Eddine</div>
+            <p><small>Ce site est un hommage à l'œuvre de Masashi Kishimoto</small></p>
+        </div>
+    </footer>
+
+    <script>
+        // Création de l'effet de végétation
+        function createVegetation() {
+            const container = document.querySelector('.vegetation-effect');
+            
+            setInterval(() => {
+                const plant = document.createElement('div');
+                plant.className = 'plant';
+                plant.style.left = Math.random() * 100 + '%';
+                plant.style.animationDelay = Math.random() * 2 + 's';
+                plant.style.animationDuration = (6 + Math.random() * 4) + 's';
+                container.appendChild(plant);
+                
+                setTimeout(() => {
+                    plant.remove();
+                }, 8000);
+            }, 500);
+        }
+
+        // Header scroll effect
+        let lastScrollY = window.scrollY;
+        const header = document.querySelector('.sticky-header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > lastScrollY && window.scrollY > 100) {
+                header.classList.add('hidden');
+            } else {
+                header.classList.remove('hidden');
+            }
+            lastScrollY = window.scrollY;
+        });
+
+        // Animation des éléments au scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observer tous les éléments animables
+        document.querySelectorAll('.section-title, .timeline-item, .gallery-item, .ability-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Effet de parallaxe sur l'avatar
+        const avatar = document.querySelector('.profile-avatar');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = -scrolled * 0.5;
+            if (avatar) {
+                avatar.style.transform = `translateY(${parallax}px) scale(1)`;
+            }
+        });
+
+        // Effet 3D sur les cartes
+        document.querySelectorAll('.ability-card, .gallery-item').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+            });
+        });
+
+        // Effet de dualité sur le nom
+        const profileName = document.querySelector('.profile-name');
+        if (profileName) {
+            let isWhite = true;
+            setInterval(() => {
+                if (isWhite) {
+                    profileName.style.color = 'var(--zetsu-white)';
+                    profileName.style.textShadow = '0 0 20px rgba(255, 255, 255, 0.8)';
+                } else {
+                    profileName.style.color = 'var(--zetsu-bottle-green)';
+                    profileName.style.textShadow = '0 0 20px rgba(0, 106, 78, 0.8)';
+                }
+                isWhite = !isWhite;
+            }, 3000);
+        }
+
+        // Effet de croissance sur les plantes au clic
+        document.addEventListener('click', (e) => {
+            const plant = document.createElement('div');
+            plant.style.position = 'fixed';
+            plant.style.left = e.clientX + 'px';
+            plant.style.top = e.clientY + 'px';
+            plant.style.width = '3px';
+            plant.style.height = '0px';
+            plant.style.background = 'linear-gradient(to top, var(--zetsu-bottle-green), transparent)';
+            plant.style.transformOrigin = 'bottom';
+            plant.style.pointerEvents = 'none';
+            plant.style.zIndex = '999';
+            
+            document.body.appendChild(plant);
+            
+            // Animation de croissance
+            plant.animate([
+                { height: '0px', opacity: 1 },
+                { height: '50px', opacity: 0.8 },
+                { height: '0px', opacity: 0 }
+            ], {
+                duration: 2000,
+                easing: 'ease-out'
+            }).onfinish = () => {
+                plant.remove();
+            };
+        });
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            createVegetation();
+        });
+    </script>
+</body>
+</html>
+

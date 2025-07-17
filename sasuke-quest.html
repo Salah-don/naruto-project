@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Quête de Sasuke Uchiha - L'Épopée de la Vengeance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* RESET ET STYLES GÉNÉRAUX */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #c00;
+            --secondary-red: #ff3333;
+            --accent-yellow: #ffcc00;
+            --dark-bg: #0a0a12;
+            --card-bg: rgba(20, 20, 30, 0.95);
+            --text-light: #f5f5f5;
+            --text-gold: #ffd700;
+            --sasuke-purple: #6a0dad;
+            --sasuke-blue: #1e3a8a;
+            --uchiha-red: #8b0000;
+            --lightning-blue: #00bfff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(106, 13, 173, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(139, 0, 0, 0.1) 0%, transparent 20%);
+            position: relative;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Effet de particules électriques */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .lightning-particle {
+            background: radial-gradient(circle, rgba(0, 191, 255, 0.8), transparent);
+            animation: lightningFloat 6s infinite ease-in-out;
+        }
+
+        .sharingan-particle {
+            background: radial-gradient(circle, rgba(139, 0, 0, 0.6), transparent);
+            animation: sharinganSpin 8s infinite linear;
+        }
+
+        /* Header */
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(10, 10, 18, 0.95), rgba(5, 5, 10, 0.85));
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid var(--sasuke-purple);
+            box-shadow: 0 5px 25px rgba(106, 13, 173, 0.3);
+            transition: all 0.4s ease;
+            padding: 15px 0;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        } 
+
+        .logo-img {
+            height: 55px;
+            width: auto;
+            filter: drop-shadow(0 0 8px rgba(106, 13, 173, 0.8));
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .logo-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.2rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, var(--accent-yellow), var(--sasuke-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(106, 13, 173, 0.6);
+            letter-spacing: 1px;
+        }
+        
+        .logo-container:hover .logo-img {
+            transform: rotate(15deg) scale(1.15);
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--sasuke-purple), transparent);
+            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            transition: clip-path 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover::before {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+        .nav-link.active {
+        color: var(--gold);
+        transform: translateY(-3px);
+    }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(10, 10, 18, 0.7), rgba(10, 10, 18, 0.7)), url('sasuke-hero-bg.jpg') center/cover no-repeat;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 0 20px;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 4.5rem;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--sasuke-purple), var(--lightning-blue), var(--uchiha-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(106, 13, 173, 0.8);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: #ddd;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        /* Section et Titre de section */
+        .section {
+            padding: 120px 20px 60px;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 70px;
+            color: var(--sasuke-purple);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            text-shadow: 0 0 20px rgba(106, 13, 173, 0.5);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--sasuke-purple), var(--lightning-blue), var(--uchiha-red));
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(106, 13, 173, 0.5);
+        }
+
+        /* Timeline de la quête */
+        .quest-timeline {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 100px;
+        }
+
+        .quest-phase {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            opacity: 0;
+            transition: all 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            padding: 40px;
+            border-radius: 20px;
+            background: rgba(20, 20, 30, 0.3);
+            backdrop-filter: blur(10px);
+            border: 2px solid transparent;
+            overflow: hidden;
+        }
+
+        /* Alternance de la mise en page */
+        .quest-phase:nth-child(odd) {
+            flex-direction: row;
+            border-color: var(--sasuke-purple);
+        }
+        .quest-phase:nth-child(even) {
+            flex-direction: row-reverse;
+            border-color: var(--lightning-blue);
+        }
+        
+        /* États d'animation */
+        .quest-phase:nth-child(odd) .phase-image { transform: translateX(-80px) scale(0.8); }
+        .quest-phase:nth-child(odd) .phase-content { transform: translateX(80px); }
+        .quest-phase:nth-child(even) .phase-image { transform: translateX(80px) scale(0.8); }
+        .quest-phase:nth-child(even) .phase-content { transform: translateX(-80px); }
+
+        /* État visible */
+        .quest-phase.is-visible {
+            opacity: 1;
+        }
+        .quest-phase.is-visible .phase-image,
+        .quest-phase.is-visible .phase-content {
+            transform: translateX(0) scale(1);
+        }
+
+        /* Image de phase */
+        .phase-image {
+            flex: 1;
+            max-width: 500px;
+            height: 400px;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .phase-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+            filter: brightness(0.9) contrast(1.1);
+        }
+
+        .quest-phase:hover .phase-image img {
+            transform: scale(1.1);
+        }
+
+        /* Aura énergétique autour de l'image */
+        .phase-image::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: -1;
+        }
+
+        .quest-phase:nth-child(odd):hover .phase-image::before {
+            opacity: 1;
+            background: radial-gradient(circle, rgba(106, 13, 173, 0.3), transparent);
+            animation: purpleAura 2s infinite;
+        }
+
+        .quest-phase:nth-child(even):hover .phase-image::before {
+            opacity: 1;
+            background: radial-gradient(circle, rgba(0, 191, 255, 0.3), transparent);
+            animation: blueAura 2s infinite;
+        }
+
+        /* Contenu de phase */
+        .phase-content {
+            flex: 1;
+            transition: all 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .phase-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .phase-subtitle {
+            font-size: 1.3rem;
+            color: #bbb;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .phase-description {
+            font-size: 1.1rem;
+            color: #ddd;
+            text-align: justify;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        /* Personnages rencontrés */
+        .characters-met {
+            margin-bottom: 25px;
+        }
+
+        .characters-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4rem;
+            color: var(--accent-yellow);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+        }
+
+        .character-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .character-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+            border-color: var(--accent-yellow);
+        }
+
+        .character-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 3px solid var(--accent-yellow);
+        }
+
+        .character-name {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--text-light);
+        }
+
+        /* Épreuves subies */
+        .trials-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--uchiha-red);
+        }
+
+        .trials-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4rem;
+            color: var(--uchiha-red);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .trials-list {
+            list-style: none;
+        }
+
+        .trials-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .trials-list li::before {
+            content: '⚡';
+            position: absolute;
+            left: 0;
+            color: var(--lightning-blue);
+        }
+
+        /* Couleurs spécifiques pour chaque phase */
+        .quest-phase[data-phase="academy"] .phase-title {
+            color: var(--accent-yellow);
+            text-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+        }
+
+        .quest-phase[data-phase="genin"] .phase-title {
+            color: var(--lightning-blue);
+            text-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+        }
+
+        .quest-phase[data-phase="chunin"] .phase-title {
+            color: var(--uchiha-red);
+            text-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+        }
+
+        .quest-phase[data-phase="defection"] .phase-title {
+            color: var(--sasuke-purple);
+            text-shadow: 0 0 15px rgba(106, 13, 173, 0.5);
+        }
+
+        .quest-phase[data-phase="orochimaru"] .phase-title {
+            color: #9370db;
+            text-shadow: 0 0 15px rgba(147, 112, 219, 0.5);
+        }
+
+        .quest-phase[data-phase="hebi"] .phase-title {
+            color: #32cd32;
+            text-shadow: 0 0 15px rgba(50, 205, 50, 0.5);
+        }
+
+        .quest-phase[data-phase="itachi"] .phase-title {
+            color: var(--uchiha-red);
+            text-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+        }
+
+        .quest-phase[data-phase="truth"] .phase-title {
+            color: #ff4500;
+            text-shadow: 0 0 15px rgba(255, 69, 0, 0.5);
+        }
+
+        .quest-phase[data-phase="taka"] .phase-title {
+            color: var(--sasuke-purple);
+            text-shadow: 0 0 15px rgba(106, 13, 173, 0.5);
+        }
+
+        .quest-phase[data-phase="war"] .phase-title {
+            color: var(--lightning-blue);
+            text-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+        }
+
+        .quest-phase[data-phase="final"] .phase-title {
+            color: var(--accent-yellow);
+            text-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 100px;
+            background: linear-gradient(to top, rgba(5, 5, 10, 0.95), rgba(10, 10, 18, 0.9));
+            border-top: 3px solid var(--sasuke-purple);
+            padding: 50px 20px 30px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent-yellow);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: #bbb; text-decoration: none; transition: all 0.3s ease; }
+        .footer-links a:hover { color: var(--accent-yellow); transform: translateX(5px); }
+        .social-icons { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+        .social-icon { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--sasuke-purple); color: white; border-radius: 50%; font-size: 1.3rem; transition: all 0.3s ease; }
+        .social-icon:hover { transform: translateY(-5px) scale(1.1); background: var(--accent-yellow); color: var(--dark-bg); }
+        .copyright { padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 1rem; color: #888; }
+        .creator { font-size: 1.2rem; font-weight: bold; margin-top: 10px; color: var(--accent-yellow); text-shadow: 0 0 10px rgba(106, 13, 173, 0.5); }
+
+        /* Animations CSS */
+        @keyframes lightningFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            25% { transform: translateY(-25px) rotate(90deg); opacity: 0.8; }
+            50% { transform: translateY(-15px) rotate(180deg); opacity: 1; }
+            75% { transform: translateY(-35px) rotate(270deg); opacity: 0.6; }
+        }
+
+        @keyframes sharinganSpin {
+            0% { transform: rotate(0deg); opacity: 0.4; }
+            100% { transform: rotate(360deg); opacity: 0.4; }
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 30px rgba(106, 13, 173, 0.8); }
+            100% { text-shadow: 0 0 50px rgba(0, 191, 255, 0.8); }
+        }
+
+        @keyframes purpleAura {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        @keyframes blueAura {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .quest-phase, .quest-phase:nth-child(even) { 
+                flex-direction: column; 
+                text-align: center;
+            }
+            .phase-image { 
+                width: 100%; 
+                max-width: 400px;
+                height: 300px; 
+            }
+            .characters-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; gap: 15px; }
+            .hero-title { font-size: 3rem; }
+            .section-title { font-size: 2.5rem; }
+            .phase-title { font-size: 2.2rem; }
+            .quest-phase { padding: 20px; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <header class="sticky-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="konoha.png" alt="Logo Konoha" class="logo-img">
+                <div class="logo-text">NARUTOBIDIA</div>
+            </div>
+            <nav class="nav-links">
+                <a href="naruto2.html" class="nav-link">Accueil</a>
+                <a href="personnages.html" class="nav-link active" >Personnages</a>
+                <a href="akatsuki.html" class="nav-link">Akatsuki</a>
+                <a href="techniques.html" class="nav-link">Techniques</a>
+                <a href="bijuu.html" class="nav-link">Bijū</a>
+                <a href="about.html" class="nav-link">À propos</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">La Quête de Sasuke Uchiha</h1>
+            <p class="hero-subtitle">"La vengeance est le seul chemin vers la vérité"</p>
+        </div>
+    </section>
+
+    <main>
+        <section class="section">
+            <h1 class="section-title">L'Épopée Complète de Sasuke Uchiha</h1>
+            
+            <div class="quest-timeline">
+                
+                <!-- Phase 1: Académie Ninja -->
+                <div class="quest-phase" data-phase="academy">
+                    <div class="phase-image">
+                        <img src="sasukiAN.jpg" alt="Sasuke à l'Académie Ninja">
+                    </div>
+                    <div class="phase-content">
+                        <h2 class="phase-title">L'Académie Ninja</h2>
+                        <p class="phase-subtitle">Épisodes 1-25 (Naruto) - Les Fondations du Génie</p>
+                        <p class="phase-description">
+                            Sasuke Uchiha entre à l'Académie Ninja de Konoha comme le dernier survivant du massacre du clan Uchiha. Hanté par la nuit où son frère Itachi a anéanti leur famille, Sasuke se montre froid, distant et obsédé par la vengeance. Il excelle dans tous les domaines : ninjutsu, taijutsu, et techniques de lancer d'armes, devenant rapidement le prodige de sa promotion. Sa rivalité avec Naruto naît de leur opposition : l'un recherche la reconnaissance, l'autre la solitude pour alimenter sa haine.
+                        </p>
+                        
+                        <div class="characters-met">
+                            <div class="characters-title">Personnages Rencontrés</div>
+                            <div class="characters-grid">
+                                <div class="character-card">
+                                    <img src="narutok.jpg" alt="Naruto Uzumaki" class="character-img">
+                                    <div class="character-name">Naruto Uzumaki</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="sakurak.jpg" alt="Sakura Haruno" class="character-img">
+                                    <div class="character-name">Sakura Haruno</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="iruka.jog.webp" alt="Iruka Umino" class="character-img">
+                                    <div class="character-name">Iruka Umino</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="kakashi.jpg" alt="Kakashi Hatake" class="character-img">
+                                    <div class="character-name">Kakashi Hatake</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trials-section">
+                            <div class="trials-title">Épreuves Subies</div>
+                            <ul class="trials-list">
+                                <li>Traumatisme du massacre de son clan par Itachi</li>
+                                <li>Isolement social et émotionnel</li>
+                                <li>Pression d'être le dernier Uchiha</li>
+                                <li>Rivalité forcée avec Naruto</li>
+                                <li>Formation de l'Équipe 7 sous Kakashi</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2: Genin et Premières Missions -->
+                <div class="quest-phase" data-phase="genin">
+                    <div class="phase-image">
+                        <img src="sasukiG7.jpg" alt="Sasuke Genin - Équipe 7">
+                    </div>
+                    <div class="phase-content">
+                        <h2 class="phase-title">Genin - Équipe 7</h2>
+                        <p class="phase-subtitle">Épisodes 26-67 (Naruto) - L'Éveil du Sharingan</p>
+                        <p class="phase-description">
+                            En tant que membre de l'Équipe 7, Sasuke commence à développer ses liens avec Naruto et Sakura malgré lui. Durant la mission au Pays des Vagues, face à Haku et Zabuza, il éveille son Sharingan pour la première fois, marquant le début de sa véritable puissance Uchiha. Cette période révèle sa nature protectrice envers ses coéquipiers, particulièrement lors de son sacrifice apparent pour sauver Naruto. Cependant, la frustration grandit en lui en voyant les progrès rapides de Naruto.
+                        </p>
+                        
+                        <div class="characters-met">
+                            <div class="characters-title">Personnages Rencontrés</div>
+                            <div class="characters-grid">
+                                <div class="character-card">
+                                    <img src="zabuza.jpg" alt="Zabuza Momochi" class="character-img">
+                                    <div class="character-name">Zabuza Momochi</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="hako.jpg" alt="Haku" class="character-img">
+                                    <div class="character-name">Haku</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="tazuna.jpg" alt="Tazuna" class="character-img">
+                                    <div class="character-name">Tazuna</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="inari.jpg" alt="Inari" class="character-img">
+                                    <div class="character-name">Inari</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trials-section">
+                            <div class="trials-title">Épreuves Subies</div>
+                            <ul class="trials-list">
+                                <li>Test de survie de Kakashi avec les clochettes</li>
+                                <li>Première confrontation avec des ninjas renégats</li>
+                                <li>Éveil traumatisant du Sharingan</li>
+                                <li>Sacrifice apparent pour sauver Naruto</li>
+                                <li>Réalisation de l'importance des liens d'équipe</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                                <!-- Phase 3: Examens Chūnin -->
+                <div class="quest-phase" data-phase="chunin">
+                    <div class="phase-image">
+                        <img src="sasukiEC.jpg" alt="Sasuke aux Examens Chūnin">
+                    </div>
+                    <div class="phase-content">
+                        <h2 class="phase-title">Examens Chūnin</h2>
+                        <p class="phase-subtitle">Épisodes 68-135 (Naruto) - L'Éveil de la Malédiction</p>
+                        <p class="phase-description">
+                            Les Examens Chūnin marquent un tournant décisif dans la vie de Sasuke. Durant la Forêt de la Mort, il rencontre Orochimaru qui lui implante la Marque Maudite, promettant un pouvoir immense en échange de sa liberté. Cette marque corrompt progressivement Sasuke, alimentant sa soif de vengeance. Ses combats contre Rock Lee et Gaara révèlent ses nouvelles capacités, mais aussi sa descente vers les ténèbres. L'invasion d'Orochimaru sur Konoha pendant les finales confirme l'influence grandissante du Sannin sur lui.
+                        </p>
+                        
+                        <div class="characters-met">
+                            <div class="characters-title">Personnages Rencontrés</div>
+                            <div class="characters-grid">
+                                <div class="character-card">
+                                    <img src="orochimaru.jpg" alt="Orochimaru" class="character-img">
+                                    <div class="character-name">Orochimaru</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="rock-lee.jpg" alt="Rock Lee" class="character-img">
+                                    <div class="character-name">Rock Lee</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="gaara.jpg" alt="Gaara" class="character-img">
+                                    <div class="character-name">Gaara</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="kabuto.jpg" alt="Kabuto Yakushi" class="character-img">
+                                    <div class="character-name">Kabuto Yakushi</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="anko.jpg" alt="Anko Mitarashi" class="character-img">
+                                    <div class="character-name">Anko Mitarashi</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="dosu.jpg" alt="Dosu Kinuta" class="character-img">
+                                    <div class="character-name">Dosu Kinuta</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trials-section">
+                            <div class="trials-title">Épreuves Subies</div>
+                            <ul class="trials-list">
+                                <li>Implantation de la Marque Maudite par Orochimaru</li>
+                                <li>Corruption progressive de son chakra et de son esprit</li>
+                                <li>Défaite humiliante face à Rock Lee</li>
+                                <li>Combat désespéré contre Gaara et Shukaku</li>
+                                <li>Première utilisation incontrôlée de la Marque Maudite</li>
+                                <li>Réalisation de son retard sur Naruto</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 4: Défection de Konoha -->
+                <div class="quest-phase" data-phase="defection">
+                    <div class="phase-image">
+                        <img src="sasukiQK.jpg" alt="Sasuke quitte Konoha">
+                    </div>
+                    <div class="phase-content">
+                        <h2 class="phase-title">Défection de Konoha</h2>
+                        <p class="phase-subtitle">Épisodes 136-220 (Naruto) - La Chute dans les Ténèbres</p>
+                        <p class="phase-description">
+                            Frustré par sa stagnation et obsédé par la vengeance contre Itachi, Sasuke accepte l'offre d'Orochimaru et quitte Konoha. Les Quatre du Son viennent le chercher, et malgré les tentatives de Sakura pour le retenir, il part dans la nuit. S'ensuit la mission de récupération menée par Shikamaru, où Sasuke affronte successivement ses anciens camarades. Le point culminant est son combat final contre Naruto dans la Vallée de la Fin, où il active son Sharingan à trois tomoe et utilise le Chidori contre le Rasengan de Naruto. Bien qu'il épargne Naruto, il choisit définitivement la voie des ténèbres.
+                        </p>
+                        
+                        <div class="characters-met">
+                            <div class="characters-title">Personnages Rencontrés</div>
+                            <div class="characters-grid">
+                                <div class="character-card">
+                                    <img src="sound-four.jpg" alt="Les Quatre du Son" class="character-img">
+                                    <div class="character-name">Les Quatre du Son</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="kimimaro.jpg" alt="Kimimaro" class="character-img">
+                                    <div class="character-name">Kimimaro</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="shikamaru.jpg" alt="Shikamaru Nara" class="character-img">
+                                    <div class="character-name">Shikamaru Nara</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="niji.jpg" alt="Neji Hyuga" class="character-img">
+                                    <div class="character-name">Neji Hyuga</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="choji.jpg" alt="Choji Akimichi" class="character-img">
+                                    <div class="character-name">Choji Akimichi</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="kiba.jpg" alt="Kiba Inuzuka" class="character-img">
+                                    <div class="character-name">Kiba Inuzuka</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trials-section">
+                            <div class="trials-title">Épreuves Subies</div>
+                            <ul class="trials-list">
+                                <li>Rupture définitive avec ses liens à Konoha</li>
+                                <li>Transformation par la Marque Maudite niveau 2</li>
+                                <li>Combat fratricide contre ses anciens camarades</li>
+                                <li>Affrontement final contre Naruto dans la Vallée de la Fin</li>
+                                <li>Choix conscient de la voie des ténèbres</li>
+                                <li>Abandon de tout ce qui lui était cher</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 5: Entraînement avec Orochimaru -->
+                <div class="quest-phase" data-phase="orochimaru">
+                    <div class="phase-image">
+                        <img src="sasukiO.jpg" alt="Sasuke s'entraîne avec Orochimaru">
+                    </div>
+                    <div class="phase-content">
+                        <h2 class="phase-title">Sous l'Aile d'Orochimaru</h2>
+                        <p class="phase-subtitle">Période entre Naruto et Shippuden - La Quête du Pouvoir</p>
+                        <p class="phase-description">
+                            Pendant deux ans et demi, Sasuke s'entraîne intensivement sous la tutelle d'Orochimaru dans ses différents repaires. Il développe de nouvelles techniques, perfectionne son Sharingan et apprend à maîtriser la Marque Maudite. Cependant, il reste méfiant envers Orochimaru, sachant que le Sannin convoite son corps. Durant cette période, il devient plus froid, plus calculateur, et sa soif de vengeance ne fait que grandir. Il développe également de nouvelles variantes du Chidori et améliore considérablement ses capacités au combat.
+                        </p>
+                        
+                        <div class="characters-met">
+                            <div class="characters-title">Personnages Rencontrés</div>
+                            <div class="characters-grid">
+                                <div class="character-card">
+                                    <img src="orochimaru.jpg" alt="Orochimaru" class="character-img">
+                                    <div class="character-name">Orochimaru</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="kabuto.jpg" alt="Kabuto Yakushi" class="character-img">
+                                    <div class="character-name">Kabuto Yakushi</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="guren.jpg" alt="Guren" class="character-img">
+                                    <div class="character-name">Guren</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="karin.jpg" alt="Karin" class="character-img">
+                                    <div class="character-name">Karin</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trials-section">
+                            <div class="trials-title">Épreuves Subies</div>
+                            <ul class="trials-list">
+                                <li>Entraînement brutal et inhumain</li>
+                                <li>Résistance constante aux tentatives de possession d'Orochimaru</li>
+                                <li>Développement de nouvelles techniques Chidori</li>
+                                <li>Maîtrise progressive de la Marque Maudite</li>
+                                <li>Isolation totale du monde extérieur</li>
+                                <li>Préparation mentale pour tuer Itachi</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 6: Formation de l'Équipe Hebi -->
+                <div class="quest-phase" data-phase="hebi">
+                    <div class="phase-image">
+                        <img src="sasukiH.jpg" alt="Équipe Hebi - Sasuke, Suigetsu, Karin, Jugo">
+                    </div>
+                    <div class="phase-content">
+                        <h2 class="phase-title">Équipe Hebi</h2>
+                        <p class="phase-subtitle">Épisodes 114-143 (Shippuden) - La Chasse à Itachi</p>
+                        <p class="phase-description">
+                            Après avoir tué Orochimaru et absorbé ses pouvoirs, Sasuke forme l'équipe Hebi avec Suigetsu Hōzuki, Karin Uzumaki et Jūgo. Chaque membre a ses propres motivations pour suivre Sasuke, mais tous sont unis dans leur quête pour traquer Itachi. L'équipe démontre une efficacité redoutable, combinant les capacités uniques de chacun. Suigetsu maîtrise la liquéfaction, Karin possède des capacités sensorielles exceptionnelles et de guérison, tandis que Jūgo peut entrer en transformation maudite. Ensemble, ils forment une équipe de combat formidable.
+                        </p>
+                        
+                        <div class="characters-met">
+                            <div class="characters-title">Personnages Rencontrés</div>
+                            <div class="characters-grid">
+                                <div class="character-card">
+                                    <img src="suigetsu-hozuki.jpg" alt="Suigetsu Hōzuki" class="character-img">
+                                    <div class="character-name">Suigetsu Hōzuki</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="karin.jpg" alt="Karin Uzumaki" class="character-img">
+                                    <div class="character-name">Karin Uzumaki</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="jugo.jpg" alt="Jūgo" class="character-img">
+                                    <div class="character-name">Jūgo</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="kisam.jpg" alt="Kisame Hoshigaki" class="character-img">
+                                    <div class="character-name">Kisame Hoshigaki</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="deidara.jpg" alt="Deidara" class="character-img">
+                                    <div class="character-name">Deidara</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trials-section">
+                            <div class="trials-title">Épreuves Subies</div>
+                            <ul class="trials-list">
+                                <li>Meurtre d'Orochimaru et absorption de ses pouvoirs</li>
+                                <li>Formation et leadership d'une nouvelle équipe</li>
+                                <li>Combats contre les membres de l'Akatsuki</li>
+                                <li>Recherche intensive d'Itachi à travers le monde ninja</li>
+                                <li>Développement du Sharingan Mangekyō</li>
+                                <li>Préparation finale pour l'affrontement fratricide</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 7: Combat contre Itachi -->
+                <div class="quest-phase" data-phase="itachi">
+                    <div class="phase-image">
+                        <img src="sasukivsitachi.jpg" alt="Sasuke vs Itachi - Combat Final">
+                    </div>
+                    <div class="phase-content">
+                        <h2 class="phase-title">Le Combat Fratricide</h2>
+                        <p class="phase-subtitle">Épisodes 135-143 (Shippuden) - La Vengeance Accomplie</p>
+                        <p class="phase-description">
+                            Le moment tant attendu arrive enfin : Sasuke affronte Itachi dans un combat épique qui déterminera le destin des frères Uchiha. Le combat révèle l'étendue des pouvoirs des deux frères, avec Sasuke déployant ses nouvelles techniques et Itachi utilisant Amaterasu et Susanoo. Malgré la puissance d'Itachi, Sasuke parvient à le vaincre grâce à sa détermination et ses préparatifs. Cependant, la victoire est amère car Itachi meurt en touchant le front de Sasuke avec tendresse, révélant un amour fraternel que Sasuke ne comprend pas encore.
+                        </p>
+                        
+                        <div class="characters-met">
+                            <div class="characters-title">Personnages Rencontrés</div>
+                            <div class="characters-grid">
+                                <div class="character-card">
+                                    <img src="itachi2.jpg" alt="Itachi Uchiha" class="character-img">
+                                    <div class="character-name">Itachi Uchiha</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="kisam.jpg" alt="Kisame Hoshigaki" class="character-img">
+                                    <div class="character-name">Kisame Hoshigaki</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="zetsu.jpg" alt="Zetsu" class="character-img">
+                                    <div class="character-name">Zetsu</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trials-section">
+                            <div class="trials-title">Épreuves Subies</div>
+                            <ul class="trials-list">
+                                <li>Combat à mort contre son propre frère</li>
+                                <li>Utilisation maximale de ses pouvoirs Uchiha</li>
+                                <li>Éveil du Sharingan Mangekyō par la mort d'Itachi</li>
+                                <li>Épuisement total de son chakra</li>
+                                <li>Réalisation que sa vengeance était vide</li>
+                                <li>Derniers moments tendres avec Itachi mourant</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 8: La Vérité sur Itachi -->
+                <div class="quest-phase" data-phase="truth">
+                    <div class="phase-image">
+                        <img src="sasukiTV.jpg" alt="Tobi révèle la vérité à Sasuke">
+                    </div>
+                    <div class="phase-content">
+                        <h2 class="phase-title">La Terrible Vérité</h2>
+                        <p class="phase-subtitle">Épisodes 140-143 (Shippuden) - L'Effondrement d'un Monde</p>
+                        <p class="phase-description">
+                            Tobi révèle à Sasuke la véritable histoire du massacre des Uchiha : Itachi était un héros qui a sacrifié sa famille et sa réputation pour sauver Konoha d'une guerre civile. Il a agi sur ordre des dirigeants du village, notamment Danzō, pour empêcher un coup d'État Uchiha qui aurait détruit le village. Itachi n'a épargné que Sasuke par amour, espérant qu'il deviendrait assez fort pour le tuer et être considéré comme un héros. Cette révélation détruit complètement la vision du monde de Sasuke et redirige sa haine vers Konoha et ses dirigeants.
+                        </p>
+                        
+                        <div class="characters-met">
+                            <div class="characters-title">Personnages Rencontrés</div>
+                            <div class="characters-grid">
+                                <div class="character-card">
+                                    <img src="tobi.jpg" alt="Tobi/Obito Uchiha" class="character-img">
+                                    <div class="character-name">Tobi (Obito)</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="madara.jpg" alt="Madara Uchiha" class="character-img">
+                                    <div class="character-name">Madara Uchiha</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="itachiCA.jpg" alt="Itachi ANBU" class="character-img">
+                                    <div class="character-name">Itachi (Flashback)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trials-section">
+                            <div class="trials-title">Épreuves Subies</div>
+                            <ul class="trials-list">
+                                <li>Révélation traumatisante sur la vérité d'Itachi</li>
+                                <li>Effondrement de sa vision du monde</li>
+                                <li>Réalisation qu'il a tué un héros</li>
+                                <li>Transfert de sa haine vers Konoha</li>
+                                <li>Manipulation psychologique par Tobi</li>
+                                <li>Transformation de Hebi en Taka</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 9: Équipe Taka et Vengeance contre Konoha -->
+                <div class="quest-phase" data-phase="taka">
+                    <div class="phase-image">
+                        <img src="sasukiET.jpg" alt="Équipe Taka - Nouvelle Mission">
+                    </div>
+                    <div class="phase-content">
+                        <h2 class="phase-title">Équipe Taka</h2>
+                        <p class="phase-subtitle">Épisodes 143-214 (Shippuden) - La Vengeance contre Konoha</p>
+                        <p class="phase-description">
+                            Sasuke renomme son équipe "Taka" et redirige leur mission vers la destruction de Konoha. Il s'allie temporairement avec l'Akatsuki et participe à la capture de Killer Bee, le Jinchūriki de Hachibi. Cependant, sa véritable obsession devient Danzō Shimura, qu'il considère comme le principal responsable de la tragédie d'Itachi. Cette période marque l'apogée de sa descente dans les ténèbres, où il devient impitoyable et prêt à tout pour sa vengeance, y compris à sacrifier ses coéquipiers si nécessaire.
+                        </p>
+                        
+                        <div class="characters-met">
+                            <div class="characters-title">Personnages Rencontrés</div>
+                            <div class="characters-grid">
+                                <div class="character-card">
+                                    <img src="killer-bee.jpg" alt="Killer Bee" class="character-img">
+                                    <div class="character-name">Killer Bee</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="QR.jpg" alt="Quatrième Raikage" class="character-img">
+                                    <div class="character-name">Quatrième Raikage</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="akatsuki-bg.jpg" alt="Membres Akatsuki" class="character-img">
+                                    <div class="character-name">Akatsuki</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="danzo.jpg" alt="Danzō Shimura" class="character-img">
+                                    <div class="character-name">Danzō Shimura</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trials-section">
+                            <div class="trials-title">Épreuves Subies</div>
+                            <ul class="trials-list">
+                                <li>Alliance temporaire avec l'Akatsuki</li>
+                                <li>Combat contre Killer Bee et échec de la capture</li>
+                                <li>Confrontation avec le Raikage et perte d'un bras</li>
+                                <li>Infiltration du Sommet des Cinq Kage</li>
+                                <li>Combat mortel contre Danzō</li>
+                                <li>Utilisation d'Amaterasu et développement de Susanoo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 10: Quatrième Grande Guerre Ninja -->
+                <div class="quest-phase" data-phase="war">
+                    <div class="phase-image">
+                        <img src="sasuki4G.jpg" alt="Sasuke pendant la Quatrième Grande Guerre">
+                    </div>
+                    <div class="phase-content">
+                        <h2 class="phase-title">Quatrième Grande Guerre</h2>
+                        <p class="phase-subtitle">Épisodes 215-479 (Shippuden) - Le Chemin vers la Rédemption</p>
+                        <p class="phase-description">
+                            Durant la guerre, Sasuke est d'abord absent, se remettant de ses blessures. Il est ensuite ressuscité par Kabuto et rencontre Itachi réincarné. Les frères s'allient pour vaincre Kabuto et annuler l'Edo Tensei. Itachi révèle enfin toute la vérité à Sasuke et lui transmet son amour avant de disparaître définitivement. Sasuke décide alors de protéger Konoha et rejoint le champ de bataille aux côtés des Hokage réincarnés. Il combat Obito, puis Madara, et finalement Kaguya aux côtés de Naruto, marquant le début de sa rédemption.
+                        </p>
+                        
+                        <div class="characters-met">
+                            <div class="characters-title">Personnages Rencontrés</div>
+                            <div class="characters-grid">
+                                <div class="character-card">
+                                    <img src="itachirejpg.webp" alt="Itachi Edo Tensei" class="character-img">
+                                    <div class="character-name">Itachi (Edo Tensei)</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="kabutoMR.jpg" alt="Kabuto Mode Ermite" class="character-img">
+                                    <div class="character-name">Kabuto Yakushi</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="4HG.jpg" alt="Les Quatre Hokage" class="character-img">
+                                    <div class="character-name">Les Quatre Hokage</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="obito.jpg" alt="Obito Uchiha" class="character-img">
+                                    <div class="character-name">Obito Uchiha</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="madarare.jpg" alt="Madara Uchiha" class="character-img">
+                                    <div class="character-name">Madara Uchiha</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="kaguya.webp" alt="Kaguya Ōtsutsuki" class="character-img">
+                                    <div class="character-name">Kaguya Ōtsutsuki</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trials-section">
+                            <div class="trials-title">Épreuves Subies</div>
+                            <ul class="trials-list">
+                                <li>Réconciliation finale avec Itachi</li>
+                                <li>Acceptation de la vérité sur son frère</li>
+                                <li>Alliance avec les Hokage réincarnés</li>
+                                <li>Combat contre Obito et Madara</li>
+                                <li>Réception du pouvoir du Rikudō Sennin</li>
+                                <li>Bataille finale contre Kaguya avec Naruto</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 11: Combat Final et Rédemption -->
+                <div class="quest-phase" data-phase="final">
+                    <div class="phase-image">
+                        <img src="sasukiFB.jpg" alt="Combat Final - Sasuke vs Naruto">
+                    </div>
+                    <div class="phase-content">
+                        <h2 class="phase-title">Combat Final et Rédemption</h2>
+                        <p class="phase-subtitle">Épisodes 476-479 (Shippuden) - La Fin d'un Cycle</p>
+                        <p class="phase-description">
+                            Après avoir vaincu Kaguya, Sasuke révèle son intention de tuer les Kage et de diriger le monde par la force, devenant le seul réceptacle de la haine mondiale. Cela mène à un combat final inévitable contre Naruto dans la Vallée de la Fin. Les deux rivaux déchaînent toute leur puissance dans un affrontement qui détruit le paysage. Épuisés et ayant chacun perdu un bras, Sasuke reconnaît enfin sa défaite et la force des liens que Naruto lui a toujours tendus. Il accepte la voie de la rédemption et choisit de voyager pour expier ses crimes, marquant la fin de sa quête de vengeance et le début de sa rédemption.
+                        </p>
+                        
+                        <div class="characters-met">
+                            <div class="characters-title">Personnages Rencontrés</div>
+                            <div class="characters-grid">
+                                <div class="character-card">
+                                    <img src="nU.jpg" alt="Naruto Uzumaki Final" class="character-img">
+                                    <div class="character-name">Naruto Uzumaki</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="SH.jpg" alt="Sakura Haruno Final" class="character-img">
+                                    <div class="character-name">Sakura Haruno</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="kH.jpg" alt="Kakashi Sixième Hokage" class="character-img">
+                                    <div class="character-name">Kakashi (6e Hokage)</div>
+                                </div>
+                                <div class="character-card">
+                                    <img src="RS.jpg" alt="Rikudō Sennin" class="character-img">
+                                    <div class="character-name">Rikudō Sennin</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trials-section">
+                            <div class="trials-title">Épreuves Subies</div>
+                            <ul class="trials-list">
+                                                            <li>Révélation de son plan de révolution mondiale</li>
+                            <li>Combat final contre Naruto dans la Vallée de la Fin</li>
+                            <li>Perte de son bras gauche dans l'affrontement</li>
+                            <li>Acceptation de sa défaite et reconnaissance des liens</li>
+                            <li>Début de son voyage de rédemption</li>
+                            <li>Réconciliation avec Naruto et Sakura</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>À propos</h3>
+                <p>Naruto Shippuden Universe est un site dédié à l'univers riche et passionnant de Naruto. Nous explorons les personnages, les techniques, l'histoire et bien plus encore.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Liens Rapides</h3>
+                <ul class="footer-links">
+                    <li><a href="naruto2.html">Accueil</a></li>
+                    <li><a href="personnages.html">Personnages</a></li>
+                    <li><a href="akatsuki.html">Akatsuki</a></li>
+                    <li><a href="techniques.html">Techniques</a></li>
+                    <li><a href="bijuu.html">Bijū</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Nous Suivre</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023-2025 Naruto Shippuden Universe. Tous droits réservés.</p>
+            <div class="creator">Créé par Ghazli Salah Eddine</div>
+            <p><small>Ce site est un hommage à l'œuvre de Masashi Kishimoto</small></p>
+        </div>
+    </footer>
+
+    <script>
+        // Animation de particules électriques et Sharingan
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 120;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                
+                // Alternance entre particules électriques et Sharingan
+                if (i % 3 === 0) {
+                    particle.classList.add('particle', 'sharingan-particle');
+                } else {
+                    particle.classList.add('particle', 'lightning-particle');
+                }
+                
+                // Taille aléatoire
+                const size = Math.random() * 6 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Position aléatoire
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Animation avec délai aléatoire
+                const duration = Math.random() * 8 + 4;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Animation des phases de quête au défilement
+        function animateQuestPhasesOnScroll() {
+            const questPhases = document.querySelectorAll('.quest-phase');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('is-visible');
+                        }, index * 300);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { 
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            questPhases.forEach(phase => {
+                observer.observe(phase);
+            });
+        }
+        
+        // Effet de parallaxe pour le header
+        function headerParallax() {
+            const header = document.querySelector('.sticky-header');
+            let lastScrollY = window.scrollY;
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    if (lastScrollY < window.scrollY) {
+                        header.style.transform = 'translateY(-100%)';
+                    } else {
+                        header.style.transform = 'translateY(0)';
+                    }
+                } else {
+                    header.style.transform = 'translateY(0)';
+                }
+                lastScrollY = window.scrollY;
+            });
+        }
+        
+        // Effet d'aura énergétique au survol des phases
+        function addEnergyAuraEffect() {
+            const questPhases = document.querySelectorAll('.quest-phase');
+            
+            questPhases.forEach(phase => {
+                phase.addEventListener('mouseenter', () => {
+                    const phaseType = phase.getAttribute('data-phase');
+                    
+                    // Couleurs d'aura selon la phase
+                    const auraColors = {
+                        'academy': 'rgba(255, 204, 0, 0.3)',
+                        'genin': 'rgba(0, 191, 255, 0.3)',
+                        'chunin': 'rgba(139, 0, 0, 0.3)',
+                        'defection': 'rgba(106, 13, 173, 0.3)',
+                        'orochimaru': 'rgba(147, 112, 219, 0.3)',
+                        'hebi': 'rgba(50, 205, 50, 0.3)',
+                        'itachi': 'rgba(139, 0, 0, 0.3)',
+                        'truth': 'rgba(255, 69, 0, 0.3)',
+                        'taka': 'rgba(106, 13, 173, 0.3)',
+                        'war': 'rgba(0, 191, 255, 0.3)',
+                        'final': 'rgba(255, 204, 0, 0.3)'
+                    };
+                    
+                    const auraColor = auraColors[phaseType] || 'rgba(106, 13, 173, 0.3)';
+                    phase.style.boxShadow = `0 0 40px ${auraColor}, 0 0 80px rgba(255, 255, 255, 0.1)`;
+                });
+                
+                phase.addEventListener('mouseleave', () => {
+                    phase.style.boxShadow = '';
+                });
+            });
+        }
+        
+        // Animation de pulsation pour les cartes de personnages
+        function animateCharacterCards() {
+            const characterCards = document.querySelectorAll('.character-card');
+            
+            characterCards.forEach((card, index) => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-10px) scale(1.1)';
+                    card.style.boxShadow = '0 10px 25px rgba(255, 204, 0, 0.4)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                    card.style.boxShadow = '';
+                });
+            });
+        }
+        
+        // Effet de foudre sur les titres de phase
+        function addLightningEffect() {
+            const phaseTitles = document.querySelectorAll('.phase-title');
+            
+            phaseTitles.forEach(title => {
+                title.addEventListener('mouseenter', () => {
+                    title.style.textShadow = `
+                        0 0 5px currentColor,
+                        0 0 10px currentColor,
+                        0 0 15px currentColor,
+                        0 0 20px #00bfff,
+                        0 0 35px #00bfff,
+                        0 0 40px #00bfff
+                    `;
+                });
+                
+                title.addEventListener('mouseleave', () => {
+                    const phaseType = title.closest('.quest-phase').getAttribute('data-phase');
+                    const originalShadows = {
+                        'academy': '0 0 15px rgba(255, 204, 0, 0.5)',
+                        'genin': '0 0 15px rgba(0, 191, 255, 0.5)',
+                        'chunin': '0 0 15px rgba(139, 0, 0, 0.5)',
+                        'defection': '0 0 15px rgba(106, 13, 173, 0.5)',
+                        'orochimaru': '0 0 15px rgba(147, 112, 219, 0.5)',
+                        'hebi': '0 0 15px rgba(50, 205, 50, 0.5)',
+                        'itachi': '0 0 15px rgba(139, 0, 0, 0.5)',
+                        'truth': '0 0 15px rgba(255, 69, 0, 0.5)',
+                        'taka': '0 0 15px rgba(106, 13, 173, 0.5)',
+                        'war': '0 0 15px rgba(0, 191, 255, 0.5)',
+                        'final': '0 0 15px rgba(255, 204, 0, 0.5)'
+                    };
+                    title.style.textShadow = originalShadows[phaseType] || '0 0 15px rgba(106, 13, 173, 0.5)';
+                });
+            });
+        }
+        
+        // Animation des épreuves au survol
+        function animateTrials() {
+            const trialItems = document.querySelectorAll('.trials-list li');
+            
+            trialItems.forEach((item, index) => {
+                item.addEventListener('mouseenter', () => {
+                    item.style.transform = 'translateX(10px)';
+                    item.style.backgroundColor = 'rgba(0, 191, 255, 0.1)';
+                    item.style.borderLeft = '4px solid #00bfff';
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = 'translateX(0)';
+                    item.style.backgroundColor = 'transparent';
+                    item.style.borderLeft = 'none';
+                });
+            });
+        }
+        
+        // Effet de Sharingan sur le titre principal
+        function addSharinganEffect() {
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                setInterval(() => {
+                    const intensity = Math.random() * 0.5 + 0.5;
+                    const colors = [
+                        `rgba(106, 13, 173, ${intensity})`,
+                        `rgba(0, 191, 255, ${intensity})`,
+                        `rgba(139, 0, 0, ${intensity})`
+                    ];
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    heroTitle.style.textShadow = `0 0 30px ${randomColor}`;
+                }, 2000);
+            }
+        }
+        
+        // Initialisation de tous les effets
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            animateQuestPhasesOnScroll();
+            headerParallax();
+            addEnergyAuraEffect();
+            animateCharacterCards();
+            addLightningEffect();
+            animateTrials();
+            addSharinganEffect();
+            
+            // Animation des particules au scroll
+            window.addEventListener('scroll', () => {
+                const particles = document.querySelectorAll('.lightning-particle, .sharingan-particle');
+                const scrollPosition = window.pageYOffset;
+                
+                particles.forEach((particle, index) => {
+                    const speed = 0.02 + (index % 5) * 0.01;
+                    const currentTransform = particle.style.transform || '';
+                    particle.style.transform = `${currentTransform} translateY(${scrollPosition * speed}px)`;
+                });
+            });
+            
+            // Effet de clignotement pour les sections d'épreuves
+            const trialsSections = document.querySelectorAll('.trials-section');
+            trialsSections.forEach(section => {
+                section.addEventListener('mouseenter', () => {
+                    section.style.borderLeftColor = '#00bfff';
+                    section.style.boxShadow = '0 0 20px rgba(0, 191, 255, 0.3)';
+                });
+                
+                section.addEventListener('mouseleave', () => {
+                    section.style.borderLeftColor = 'var(--uchiha-red)';
+                    section.style.boxShadow = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

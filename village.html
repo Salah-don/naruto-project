@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Villages Ninjas - Les Cinq Grandes Nations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* RESET ET STYLES GÉNÉRAUX */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #c00;
+            --secondary-red: #ff3333;
+            --accent-yellow: #ffcc00;
+            --dark-bg: #0a0a12;
+            --text-light: #f5f5f5;
+            --text-gold: #ffd700;
+            
+            /* Couleurs des villages */
+            --konoha-green: #228b22;
+            --suna-yellow: #daa520;
+            --kiri-blue: #4682b4;
+            --kumo-purple: #9370db;
+            --iwa-brown: #8b4513;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Effet de particules */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        /* Header */
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(10, 10, 18, 0.95), rgba(5, 5, 10, 0.85));
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid var(--primary-red);
+            box-shadow: 0 5px 25px rgba(200, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            padding: 15px 0;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        } 
+
+        .logo-img {
+            height: 55px;
+            width: auto;
+            filter: drop-shadow(0 0 8px rgba(200, 0, 0, 0.8));
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .logo-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.2rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, var(--accent-yellow), var(--primary-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(200, 0, 0, 0.6);
+            letter-spacing: 1px;
+        }
+        
+        .logo-container:hover .logo-img {
+            transform: rotate(15deg) scale(1.15);
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-red), transparent);
+            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            transition: clip-path 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover::before {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        /* Section principale */
+        .main-section {
+            padding-top: 100px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--accent-yellow);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            text-shadow: 0 0 30px rgba(255, 204, 0, 0.8);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-red), var(--accent-yellow), var(--primary-red));
+            border-radius: 3px;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.6);
+        }
+
+        /* Grille des villages */
+        .villages-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            height: calc(100vh - 250px);
+            gap: 0;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .village-section {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+        }
+
+        .village-section:hover {
+            transform: scale(1.05);
+            z-index: 10;
+            border-color: var(--accent-yellow);
+            box-shadow: 0 0 50px rgba(255, 204, 0, 0.6);
+        }
+
+        .village-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.8s ease;
+            filter: brightness(0.7) contrast(1.1);
+        }
+
+        .village-section:hover .village-image {
+            transform: scale(1.1);
+            filter: brightness(1) contrast(1.2);
+        }
+
+        .village-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                rgba(0, 0, 0, 0.8) 0%,
+                transparent 50%,
+                rgba(0, 0, 0, 0.8) 100%
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0.9;
+            transition: all 0.5s ease;
+        }
+
+        .village-section:hover .village-overlay {
+            opacity: 0.7;
+            background: linear-gradient(
+                45deg,
+                rgba(0, 0, 0, 0.6) 0%,
+                transparent 50%,
+                rgba(0, 0, 0, 0.6) 100%
+            );
+        }
+
+        /* Symbole du village remplacé par image */
+        .village-symbol {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+            animation: symbolFloat 3s ease-in-out infinite;
+            transition: all 0.5s ease;
+            object-fit: contain;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            padding: 10px;
+        }
+
+        .village-section:hover .village-symbol {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 25px rgba(255, 255, 255, 1));
+        }
+
+        .village-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .village-country {
+            font-size: 1.3rem;
+            color: #ddd;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s ease 0.1s;
+        }
+
+        .village-section:hover .village-name,
+        .village-section:hover .village-country {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Couleurs spécifiques pour chaque village */
+        .village-section[data-village="konoha"] .village-name {
+            color: var(--konoha-green);
+            text-shadow: 0 0 20px rgba(34, 139, 34, 0.8);
+        }
+
+        .village-section[data-village="konoha"] .village-symbol {
+            border: 3px solid var(--konoha-green);
+            background: rgba(34, 139, 34, 0.2);
+        }
+
+        .village-section[data-village="suna"] .village-name {
+            color: var(--suna-yellow);
+            text-shadow: 0 0 20px rgba(218, 165, 32, 0.8);
+        }
+
+        .village-section[data-village="suna"] .village-symbol {
+            border: 3px solid var(--suna-yellow);
+            background: rgba(218, 165, 32, 0.2);
+        }
+
+        .village-section[data-village="kiri"] .village-name {
+            color: var(--kiri-blue);
+            text-shadow: 0 0 20px rgba(70, 130, 180, 0.8);
+        }
+
+        .village-section[data-village="kiri"] .village-symbol {
+            border: 3px solid var(--kiri-blue);
+            background: rgba(70, 130, 180, 0.2);
+        }
+
+        .village-section[data-village="kumo"] .village-name {
+            color: var(--kumo-purple);
+            text-shadow: 0 0 20px rgba(147, 112, 219, 0.8);
+        }
+
+        .village-section[data-village="kumo"] .village-symbol {
+            border: 3px solid var(--kumo-purple);
+            background: rgba(147, 112, 219, 0.2);
+        }
+
+        .village-section[data-village="iwa"] .village-name {
+            color: var(--iwa-brown);
+            text-shadow: 0 0 20px rgba(139, 69, 19, 0.8);
+        }
+
+        .village-section[data-village="iwa"] .village-symbol {
+            border: 3px solid var(--iwa-brown);
+            background: rgba(139, 69, 19, 0.2);
+        }
+
+        /* Effet de clic */
+        .village-section:active {
+            transform: scale(0.95);
+        }
+
+        /* Animations CSS */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); opacity: 0.3; }
+            50% { transform: translateY(-20px); opacity: 0.8; }
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 30px rgba(255, 204, 0, 0.8); }
+            100% { text-shadow: 0 0 50px rgba(255, 204, 0, 1), 0 0 80px rgba(255, 204, 0, 0.6); }
+        }
+
+        @keyframes symbolFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .villages-grid {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(2, 1fr);
+                height: calc(100vh - 200px);
+            }
+            
+            .village-section:nth-child(4) {
+                grid-column: 1 / 3;
+            }
+            
+            .village-section:nth-child(5) {
+                grid-column: 3 / 4;
+            }
+
+            .village-symbol {
+                width: 70px;
+                height: 70px;
+            }
+
+            .village-name {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container { 
+                flex-direction: column; 
+                gap: 15px; 
+            }
+            
+            .section-title { 
+                font-size: 2.5rem; 
+                margin-bottom: 30px;
+            }
+            
+            .villages-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(5, 1fr);
+                height: auto;
+                min-height: calc(100vh - 150px);
+            }
+            
+            .village-section {
+                min-height: 150px;
+            }
+            
+            .village-name {
+                font-size: 2rem;
+            }
+            
+            .village-symbol {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title { 
+                font-size: 2rem; 
+            }
+            
+            .village-name {
+                font-size: 1.5rem;
+            }
+            
+            .village-country {
+                font-size: 1rem;
+            }
+
+            .village-symbol {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        /* Adaptation pour très petits écrans */
+        @media (max-width: 320px) {
+            .village-symbol {
+                width: 40px;
+                height: 40px;
+                padding: 5px;
+            }
+
+            .village-name {
+                font-size: 1.2rem;
+            }
+
+            .village-country {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <header class="sticky-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="konoha.png" alt="Logo Konoha" class="logo-img">
+                <div class="logo-text">NARUTOBIDIA</div>
+            </div>
+            <nav class="nav-links">
+                <a href="naruto2.html" class="nav-link">Accueil</a>
+                <a href="personnages.html" class="nav-link">Personnages</a>
+                <a href="akatsuki.html" class="nav-link">Akatsuki</a>
+                <a href="techniques.html" class="nav-link">Techniques</a>
+                <a href="bijuu.html" class="nav-link">Bijū</a>
+                <a href="villages.html" class="nav-link">Villages</a>
+                <a href="about.html" class="nav-link">À propos</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="main-section">
+            <h1 class="section-title">Les Cinq Grands Villages Ninjas</h1>
+            
+            <div class="villages-grid">
+                <!-- Konoha -->
+                <div class="village-section" data-village="konoha" onclick="goToVillage('konoha')">
+                    <img src="Konohavillage.jpg" alt="Konohagakure" class="village-image">
+                    <div class="village-overlay">
+                        <img src="kS.jpg" alt="Symbole Konoha" class="village-symbol">
+                        <h2 class="village-name">Konohagakure</h2>
+                        <p class="village-country">Pays du Feu</p>
+                    </div>
+                </div>
+                
+                <!-- Suna -->
+                <div class="village-section" data-village="suna" onclick="goToVillage('suna')">
+                    <img src="Sunagakure.jpg" alt="Sunagakure" class="village-image">
+                    <div class="village-overlay">
+                        <img src="SS.jpg" alt="Symbole Suna" class="village-symbol">
+                        <h2 class="village-name">Sunagakure</h2>
+                        <p class="village-country">Pays du Vent</p>
+                    </div>
+                </div>
+                
+                <!-- Kiri -->
+                <div class="village-section" data-village="kiri" onclick="goToVillage('kiri')">
+                    <img src="Kirigakure.jpg" alt="Kirigakure" class="village-image">
+                    <div class="village-overlay">
+                        <img src="KR.jpg" alt="Symbole Kiri" class="village-symbol">
+                        <h2 class="village-name">Kirigakure</h2>
+                        <p class="village-country">Pays de l'Eau</p>
+                    </div>
+                </div>
+                
+                <!-- Kumo -->
+                <div class="village-section" data-village="kumo" onclick="goToVillage('kumo')">
+                    <img src="Kumogakure.webp" alt="Kumogakure" class="village-image">
+                    <div class="village-overlay">
+                        <img src="KMS.jpg" alt="Symbole Kumo" class="village-symbol">
+                        <h2 class="village-name">Kumogakure</h2>
+                        <p class="village-country">Pays de la Foudre</p>
+                    </div>
+                </div>
+                
+                <!-- Iwa -->
+                <div class="village-section" data-village="iwa" onclick="goToVillage('iwa')">
+                    <img src="Iwagakure.jpg" alt="Iwagakure" class="village-image">
+                    <div class="village-overlay">
+                        <img src="IS.jpg" alt="Symbole Iwa" class="village-symbol">
+                        <h2 class="village-name">Iwagakure</h2>
+                        <p class="village-country">Pays de la Terre</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Animation de particules
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 100;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Taille aléatoire
+                const size = Math.random() * 6 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Position aléatoire
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Animation
+                const duration = Math.random() * 12 + 6;
+                particle.style.animation = `float ${duration}s infinite ease-in-out`;
+                particle.style.animationDelay = `${Math.random() * 6}s`;
+                
+                // Couleurs des villages
+                const colors = [
+                    'rgba(34, 139, 34, 0.6)',    // Konoha
+                    'rgba(218, 165, 32, 0.6)',   // Suna
+                    'rgba(70, 130, 180, 0.6)',   // Kiri
+                    'rgba(147, 112, 219, 0.6)',  // Kumo
+                    'rgba(139, 69, 19, 0.6)'     // Iwa
+                ];
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.opacity = Math.random() * 0.8 + 0.2;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Fonction pour naviguer vers la page du village
+        function goToVillage(village) {
+            // Animation de transition
+            const section = document.querySelector(`[data-village="${village}"]`);
+            section.style.transform = 'scale(1.2)';
+            section.style.filter = 'brightness(1.5)';
+            
+            // Redirection après l'animation
+            setTimeout(() => {
+                window.location.href = `${village}.html`;
+            }, 500);
+        }
+        
+        // Effet de parallaxe pour le header
+        function headerParallax() {
+            const header = document.querySelector('.sticky-header');
+            let lastScrollY = window.scrollY;
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    if (lastScrollY < window.scrollY) {
+                        header.style.transform = 'translateY(-100%)';
+                    } else {
+                        header.style.transform = 'translateY(0)';
+                    }
+                } else {
+                    header.style.transform = 'translateY(0)';
+                }
+                lastScrollY = window.scrollY;
+            });
+        }
+        
+        // Effet de survol amélioré
+        function enhanceVillageHover() {
+            const villageSections = document.querySelectorAll('.village-section');
+            
+            villageSections.forEach(section => {
+                section.addEventListener('mousemove', (e) => {
+                    const rect = section.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateY = (x - centerX) / 20;
+                    const rotateX = (centerY - y) / 20;
+                    
+                    section.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                });
+                
+                section.addEventListener('mouseleave', () => {
+                    section.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                });
+            });
+        }
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            headerParallax();
+            enhanceVillageHover();
+            
+            // Animation des particules au scroll
+            window.addEventListener('scroll', () => {
+                const particles = document.querySelectorAll('.particle');
+                const scrollPosition = window.pageYOffset;
+                
+                particles.forEach((particle, index) => {
+                    const speed = 0.02 + (index % 5) * 0.01;
+                    const currentTransform = particle.style.transform || '';
+                    particle.style.transform = `${currentTransform} translateY(${scrollPosition * speed}px)`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

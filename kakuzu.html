@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        * {
+         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Roboto', sans-serif;
         }
 
-        /* Variables pour les couleurs de Kakuzu */
+        /* Variables pour les couleurs de Kakuzu - Beige et Bleu nuit */
         :root {
             --red: #e53935;
             --dark: #121212;
@@ -29,23 +29,25 @@
             --card-bg: rgba(20, 20, 30, 0.95);
             --text-light: #f5f5f5;
             --text-gold: #ffd700;
-            --kakuzu-green: #2e7d32;
-            --kakuzu-dark: #1a1a1a;
-            --kakuzu-brown: #4e342e;
+            --kakuzu-navy: #191970;
+            --kakuzu-midnight: #0f1419;
+            --kakuzu-beige: #f5f5dc;
+            --kakuzu-tan: #d2b48c;
+            --kakuzu-cream: #faf0e6;
         }
 
         body {
-            background-color: var(--kakuzu-dark);
-            color: #fff;
+            background-color: var(--kakuzu-midnight);
+            color: var(--kakuzu-beige);
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 20% 30%, rgba(46, 125, 50, 0.2) 0%, transparent 60%),
-                radial-gradient(circle at 80% 70%, rgba(78, 52, 46, 0.2) 0%, transparent 60%);
+                radial-gradient(circle at 20% 30%, rgba(25, 25, 112, 0.3) 0%, transparent 60%),
+                radial-gradient(circle at 80% 70%, rgba(245, 245, 220, 0.1) 0%, transparent 60%);
             position: relative;
             min-height: 100vh;
         }
 
-        /* Effet de threads noirs */
+        /* Effet de threads beiges */
         .black-threads {
             position: fixed;
             width: 100%;
@@ -58,7 +60,7 @@
         .thread {
             position: absolute;
             width: 2px;
-            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.8), transparent);
+            background: linear-gradient(to bottom, transparent, rgba(245, 245, 220, 0.6), transparent);
             animation: threadMove 10s infinite linear;
         }
 
@@ -190,17 +192,17 @@
 
         /* Profil Header avec effet de threads */
         .profile-header {
-            background: linear-gradient(rgba(26,26,26,0.8), rgba(10,10,10,0.8)), 
+            background: linear-gradient(rgba(15,20,25,0.8), rgba(10,15,20,0.8)), 
                         url('') no-repeat center center;
             background-size: cover;
             background-position: center;
             padding: 120px 20px 40px;
             border-radius: 10px;
             margin: 100px 0 30px;
-            border: 2px solid var(--kakuzu-green);
+            border: 2px solid var(--kakuzu-beige);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(46, 125, 50, 0.3);
+            box-shadow: 0 10px 30px rgba(245, 245, 220, 0.2);
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 1s ease forwards;
@@ -220,7 +222,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, transparent 60%, rgba(26,26,26,0.9) 100%);
+            background: radial-gradient(circle, transparent 60%, rgba(15,20,25,0.9) 100%);
             animation: pulse 4s ease-in-out infinite;
         }
 
@@ -244,7 +246,7 @@
             position: absolute;
             width: 20px;
             height: 20px;
-            background: radial-gradient(circle, var(--kakuzu-green), transparent);
+            background: radial-gradient(circle, var(--kakuzu-beige), transparent);
             border-radius: 50%;
             animation: heartBeat 2s ease-in-out infinite;
         }
@@ -267,9 +269,9 @@
             width: 180px;
             height: 180px;
             border-radius: 50%;
-            border: 3px solid var(--kakuzu-green);
+            border: 3px solid var(--kakuzu-beige);
             overflow: hidden;
-            box-shadow: 0 0 30px rgba(46, 125, 50, 0.6);
+            box-shadow: 0 0 30px rgba(245, 245, 220, 0.4);
             position: relative;
             transform: scale(0);
             animation: scaleIn 0.8s ease 0.5s forwards;
@@ -287,7 +289,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, transparent 40%, rgba(46, 125, 50, 0.3) 50%, transparent 60%);
+            background: linear-gradient(45deg, transparent 40%, rgba(245, 245, 220, 0.2) 50%, transparent 60%);
             animation: maskGleam 3s linear infinite;
         }
 
@@ -311,9 +313,9 @@
 
         .profile-name {
             font-size: 2.5rem;
-            color: #fff;
+            color: var(--kakuzu-cream);
             margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(46, 125, 50, 0.8);
+            text-shadow: 0 0 20px rgba(25, 25, 112, 0.8);
             opacity: 0;
             transform: translateX(-30px);
             animation: slideInLeft 0.8s ease 0.8s forwards;
@@ -332,7 +334,7 @@
 
         .profile-title {
             font-size: 1.3rem;
-            color: var(--kakuzu-green);
+            color: var(--kakuzu-tan);
             margin-bottom: 15px;
             font-weight: bold;
             opacity: 0;
@@ -350,9 +352,9 @@
         .stat-item {
             text-align: center;
             padding: 10px 20px;
-            background: rgba(30, 30, 30, 0.7);
+            background: rgba(25, 25, 112, 0.6);
             border-radius: 8px;
-            border-left: 3px solid var(--kakuzu-green);
+            border-left: 3px solid var(--kakuzu-beige);
             transition: all 0.3s ease;
             transform: translateY(20px);
             animation: bounceIn 0.6s ease 1.4s forwards;
@@ -367,7 +369,7 @@
             left: 0;
             width: 100%;
             height: 0;
-            background: rgba(46, 125, 50, 0.1);
+            background: rgba(245, 245, 220, 0.1);
             transition: height 0.3s ease;
         }
 
@@ -383,40 +385,41 @@
 
         .stat-item:hover {
             transform: translateY(-5px) scale(1.05);
-            background: rgba(40, 40, 40, 0.8);
-            box-shadow: 0 10px 20px rgba(46, 125, 50, 0.3);
+            background: rgba(35, 35, 130, 0.8);
+            box-shadow: 0 10px 20px rgba(25, 25, 112, 0.3);
         }
 
         .stat-value {
             font-size: 1.8rem;
-            color: var(--kakuzu-green);
+            color: var(--kakuzu-cream);
             font-weight: bold;
         }
 
         .stat-label {
             font-size: 0.9rem;
-            color: #ccc;
+            color: var(--kakuzu-tan);
         }
 
         .profile-bio {
             margin-top: 20px;
             line-height: 1.6;
             max-width: 800px;
-            background: rgba(30, 30, 30, 0.5);
+            background: rgba(25, 25, 112, 0.2);
             padding: 15px;
             border-radius: 8px;
-            border-left: 3px solid var(--kakuzu-green);
+            border-left: 3px solid var(--kakuzu-beige);
             opacity: 0;
             animation: fadeIn 0.8s ease 1.6s forwards;
+            color: var(--kakuzu-beige);
         }
 
         .section-title {
             font-size: 1.8rem;
-            color: var(--kakuzu-green);
+            color: var(--kakuzu-beige);
             margin: 30px 0 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid var(--kakuzu-brown);
-            text-shadow: 0 0 5px rgba(46, 125, 50, 0.3);
+            border-bottom: 2px solid var(--kakuzu-navy);
+            text-shadow: 0 0 5px rgba(245, 245, 220, 0.3);
             position: relative;
             opacity: 0;
             transform: translateY(20px);
@@ -433,7 +436,7 @@
             left: 0;
             width: 100px;
             height: 2px;
-            background: linear-gradient(90deg, var(--kakuzu-green), var(--kakuzu-brown));
+            background: linear-gradient(90deg, var(--kakuzu-beige), var(--kakuzu-navy));
             animation: expandWidth 1s ease forwards;
         }
 
@@ -454,9 +457,9 @@
             display: flex;
             gap: 20px;
             padding: 20px;
-            background: rgba(30, 30, 30, 0.8);
+            background: rgba(25, 25, 112, 0.4);
             border-radius: 8px;
-            border-left: 4px solid var(--kakuzu-green);
+            border-left: 4px solid var(--kakuzu-beige);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -475,7 +478,7 @@
             right: 0;
             width: 2px;
             height: 100%;
-            background: linear-gradient(to bottom, transparent, var(--kakuzu-green), transparent);
+            background: linear-gradient(to bottom, transparent, var(--kakuzu-beige), transparent);
             transform: translateY(-100%);
             animation: threadDrop 2s ease-in-out infinite;
         }
@@ -486,17 +489,17 @@
 
         .timeline-item:hover {
             transform: translateX(10px);
-            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
-            border-left: 4px solid var(--gold);
+            box-shadow: 0 5px 15px rgba(245, 245, 220, 0.2);
+            border-left: 4px solid var(--kakuzu-navy);
         }
 
         .timeline-year {
             min-width: 80px;
             text-align: center;
             font-weight: bold;
-            color: var(--gold);
+            color: var(--kakuzu-cream);
             font-size: 1.3rem;
-            text-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+            text-shadow: 0 0 5px rgba(250, 240, 230, 0.5);
         }
 
         .timeline-content {
@@ -506,12 +509,12 @@
         .timeline-title {
             font-size: 1.3rem;
             margin-bottom: 10px;
-            color: #fff;
+            color: var(--kakuzu-cream);
         }
 
         .timeline-description {
             line-height: 1.6;
-            color: #ccc;
+            color: var(--kakuzu-tan);
         }
 
         /* Gallery avec effet de masque */
@@ -527,7 +530,7 @@
             overflow: hidden;
             height: 250px;
             position: relative;
-            border: 2px solid #333;
+            border: 2px solid var(--kakuzu-navy);
             transition: all 0.3s ease;
             display: block;
             text-decoration: none;
@@ -543,8 +546,8 @@
 
         .gallery-item:hover {
             transform: translateY(-5px) rotateY(5deg);
-            border-color: var(--kakuzu-green);
-            box-shadow: 0 10px 20px rgba(46, 125, 50, 0.3);
+            border-color: var(--kakuzu-beige);
+            box-shadow: 0 10px 20px rgba(245, 245, 220, 0.2);
         }
 
         .gallery-item img {
@@ -563,10 +566,10 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(transparent, rgba(26, 26, 26, 0.9));
+            background: linear-gradient(transparent, rgba(25, 25, 112, 0.9));
             padding: 20px 10px 10px;
             font-size: 0.9rem;
-            color: #fff;
+            color: var(--kakuzu-cream);
             text-align: center;
             font-weight: 600;
             transform: translateY(100%);
@@ -586,10 +589,10 @@
         }
 
         .ability-card {
-            background: rgba(30, 30, 30, 0.8);
+            background: rgba(25, 25, 112, 0.4);
             border-radius: 8px;
             padding: 20px;
-            border: 1px solid #333;
+            border: 1px solid var(--kakuzu-navy);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -608,16 +611,16 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, var(--kakuzu-green), var(--gold));
+            background: linear-gradient(90deg, var(--kakuzu-beige), var(--kakuzu-navy));
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.3s ease;
         }
 
         .ability-card:hover {
-            border-color: var(--kakuzu-green);
+            border-color: var(--kakuzu-beige);
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(46, 125, 50, 0.3);
+            box-shadow: 0 10px 20px rgba(245, 245, 220, 0.2);
         }
 
         .ability-card:hover::before {
@@ -626,7 +629,7 @@
 
         .ability-title {
             font-size: 1.3rem;
-            color: var(--kakuzu-green);
+            color: var(--kakuzu-cream);
             margin-bottom: 15px;
             position: relative;
             padding-bottom: 10px;
@@ -639,12 +642,12 @@
             left: 0;
             width: 50px;
             height: 2px;
-            background: var(--gold);
+            background: var(--kakuzu-navy);
         }
 
         .ability-description {
             line-height: 1.6;
-            color: #ccc;
+            color: var(--kakuzu-tan);
         }
 
         /* Footer Akatsuki */
@@ -830,7 +833,7 @@
             </div>
             
             <nav class="nav-links">
-                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="naruto2.html" class="nav-link">Accueil</a>
                 <a href="personnages.html" class="nav-link">Personnages</a>
                 <a href="akatsuki.html" class="nav-link active">Akatsuki</a>
                 <a href="techniques.html" class="nav-link">Techniques</a>
@@ -852,7 +855,7 @@
             </div>
             <div class="profile-info">
                 <div class="profile-avatar">
-                    <img src="" alt="Kakuzu">
+                    <img src="kakuzuma.jpg" alt="Kakuzu">
                 </div>
                 <div class="profile-details">
                     <h1 class="profile-name">Kakuzu</h1>
@@ -924,19 +927,19 @@
         <h2 class="section-title">Évolution du Personnage</h2>
         <div class="gallery">
             <div class="gallery-item">
-                <img src="" alt="Kakuzu jeune">
+                <img src="kakuzuk.jpg" alt="Kakuzu jeune">
                 <div class="gallery-caption">Jeune ninja de Taki</div>
             </div>
             <div class="gallery-item">
-                <img src="" alt="Kakuzu défection">
+                <img src="kakuzud.jpg" alt="Kakuzu défection">
                 <div class="gallery-caption">Après sa défection</div>
             </div>
             <div class="gallery-item">
-                <img src="" alt="Kakuzu Akatsuki">
+                <img src="kakuzuak.jpg" alt="Kakuzu Akatsuki">
                 <div class="gallery-caption">Membre de l'Akatsuki</div>
             </div>
             <div class="gallery-item">
-                <img src="" alt="Kakuzu masques">
+                <img src="kakuzum.jpg" alt="Kakuzu masques">
                 <div class="gallery-caption">Forme avec masques</div>
             </div>
         </div>
@@ -992,7 +995,7 @@
         <h2 class="section-title">Personnages Associés</h2>
         <div class="gallery">
             <a href="hidan.html" class="gallery-item">
-                <img src="" alt="Hidan">
+                <img src="hidan.jpg" alt="Hidan">
                 <div class="gallery-caption">Hidan (partenaire)</div>
             </a>
             <div class="gallery-item">
@@ -1004,7 +1007,7 @@
                 <div class="gallery-caption">Naruto Uzumaki (vainqueur)</div>
             </div>
             <a href="tobi.html" class="gallery-item">
-                <img src="" alt="Tobi">
+                <img src="tobi.jpg" alt="Tobi">
                 <div class="gallery-caption">Tobi (leader)</div>
             </a>
         </div>
